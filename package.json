@@ -19,7 +19,25 @@
 				"command": "clover.helloWorld",
 				"title": "Hello World"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [{
+				"id": "clover-sidebar-view",
+				"title": "Clover",
+				"icon": "resources/clover.png"
+			}]
+		},
+		"views": {
+			"clover-sidebar-view": [
+				{
+					"type": "webview",
+					"id": "clover-sidebar",
+					"name": "Clover",
+					"icon": "resources/clover.png",
+					"contextualTitle": "Clover"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
