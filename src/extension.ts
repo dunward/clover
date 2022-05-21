@@ -15,8 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	let workspace = vscode.workspace.workspaceFolders[0].uri.fsPath + '\\Assets';
 	
-
-	let sync = vscode.commands.registerCommand('clover.syncUnityFiles', () => {
+	let sync = vscode.commands.registerCommand('clover.findPrefabReference', () => {
 		syncUnityFiles(workspace);
 	});
 

@@ -10,14 +10,20 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:clover.syncUnityFiles"
+        "onCommand:clover.findPrefabReference"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "clover.helloWorld",
-				"title": "Find Prefab Reference"
+				"command": "clover.findPrefabReference",
+				"category": "Clover",
+				"enablement": "resourceExtname == .cs",
+				"title": "Find Prefab Reference",
+				"icon": {
+					"dark": "resources/dark/clover.svg",
+					"light": "resources/light/clover.svg"
+				}
 			},
 			{
 				"command": "clover.syncUnityFiles",
@@ -44,35 +50,14 @@
 			]
 		},
 		"menus": {
-			"editor/context": [
-				{
-					"submenu": "clover/editor/prefabFinder",
-					"when": "editorIsOpen"
-				}
-			],
 			"editor/title": [
 				{
-					"submenu": "clover/editor/prefabFinder",
+					"command": "clover.findPrefabReference",
 					"when": "editorIsOpen",
 					"group": "navigation@1"
 				}
-			],
-			"clover/editor/prefabFinder": [
-				{
-					"command": "clover.helloWorld"
-				},
-				{
-					"command": "clover.syncUnityFiles"
-				}
 			]
-		},
-		"submenus": [
-			{
-				"id": "clover/editor/prefabFinder",
-				"label": "Search Prefab Reference",
-				"icon": "resources/clover.png"
-			}
-		]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

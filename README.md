@@ -3,8 +3,7 @@
 # Clover
 The clover is unity support extension. It will be support prefab reference view.
 
-# ToDo
+# ToDo (prototypr)
 
-- [ ] add editor toolbar icon
+- [x] add editor toolbar icon
 - [ ] prefab reference check (.cs file)
-- [ ] support more reference extensions (.assets, etc..)
