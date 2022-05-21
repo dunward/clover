@@ -6,8 +6,6 @@ import { syncUnityFiles, findPrefabReference } from './loader';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
-	
 	if (!vscode.workspace.workspaceFolders) {
 		vscode.window.showInformationMessage("Open a folder/workspace first");
         return;
@@ -20,8 +18,13 @@ export function activate(context: vscode.ExtensionContext) {
 	let find = vscode.commands.registerCommand('clover.findPrefabReference', () => {
 		findPrefabReference();
 	});
+	
+	let sync = vscode.commands.registerCommand('clover.syncUnityFiles', () => {
+		findPrefabReference();
+	});
 
 	context.subscriptions.push(find);
+	context.subscriptions.push(sync);
 }
 
 // this method is called when your extension is deactivated
