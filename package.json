@@ -17,7 +17,7 @@
 		"commands": [
 			{
 				"command": "clover.helloWorld",
-				"title": "Hello World"
+				"title": "Find Prefab Reference"
 			},
 			{
 				"command": "clover.syncUnityFiles",
@@ -42,7 +42,37 @@
 					"contextualTitle": "Clover"
 				}
 			]
-		}
+		},
+		"menus": {
+			"editor/context": [
+				{
+					"submenu": "clover/editor/prefabFinder",
+					"when": "editorIsOpen"
+				}
+			],
+			"editor/title": [
+				{
+					"submenu": "clover/editor/prefabFinder",
+					"when": "editorIsOpen",
+					"group": "navigation@1"
+				}
+			],
+			"clover/editor/prefabFinder": [
+				{
+					"command": "clover.helloWorld"
+				},
+				{
+					"command": "clover.syncUnityFiles"
+				}
+			]
+		},
+		"submenus": [
+			{
+				"id": "clover/editor/prefabFinder",
+				"label": "Search Prefab Reference",
+				"icon": "resources/clover.png"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

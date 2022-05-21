@@ -4,6 +4,7 @@ import path = require("path");
 import { outputLog } from './output';
 
 export function syncUnityFiles(dirPath: string) {
+    outputLog("Start unity files sync");
     sync(dirPath, []);
     vscode.window.showInformationMessage("Finish unity files sync");
     outputLog("Finish unity files sync");
