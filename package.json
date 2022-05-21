@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:clover.helloWorld"
+        "onCommand:clover.syncUnityFiles"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -18,6 +18,11 @@
 			{
 				"command": "clover.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "clover.syncUnityFiles",
+				"title": "Sync Unity Files",
+				"category": "Clover"
 			}
 		],
 		"viewsContainers": {
