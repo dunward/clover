@@ -9,6 +9,10 @@
 	"categories": [
 		"Other"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/weisswolfi/clover"
+	},
 	"activationEvents": [
 		"onCommand:clover.findPrefabReference",
 		"onCommand:clover.syncUnityFiles"

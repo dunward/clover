@@ -1,10 +1,15 @@
-![Clover](resources/clover-wide.png)
+![clover-wide](resources/clover-wide.png)
 
-# Clover
-The clover is unity support extension. It will be support prefab reference view.
+The Clover is clever vscode extension for unity developer.
 
-# ToDo (prototypr)
+---
+
+![toolbar](resources/toolbar.png)
+
+![output](resources/output.png)
+
+# ToDo (prototype)
 
 - [x] add editor toolbar icon
 - [x] prefab reference check (.cs file)
-- [ ] finder result view
+- [ ] finder result view (not output)
