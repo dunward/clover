@@ -1,8 +1,9 @@
 {
-  "name": "clover",
+  "name": "clover-unity",
 	"displayName": "clover",
 	"description": "Unity Support Extension",
 	"version": "0.0.1",
+	"publisher": "Dealer",
 	"engines": {
 		"vscode": "^1.67.0"
 	},
