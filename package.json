@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:clover.findPrefabReference"
+		"onCommand:clover.findPrefabReference",
+		"onCommand:clover.syncUnityFiles"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -19,45 +20,41 @@
 				"command": "clover.findPrefabReference",
 				"category": "Clover",
 				"enablement": "resourceExtname == .cs",
-				"title": "Find Prefab Reference",
-				"icon": {
-					"dark": "resources/dark/clover.svg",
-					"light": "resources/light/clover.svg"
-				}
+				"title": "Find Prefab Reference"
 			},
 			{
 				"command": "clover.syncUnityFiles",
-				"title": "Sync Unity Files",
-				"category": "Clover"
+				"category": "Clover",
+				"title": "Sync Unity Files"
 			}
 		],
-		"viewsContainers": {
-			"activitybar": [{
-				"id": "clover-sidebar-view",
-				"title": "Clover",
-				"icon": "resources/clover.png"
-			}]
-		},
-		"views": {
-			"clover-sidebar-view": [
-				{
-					"type": "webview",
-					"id": "clover-sidebar",
-					"name": "Clover",
-					"icon": "resources/clover.png",
-					"contextualTitle": "Clover"
-				}
-			]
-		},
 		"menus": {
 			"editor/title": [
 				{
-					"command": "clover.findPrefabReference",
+					"submenu": "clover.helper",
 					"when": "editorIsOpen",
 					"group": "navigation@1"
 				}
+			],
+			"clover.helper": [
+				{
+					"command": "clover.findPrefabReference"
+				},
+				{
+					"command": "clover.syncUnityFiles"
+				}
 			]
-		}
+		},
+		"submenus": [
+			{
+				"id": "clover.helper",
+				"label": "Clover",
+					"icon": {
+					"dark": "resources/dark/clover.svg",
+					"light": "resources/light/clover.svg"
+				}
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
