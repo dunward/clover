@@ -1,4 +1,4 @@
-<img width="25%" src="https://raw.githubusercontent.com/weisswolfi/clover/master/resources/clover-wide.png" alt="GitLens Logo" />
+<img width="25%" src="https://raw.githubusercontent.com/weisswolfi/clover/master/resources/clover-wide.png"/>
 
 The Clover is clever vscode extension for unity developer.
 
