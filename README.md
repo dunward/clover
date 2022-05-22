@@ -1,4 +1,4 @@
-![clover-wide](resources/clover-wide.png)
+<img width="25%" src="https://raw.githubusercontent.com/weisswolfi/clover/master/resources/clover-wide.png" alt="GitLens Logo" />
 
 The Clover is clever vscode extension for unity developer.
 
@@ -10,6 +10,6 @@ The Clover is clever vscode extension for unity developer.
 
 # ToDo (prototype)
 
-- [x] add editor toolbar icon
-- [x] prefab reference check (.cs file)
+- [x] ~~add editor toolbar icon~~
+- [x] ~~prefab reference check (.cs file)~~
 - [ ] finder result view (not output)
