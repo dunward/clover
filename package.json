@@ -16,6 +16,7 @@
 		"url": "https://github.com/weisswolfi/clover"
 	},
 	"activationEvents": [
+		"onStartupFinished",
 		"onCommand:clover.findPrefabReference",
 		"onCommand:clover.syncUnityFiles"
 	],
