@@ -33,14 +33,15 @@
 			{
 				"command": "clover.syncUnityFiles",
 				"category": "Clover",
-				"title": "Sync Unity Files"
+				"title": "Sync Unity Files",
+				"enablement": "clover.initialized"
 			}
 		],
 		"menus": {
 			"editor/title": [
 				{
 					"submenu": "clover.helper",
-					"when": "editorIsOpen",
+					"when": "clover.initialized",
 					"group": "navigation@1"
 				}
 			],

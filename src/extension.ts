@@ -21,8 +21,10 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	
 	let sync = vscode.commands.registerCommand('clover.syncUnityFiles', () => {
-		findPrefabReference();
+		syncUnityFiles(workspace);
 	});
+
+	vscode.commands.executeCommand('setContext', 'clover.initialized', true);
 
 	context.subscriptions.push(find);
 	context.subscriptions.push(sync);
