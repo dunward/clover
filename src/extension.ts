@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import path = require('path');
 import { syncUnityFiles, findPrefabReference } from './loader';
+import { updateStatus } from './vscode/command';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -24,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 		syncUnityFiles(workspace);
 	});
 
-	vscode.commands.executeCommand('setContext', 'clover.initialized', true);
+	updateStatus();
 
 	context.subscriptions.push(find);
 	context.subscriptions.push(sync);
