@@ -41,6 +41,7 @@
 			"editor/title": [
 				{
 					"submenu": "clover.helper",
+					"when": "clover.unity.initialized",
 					"group": "navigation@1"
 				}
 			],

@@ -3,26 +3,31 @@ import fs = require('fs');
 import path = require("path");
 import { outputLog } from './logger';
 import { getGuid } from './parser';
-import { updateStatus } from './vscode/command'
+import { updateStatus } from './vscode/command';
 
 let files: string[];
+let assetPath: string;
 
 export function initialize() {
     let workspace = vscode.workspace.workspaceFolders;
 
     if (workspace !== undefined) {
-        updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(workspace[0].uri.fsPath + path.sep +'Assets').isDirectory());
+        assetPath = workspace[0].uri.fsPath + path.sep +'Assets';
+        updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(assetPath).isDirectory());
+
+        syncUnityFiles();
+        updateStatus<boolean>('clover.unity.initialized', true);
     }
 }
 
-export function syncUnityFiles(dirPath: string) {
+export function syncUnityFiles() {
     outputLog("Start unity files sync");
-    files = sync(dirPath, []);
+    files = sync(assetPath, []);
     vscode.window.showInformationMessage("Finish unity files sync");
     outputLog("Finish unity files sync");
 }
 
-export function findPrefabReference() {
+export function findFileReference() {
     let file = vscode.window.activeTextEditor?.document.uri.fsPath;
     if (file === undefined) {
         outputLog("Cannot find current active editor");

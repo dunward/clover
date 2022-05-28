@@ -1,9 +1,22 @@
-# Change Log
-
-All notable changes to the "clover" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## Change Log
 
 ## [Unreleased]
+### Added
+- Reference finder from prefabs, scenes, assets
+- Valid workspace status check
 
-- Initial release
+## 0.0.4 - preview
+### Changed
+- Logo images
+
+## 0.0.3 - preview
+### Added
+- Extension editor toolbar
+
+## 0.0.2 - preview
+### Fixed
+- Separate symbol(`/ or \`) os error
+
+## 0.0.1 - preview
+### Added
+- Unity csharp reference find from prefab
