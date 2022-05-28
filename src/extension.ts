@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import path = require('path');
-import { syncUnityFiles, findPrefabReference } from './loader';
+import { syncUnityFiles, findPrefabReference, initialize } from './loader';
 import { updateStatus } from './vscode/command';
 
 // this method is called when your extension is activated
@@ -14,8 +14,8 @@ export function activate(context: vscode.ExtensionContext) {
     }
 	
 	let workspace = vscode.workspace.workspaceFolders[0].uri.fsPath + path.sep +'Assets';
-
-	syncUnityFiles(workspace);
+	
+	initialize();
 	
 	let find = vscode.commands.registerCommand('clover.findPrefabReference', () => {
 		findPrefabReference();
@@ -24,8 +24,6 @@ export function activate(context: vscode.ExtensionContext) {
 	let sync = vscode.commands.registerCommand('clover.syncUnityFiles', () => {
 		syncUnityFiles(workspace);
 	});
-
-	updateStatus();
 
 	context.subscriptions.push(find);
 	context.subscriptions.push(sync);

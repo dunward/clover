@@ -3,8 +3,17 @@ import fs = require('fs');
 import path = require("path");
 import { outputLog } from './logger';
 import { getGuid } from './parser';
+import { updateStatus } from './vscode/command'
 
 let files: string[];
+
+export function initialize() {
+    let workspace = vscode.workspace.workspaceFolders;
+
+    if (workspace !== undefined) {
+        updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(workspace[0].uri.fsPath + path.sep +'Assets').isDirectory());
+    }
+}
 
 export function syncUnityFiles(dirPath: string) {
     outputLog("Start unity files sync");
