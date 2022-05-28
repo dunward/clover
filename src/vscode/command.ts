@@ -6,7 +6,7 @@ export function updateStatus<T>(name: string, value: T) {
 }
 
 export function initialize(context: vscode.ExtensionContext) {
-    registerCommand(context, 'clover.findPrefabReference', () => findFileReference());
+    registerCommand(context, 'clover.findFileReference', () => findFileReference());
 	registerCommand(context, 'clover.syncUnityFiles', () => syncUnityFiles());
 }
 
