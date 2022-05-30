@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.0.6] - preview(hotfix)
+### Fixed
+- Empty webview is appear in editor view
+
 ## [0.0.5] - preview
 ### Added
 - Reference finder from prefabs, scenes, assets
