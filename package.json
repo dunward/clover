@@ -2,7 +2,7 @@
   "name": "clover-unity",
 	"displayName": "Clover",
 	"description": "Unity Support Extension",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"publisher": "Dealer",
 	"engines": {
 		"vscode": "^1.67.0"
