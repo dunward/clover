@@ -4,6 +4,7 @@ import path = require("path");
 import { outputLog } from './logger';
 import { getGuid } from './parser';
 import { updateStatus } from './vscode/command';
+import { CodelensProvider } from './codelensProvider';
 
 let files: string[];
 let assetPath: string;
@@ -12,12 +13,16 @@ export function initialize() {
     let workspace = vscode.workspace.workspaceFolders;
 
     if (workspace !== undefined) {
-        assetPath = workspace[0].uri.fsPath + path.sep +'Assets';
+        assetPath = path.join(workspace[0].uri.fsPath, 'Assets');
         updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(assetPath).isDirectory());
 
         syncUnityFiles();
         updateStatus<boolean>('clover.unity.initialized', true);
     }
+
+    const codelensProvider = new CodelensProvider();
+
+	vscode.languages.registerCodeLensProvider("csharp", codelensProvider);
 }
 
 export function syncUnityFiles() {
