@@ -33,7 +33,7 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 	public resolveCodeLens(codeLens: vscode.CodeLens, token: vscode.CancellationToken) {
 		codeLens.command = {
 			title: "meta references",
-			command: "clover.unity.codeLensAction",
+			command: "clover.findFileReference",
 			arguments: ["Argument 1", false]
 		};
 		return codeLens;
