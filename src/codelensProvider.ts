@@ -20,9 +20,6 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 
 	public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] | Thenable<vscode.CodeLens[]> {
 			this.codeLenses = [];
-			outputLog("beefore prase");
-			outputLog(path.parse(document.uri.fsPath).name);
-			outputLog("WHy");
 			const regex = new RegExp(`class ${path.parse(document.uri.fsPath).name}`);
 			const text = document.getText();
 			let matches;
