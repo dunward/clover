@@ -21,6 +21,9 @@ export function initialize() {
     }
 
     const codelensProvider = new CodelensProvider();
+    vscode.commands.registerCommand("clover.unity.codeLensAction", (args: any) => {
+		vscode.window.showInformationMessage(`CodeLens action clicked with args=${args}`);
+	});
 
 	vscode.languages.registerCodeLensProvider("csharp", codelensProvider);
 }
