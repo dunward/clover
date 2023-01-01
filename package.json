@@ -59,8 +59,8 @@
 				"id": "clover.helper",
 				"label": "Clover",
 					"icon": {
-					"dark": "resources/dark/clover.svg",
-					"light": "resources/light/clover.svg"
+						"dark": "resources/dark/clover.svg",
+						"light": "resources/light/clover.svg"
 				}
 			}
 		]
