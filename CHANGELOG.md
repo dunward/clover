@@ -1,5 +1,12 @@
 ## Change Log
 
+## [0.0.7] - preview
+### Added
+- New feature **Code Lens**
+
+### Changed
+- The output channel show when get message
+
 ## [0.0.6] - preview(hotfix)
 ### Fixed
 - Empty webview is appear in editor view
