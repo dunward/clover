@@ -3,7 +3,7 @@
 	"displayName": "Clover",
 	"description": "Unity Support Extension",
 	"version": "0.0.7",
-	"publisher": "Elik Song",
+	"publisher": "november",
 	"engines": {
 		"vscode": "^1.67.0"
 	},
