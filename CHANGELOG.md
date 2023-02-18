@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.0.8] - preview
+### Changed
+- Unity loader logic is now working async
+
 ## [0.0.7] - preview
 ### Added
 - New feature **Code Lens**
