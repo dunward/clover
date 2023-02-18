@@ -6,8 +6,8 @@ import { getGuid } from './parser';
 import { updateStatus } from './vscode/command';
 import { CodelensProvider } from './codelensProvider';
 
-let files: string[];
 let assetPath: string;
+let fileReferences: Map<string, string[]> = new Map<string, string[]>();
 
 export async function initialize() {
   const workspace = vscode.workspace.workspaceFolders;
@@ -30,48 +30,64 @@ export async function initialize() {
 
 export async function syncUnityFiles() {
   outputLog('Start unity files sync');
-  files = await sync(assetPath, []);
+  fileReferences = await sync(assetPath, fileReferences);
   vscode.window.showInformationMessage('Finish unity files sync');
   outputLog('Finish unity files sync');
 }
 
 export function findFileReference() {
-  const file = vscode.window.activeTextEditor?.document.uri.fsPath;
-  if (file === undefined) {
-    outputLog('Cannot find current active editor');
-    return;
-  }
-
-  const metaFile = fs.readFileSync(`${file + '.meta'}`, { encoding: 'utf8' });
-  const guid = getGuid(metaFile);
-
-  outputLog(`${path.basename(file)} reference list`);
-
-  files.forEach(prefab => {
-    if (fs.readFileSync(prefab).includes(guid)) {
-      outputLog(prefab);
+    const file = vscode.window.activeTextEditor?.document.uri.fsPath;
+    if (file === undefined) {
+      outputLog('Cannot find current active editor');
+      return;
     }
-  });
+  
+    const metaFile = fs.readFileSync(`${file + '.meta'}`, { encoding: 'utf8' });
+    const guid = getGuid(metaFile);
+  
+    outputLog(`${path.basename(file)} reference list - ${metaFile}`);
+  
+    const referencedFiles = fileReferences.get(guid);
+    if (referencedFiles) {
+      referencedFiles.forEach(filePath => {
+        outputLog(filePath);
+      });
+    } else {
+      outputLog(`No files found that reference guid ${guid}`);
+    }
 }
 
-function sync(dirPath: string, arrayOfFiles: string[]): Promise<string[]> {
-  return new Promise((resolve, reject) => {
-    fs.readdir(dirPath, (err, files) => {
-      if (err) {
-        reject(err);
-      } else {
-        (async () => {
-          for (const file of files) {
-            const extname = path.extname(file);
-            if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
-              arrayOfFiles = await sync(path.join(dirPath, file), arrayOfFiles);
-            } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
-              arrayOfFiles.push(path.join(dirPath, file));
+async function sync(dirPath: string, fileReferences: Map<string, string[]>): Promise<Map<string, string[]>> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const files = await fs.promises.readdir(dirPath);
+  
+        for (const file of files) {
+          const extname = path.extname(file);
+          const filePath = path.join(dirPath, file);
+          const fileStat = await fs.promises.stat(filePath);
+  
+          if (fileStat.isDirectory()) {
+            fileReferences = await sync(filePath, fileReferences);
+          } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
+            const fileContent = await fs.promises.readFile(filePath, { encoding: 'utf8' });
+            const metaFile = fs.readFileSync(`${filePath + '.meta'}`, { encoding: 'utf8' });
+            const guid = getGuid(metaFile);
+            outputLog(`${filePath + '.meta'}, ${guid}`);
+  
+            if (guid) {
+              if (fileReferences.has(guid)) {
+                fileReferences.get(guid)?.push(filePath);
+              } else {
+                fileReferences.set(guid, [filePath]);
+              }
             }
           }
-          resolve(arrayOfFiles);
-        })();
+        }
+  
+        resolve(fileReferences);
+      } catch (err) {
+        reject(err);
       }
     });
-  });
 }
