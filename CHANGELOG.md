@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.0.9] - preview
+### Changed
+- Output is not forced show up.
+
 ## [0.0.8] - preview
 ### Changed
 - Unity loader logic is now working async
