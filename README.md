@@ -5,6 +5,7 @@
 <img width="25%" src="https://raw.githubusercontent.com/novemberi/clover/master/resources/clover-wide.png"/>
 
 The Clover is clever vscode extension for unity developer.
+Support `*.meta`, `*.asset`, `*.unity` files.
 
 ---
 
