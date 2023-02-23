@@ -63,7 +63,15 @@
 						"light": "resources/light/clover.svg"
 				}
 			}
-		]
+		],
+		"views": {
+			"explorer": [
+				{
+					"id": "myTreeView",
+					"name": "Json Outline"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
