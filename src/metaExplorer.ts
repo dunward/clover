@@ -1,67 +1,61 @@
 import * as vscode from 'vscode';
 
-const tree: any = {
-	'a': {
-		'aa': {
-			'aaa': {
-				'aaaa': {
-					'aaaaa': {
-						'aaaaaa': {
+interface TreeItemData {
+    filePath: string;
+}
 
-						}
-					}
-				}
-			}
-		},
-		'ab': {}
-	},
-	'b': {
-		'ba': {},
-		'bb': {}
-	}
-};
+class MetaDataProvider implements vscode.TreeDataProvider<TreeItem> {
+    private _onDidChangeTreeData: vscode.EventEmitter<TreeItem | undefined> = new vscode.EventEmitter<TreeItem | undefined>();
+    readonly onDidChangeTreeData: vscode.Event<TreeItem | undefined> = this._onDidChangeTreeData.event;
 
-class MetaDataProvider implements vscode.TreeDataProvider<MetaExplorer> {
-    constructor() {
-	}
+    private items: TreeItem[] = [];
 
-    getChildren(key: string | undefined): string[] {
-        if (!key) {
-            return Object.keys(tree);
-        }
-        const treeElement = this.getTreeElement(key);
-        if (treeElement) {
-            return Object.keys(treeElement);
-        }
-        return [];
+    refresh(element?: TreeItem): void {
+        this._onDidChangeTreeData.fire(element);
     }
 
-    getTreeElement(element: string): any {
-        let parent = tree;
-        for (let i = 0; i < element.length; i++) {
-            parent = parent[element.substring(0, i + 1)];
-            if (!parent) {
-                return null;
-            }
-        }
-        return parent;
+    getTreeItem(element: TreeItem): vscode.TreeItem {
+        return element;
     }
 
-    getTreeItem(key: string): vscode.TreeItem {
-        const treeElement = this.getTreeElement(key);
-        // An example of how to use codicons in a MarkdownString in a tree item tooltip.
-        const tooltip = new vscode.MarkdownString(`$(zap) Tooltip for ${key}`, true);
-        return {
-            label: /**vscode.TreeItemLabel**/<any>{ label: key, highlights: key.length > 1 ? [[key.length - 2, key.length - 1]] : void 0 },
-            tooltip,
-            collapsibleState: treeElement && Object.keys(treeElement).length ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
-        };
+    getChildren(element?: TreeItem): Thenable<TreeItem[]> {
+        return Promise.resolve(this.items);
+    }
+
+    addItem(label: string): void {
+        const item = new TreeItem(label, vscode.TreeItemCollapsibleState.None);
+        this.items.push(item);
+        this.refresh();
+    }
+}
+
+class TreeItem extends vscode.TreeItem {
+    constructor(
+        public readonly label: string,
+        public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+        public readonly data?: TreeItemData,
+        public readonly command?: vscode.Command
+    ) {
+        super(label, collapsibleState);
+
+        if (data) {
+            this.resourceUri = vscode.Uri.file(data.filePath);
+        }
+
+        this.tooltip = this.label;
+        this.description = '';
     }
 }
   
 export class MetaExplorer {
+    private treeDataProvider: MetaDataProvider;
+
 	constructor(context: vscode.ExtensionContext) {
-        const treeDataProvider = new MetaDataProvider();
-		context.subscriptions.push(vscode.window.createTreeView('metaExplorer', { treeDataProvider }));
+        this.treeDataProvider = new MetaDataProvider();
+		context.subscriptions.push(vscode.window.createTreeView('metaExplorer', { treeDataProvider: this.treeDataProvider }));
+    }
+
+    public addItem(filePath: string): void {
+        this.treeDataProvider.addItem(filePath);
     }
 }
