@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.0.10] - preview
+### Added
+- Now asset references list is display on tree view.
+
 ## [0.0.9] - preview
 ### Changed
 - Output is not forced show up.
