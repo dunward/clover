@@ -67,8 +67,8 @@
 		"views": {
 			"explorer": [
 				{
-					"id": "myTreeView",
-					"name": "Json Outline"
+					"id": "metaExplorer",
+					"name": "Meta Explorer"
 				}
 			]
 		}
