@@ -58,13 +58,12 @@ export class MetaExplorer {
 
 	constructor(context: vscode.ExtensionContext) {
         this.treeDataProvider = new MetaDataProvider();
-        this.treeView = vscode.window.createTreeView('metaExplorer', { treeDataProvider: this.treeDataProvider });
+        this.treeView = vscode.window.createTreeView('clover.metaExplorer', { treeDataProvider: this.treeDataProvider });
 		context.subscriptions.push(this.treeView);
     }
 
     public addItem(filePath: string): void {
         this.treeDataProvider.addItem(filePath);
-        vscode.commands.executeCommand('metaExplorer');
     }
 
     public clearItems(): void {

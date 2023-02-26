@@ -67,7 +67,7 @@
 		"views": {
 			"explorer": [
 				{
-					"id": "metaExplorer",
+					"id": "clover.metaExplorer",
 					"name": "Meta Explorer"
 				}
 			]
