@@ -45,6 +45,8 @@ export function findFileReference() {
     outputLog('Cannot find current active editor');
     return;
   }
+  
+  metaExplorer.clearItems();
 
   const metaFile = fs.readFileSync(`${file + '.meta'}`, { encoding: 'utf8' });
   const guid = getGuid(metaFile);

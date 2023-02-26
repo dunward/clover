@@ -18,13 +18,18 @@ class MetaDataProvider implements vscode.TreeDataProvider<TreeItem> {
         return element;
     }
 
-    getChildren(element?: TreeItem): Thenable<TreeItem[]> {
+    getChildren(): Thenable<TreeItem[]> {
         return Promise.resolve(this.items);
     }
 
     addItem(label: string): void {
         const item = new TreeItem(label, vscode.TreeItemCollapsibleState.None);
         this.items.push(item);
+        this.refresh();
+    }
+
+    clearItems(): void {
+        this.items = [];
         this.refresh();
     }
 }
@@ -49,13 +54,20 @@ class TreeItem extends vscode.TreeItem {
   
 export class MetaExplorer {
     private treeDataProvider: MetaDataProvider;
+    private treeView: vscode.TreeView<TreeItem>;
 
 	constructor(context: vscode.ExtensionContext) {
         this.treeDataProvider = new MetaDataProvider();
-		context.subscriptions.push(vscode.window.createTreeView('metaExplorer', { treeDataProvider: this.treeDataProvider }));
+        this.treeView = vscode.window.createTreeView('metaExplorer', { treeDataProvider: this.treeDataProvider });
+		context.subscriptions.push(this.treeView);
     }
 
     public addItem(filePath: string): void {
         this.treeDataProvider.addItem(filePath);
+        vscode.commands.executeCommand('metaExplorer');
+    }
+
+    public clearItems(): void {
+        this.treeDataProvider.clearItems();
     }
 }
