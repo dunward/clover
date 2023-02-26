@@ -5,11 +5,13 @@ import { outputLog } from './logger';
 import { getGuid } from './parser';
 import { updateStatus } from './vscode/command';
 import { CodelensProvider } from './codelensProvider';
+import { MetaExplorer } from './metaExplorer';
 
 let files: string[];
 let assetPath: string;
+let metaExplorer: MetaExplorer;
 
-export async function initialize() {
+export async function initialize(context: vscode.ExtensionContext) {
   const workspace = vscode.workspace.workspaceFolders;
 
   if (workspace !== undefined) {
@@ -26,6 +28,8 @@ export async function initialize() {
   });
 
   vscode.languages.registerCodeLensProvider('csharp', codelensProvider);
+
+  metaExplorer = new MetaExplorer(context);
 }
 
 export async function syncUnityFiles() {
@@ -41,6 +45,8 @@ export function findFileReference() {
     outputLog('Cannot find current active editor');
     return;
   }
+  
+  metaExplorer.clearItems();
 
   const metaFile = fs.readFileSync(`${file + '.meta'}`, { encoding: 'utf8' });
   const guid = getGuid(metaFile);
@@ -49,6 +55,7 @@ export function findFileReference() {
 
   files.forEach(prefab => {
     if (fs.readFileSync(prefab).includes(guid)) {
+      metaExplorer.addItem(prefab);
       outputLog(prefab);
     }
   });

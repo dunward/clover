@@ -63,7 +63,15 @@
 						"light": "resources/light/clover.svg"
 				}
 			}
-		]
+		],
+		"views": {
+			"explorer": [
+				{
+					"id": "clover.metaExplorer",
+					"name": "Meta Explorer"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
