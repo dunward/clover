@@ -15,9 +15,3 @@ So if you're looking for a way to simplify and streamline your coding workflow, 
 Request and Ideas section where you can provide feedback and suggestions for future update, Whether you have a feature request or an idea for improving the extension, we want to hear from you! Leave a comment on this repository issues tab.
 
 ![clover-introduce](/resources/clover-introduce-preview-1.png)
-
-# ToDo (preview)
-
-- [x] asset references list tree view
-- [x] async loader
-- [ ] Improve code lens
