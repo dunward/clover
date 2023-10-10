@@ -2,7 +2,7 @@
 [![](https://img.shields.io/visual-studio-marketplace/d/november.clover-unity)](https://marketplace.visualstudio.com/items?itemName=november.clover-unity)
 ![](https://img.shields.io/github/license/novemberi/clover)
 
-<img width="25%" src="https://raw.githubusercontent.com/novemberi/clover/master/resources/clover-wide.png"/>
+<img src="resources/clover.png" width=10% height=10%>
 
 Clover is a powerful VSCode extension that helps you manage asset references within your unity project. With Clover, you can quickly find and manage asset references to ensure your code is efficient and well-organized.
 
