@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { syncUnityFiles, findFileReference } from '../loader';
+import { refreshUnityProject, findFileReference } from '../loader';
 
 export function updateStatus<T>(name: string, value: T) {
     vscode.commands.executeCommand('setContext', name, value);
@@ -7,7 +7,7 @@ export function updateStatus<T>(name: string, value: T) {
 
 export function initialize(context: vscode.ExtensionContext) {
     registerCommand(context, 'clover.findFileReference', () => findFileReference());
-	registerCommand(context, 'clover.syncUnityFiles', () => syncUnityFiles());
+	registerCommand(context, 'clover.refreshUnityProject', () => refreshUnityProject());
 }
 
 function registerCommand(context: vscode.ExtensionContext, command: string, callback: (...args: any[]) => any) {

@@ -18,7 +18,7 @@ export async function initialize(context: vscode.ExtensionContext) {
     assetPath = path.join(workspace[0].uri.fsPath, 'Assets');
     updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(assetPath).isDirectory());
 
-    await syncUnityFiles();
+    await refreshUnityProject();
     updateStatus<boolean>('clover.unity.initialized', true);
   }
 
@@ -32,11 +32,12 @@ export async function initialize(context: vscode.ExtensionContext) {
   metaExplorer = new MetaExplorer(context);
 }
 
-export async function syncUnityFiles() {
-  outputLog('Start unity files sync');
+export async function refreshUnityProject() {
+  vscode.window.showInformationMessage('Start Refresh Unity Project');
+  outputLog('Start Refresh Unity Project');
   files = await sync(assetPath, []);
-  vscode.window.showInformationMessage('Finish unity files sync');
-  outputLog('Finish unity files sync');
+  vscode.window.showInformationMessage('Finish Refresh Unity Project');
+  outputLog('Finish Refresh Unity Project');
 }
 
 export function findFileReference() {
