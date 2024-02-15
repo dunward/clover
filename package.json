@@ -5,7 +5,7 @@
 	"version": "0.0.11",
 	"publisher": "november",
 	"engines": {
-		"vscode": "^1.67.0"
+		"vscode": "^1.75.0"
 	},
 	"categories": [
 		"Extension Packs"
@@ -16,9 +16,7 @@
 		"url": "https://github.com/novemberi/clover"
 	},
 	"activationEvents": [
-		"onStartupFinished",
-		"onCommand:clover.findFileReference",
-		"onCommand:clover.syncUnityFiles"
+		"onStartupFinished"
 	],
 	"preview": true,
 	"main": "./out/extension.js",
