@@ -39,10 +39,9 @@
 					"name": "Main",
 					"icon": "resources/dark/clover.svg",
 					"contextualTitle": "Clover"
-				}
-			],
-			"explorer": [
+				},
 				{
+					"type": "tree",
 					"id": "clover.metaExplorer",
 					"name": "Meta Explorer"
 				}
