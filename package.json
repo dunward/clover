@@ -34,9 +34,11 @@
 		"views": {
 			"clover-activitybar": [
 				{
-					"id": "clover-mainView",
-					"name": "Clover",
-					"icon": "resources/dark/clover.svg"
+					"type": "webview",
+					"id": "clover.mainView",
+					"name": "Main",
+					"icon": "resources/dark/clover.svg",
+					"contextualTitle": "Clover"
 				}
 			],
 			"explorer": [
