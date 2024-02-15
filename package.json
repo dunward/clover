@@ -4,6 +4,7 @@
 	"description": "Unity Support Extension",
 	"version": "0.0.11",
 	"publisher": "november",
+	"license": "MIT",
 	"engines": {
 		"vscode": "^1.75.0"
 	},
@@ -21,6 +22,30 @@
 	"preview": true,
 	"main": "./out/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "clover-activitybar",
+					"title": "Clover",
+					"icon": "resources/dark/clover.svg"
+				}
+			]
+		},
+		"views": {
+			"clover-activitybar": [
+				{
+					"id": "clover-mainView",
+					"name": "Clover",
+					"icon": "resources/dark/clover.svg"
+				}
+			],
+			"explorer": [
+				{
+					"id": "clover.metaExplorer",
+					"name": "Meta Explorer"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "clover.findFileReference",
@@ -29,9 +54,9 @@
 				"title": "Find Prefab Reference"
 			},
 			{
-				"command": "clover.syncUnityFiles",
+				"command": "clover.refreshUnityProject",
 				"category": "Clover",
-				"title": "Sync Unity Files",
+				"title": "Refresh Unity Project",
 				"enablement": "clover.workspace.valid"
 			}
 		],
@@ -48,7 +73,7 @@
 					"command": "clover.findFileReference"
 				},
 				{
-					"command": "clover.syncUnityFiles"
+					"command": "clover.refreshUnityProject"
 				}
 			]
 		},
@@ -56,20 +81,12 @@
 			{
 				"id": "clover.helper",
 				"label": "Clover",
-					"icon": {
-						"dark": "resources/dark/clover.svg",
-						"light": "resources/light/clover.svg"
+				"icon": {
+					"dark": "resources/dark/clover.svg",
+					"light": "resources/light/clover.svg"
 				}
 			}
-		],
-		"views": {
-			"explorer": [
-				{
-					"id": "clover.metaExplorer",
-					"name": "Meta Explorer"
-				}
-			]
-		}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
