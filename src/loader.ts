@@ -40,23 +40,34 @@ export async function syncUnityFiles() {
 }
 
 export function findFileReference() {
-  const file = vscode.window.activeTextEditor?.document.uri.fsPath;
-  if (file === undefined) {
+  const activeTextEditor = vscode.window.activeTextEditor;
+  if (!activeTextEditor) {
     outputLog('Cannot find current active editor');
     return;
   }
+
+  const currentFilePath = activeTextEditor.document.uri.fsPath;
+  const currentFolder = path.dirname(currentFilePath);
   
   metaExplorer.clearItems();
 
-  const metaFile = fs.readFileSync(`${file + '.meta'}`, { encoding: 'utf8' });
-  const guid = getGuid(metaFile);
+  const metaFilePath = `${currentFilePath}.meta`;
+  if (!fs.existsSync(metaFilePath)) {
+    outputLog(`Meta file does not exist for ${path.basename(currentFilePath)}`);
+    return;
+  }
 
-  outputLog(`${path.basename(file)} reference list`);
+  const metaFileContent = fs.readFileSync(metaFilePath, { encoding: 'utf8' });
+  const guid = getGuid(metaFileContent);
+
+  outputLog(`${path.basename(currentFilePath)} reference list`);
 
   files.forEach(prefab => {
-    if (fs.readFileSync(prefab).includes(guid)) {
-      metaExplorer.addItem(prefab);
-      outputLog(prefab);
+    const prefabContent = fs.readFileSync(prefab, { encoding: 'utf8' });
+    if (prefabContent.includes(guid)) {
+      const relativePath = path.relative(currentFolder, prefab);
+      metaExplorer.addItem(relativePath);
+      outputLog(relativePath);
     }
   });
 }

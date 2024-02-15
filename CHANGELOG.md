@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.0.11] - preview
+### Changed
+- The reference path changed relative path.
+
 ## [0.0.10] - preview
 ### Added
 - Now asset references list is display on tree view.
