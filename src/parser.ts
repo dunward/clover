@@ -10,11 +10,11 @@ export function getGuid(text: string) {
 }
 
 export function getProjectName(data: string) {
-    let regex = /productName: (.\w)+/;
+    let regex = /productName: (.*)/;
     return data.match(regex)?.[1] ?? "";
 }
 
 export function getProjectVersion(data: string) {
-    let regex = /m_EditorVersionWithRevision:: (.\w)+/;
+    let regex = /m_EditorVersionWithRevision: (.*)/;
     return data.match(regex)?.[1] ?? "";
 }
