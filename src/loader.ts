@@ -6,6 +6,7 @@ import { getGuid } from './parser';
 import { updateStatus } from './vscode/command';
 import { CodelensProvider } from './codelensProvider';
 import { MetaExplorer } from './metaExplorer';
+import { MainViewProvider } from './view/mainViewProvider';
 
 let files: string[];
 let assetPath: string;
@@ -15,8 +16,12 @@ export async function initialize(context: vscode.ExtensionContext) {
   const workspace = vscode.workspace.workspaceFolders;
 
   if (workspace !== undefined) {
-    assetPath = path.join(workspace[0].uri.fsPath, 'Assets');
-    updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(assetPath).isDirectory());
+    var workspacePath = workspace[0].uri.fsPath;
+    assetPath = path.join(workspacePath, 'Assets');
+    updateStatus<boolean>('clover.workspace.valid', fs.existsSync(assetPath));
+
+    const mainViewProvider = new MainViewProvider(context.extensionUri, workspacePath);
+    vscode.window.registerWebviewViewProvider('clover.mainView', mainViewProvider);
 
     await refreshUnityProject();
     updateStatus<boolean>('clover.unity.initialized', true);
