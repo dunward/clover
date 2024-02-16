@@ -1,12 +1,8 @@
 // guid:.\w+
 
-export function getGuid(text: string) {
-    let regex = /guid:.\w+/;
-    let match = regex.exec(text);
-    
-    let guid = (match || "").toString();
-
-    return guid.split(':')[1].trim();
+export function getGuid(data: string) {
+    let regex = /guid: (.*)/;
+    return data.match(regex)?.[1] ?? "";
 }
 
 export function getProjectName(data: string) {
