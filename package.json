@@ -38,12 +38,14 @@
           "id": "clover.mainView",
           "name": "Main",
           "icon": "resources/dark/clover.svg",
-          "contextualTitle": "Clover"
+          "contextualTitle": "Clover",
+          "when": "clover.workspace.valid"
         },
         {
           "type": "tree",
           "id": "clover.metaExplorer",
-          "name": "Meta Explorer"
+          "name": "Meta Explorer",
+          "when": "clover.workspace.valid"
         }
       ]
     },
