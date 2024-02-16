@@ -1,8 +1,25 @@
 ## Change Log
 
+## [0.0.12] - preview
+### Added
+- Add clover activity bar
+- Add clover main web view
+    - Add project name, version display on main view
+
+### Changed
+- The meta explorer tree view moved on `Explorer` to `Clover` activity bar
+
+## [0.0.11] - preview
+### Changed
+- The reference path changed relative path
+
+## [0.0.10] - preview
+### Added
+- Now asset references list is display on tree view
+
 ## [0.0.9] - preview
 ### Changed
-- Output is not forced show up.
+- Output is not forced show up
 
 ## [0.0.8] - preview
 ### Changed

@@ -5,18 +5,25 @@ import { outputLog } from './logger';
 import { getGuid } from './parser';
 import { updateStatus } from './vscode/command';
 import { CodelensProvider } from './codelensProvider';
+import { MetaExplorer } from './metaExplorer';
+import { MainViewProvider } from './view/mainViewProvider';
 
 let files: string[];
 let assetPath: string;
+let metaExplorer: MetaExplorer;
 
-export async function initialize() {
+export async function initialize(context: vscode.ExtensionContext) {
   const workspace = vscode.workspace.workspaceFolders;
 
   if (workspace !== undefined) {
-    assetPath = path.join(workspace[0].uri.fsPath, 'Assets');
-    updateStatus<boolean>('clover.workspace.valid', fs.lstatSync(assetPath).isDirectory());
+    var workspacePath = workspace[0].uri.fsPath;
+    assetPath = path.join(workspacePath, 'Assets');
+    updateStatus<boolean>('clover.workspace.valid', fs.existsSync(assetPath));
 
-    await syncUnityFiles();
+    const mainViewProvider = new MainViewProvider(context.extensionUri, workspacePath);
+    vscode.window.registerWebviewViewProvider('clover.mainView', mainViewProvider);
+
+    await refreshUnityProject();
     updateStatus<boolean>('clover.unity.initialized', true);
   }
 
@@ -26,30 +33,47 @@ export async function initialize() {
   });
 
   vscode.languages.registerCodeLensProvider('csharp', codelensProvider);
+
+  metaExplorer = new MetaExplorer(context);
 }
 
-export async function syncUnityFiles() {
-  outputLog('Start unity files sync');
+export async function refreshUnityProject() {
+  vscode.window.showInformationMessage('Start Refresh Unity Project');
+  outputLog('Start Refresh Unity Project');
   files = await sync(assetPath, []);
-  vscode.window.showInformationMessage('Finish unity files sync');
-  outputLog('Finish unity files sync');
+  vscode.window.showInformationMessage('Finish Refresh Unity Project');
+  outputLog('Finish Refresh Unity Project');
 }
 
 export function findFileReference() {
-  const file = vscode.window.activeTextEditor?.document.uri.fsPath;
-  if (file === undefined) {
+  const activeTextEditor = vscode.window.activeTextEditor;
+  if (!activeTextEditor) {
     outputLog('Cannot find current active editor');
     return;
   }
 
-  const metaFile = fs.readFileSync(`${file + '.meta'}`, { encoding: 'utf8' });
-  const guid = getGuid(metaFile);
+  const currentFilePath = activeTextEditor.document.uri.fsPath;
+  const currentFolder = path.dirname(currentFilePath);
+  
+  metaExplorer.clearItems();
 
-  outputLog(`${path.basename(file)} reference list`);
+  const metaFilePath = `${currentFilePath}.meta`;
+  if (!fs.existsSync(metaFilePath)) {
+    outputLog(`Meta file does not exist for ${path.basename(currentFilePath)}`);
+    return;
+  }
+
+  const metaFileContent = fs.readFileSync(metaFilePath, { encoding: 'utf8' });
+  const guid = getGuid(metaFileContent);
+
+  outputLog(`${path.basename(currentFilePath)} reference list`);
 
   files.forEach(prefab => {
-    if (fs.readFileSync(prefab).includes(guid)) {
-      outputLog(prefab);
+    const prefabContent = fs.readFileSync(prefab, { encoding: 'utf8' });
+    if (prefabContent.includes(guid)) {
+      const relativePath = path.relative(currentFolder, prefab);
+      metaExplorer.addItem(relativePath);
+      outputLog(relativePath);
     }
   });
 }
