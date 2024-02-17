@@ -8,10 +8,16 @@ Clover is a powerful VSCode extension that helps you manage asset references wit
 
 The Asset References system in Clover makes it easy to see all the places where a particular asset is referenced in your project. You can quickly navigate to those locations to make changes or updates to your code. This helps you to avoid errors, improve efficiency, and save time.
 
-Clover also offers a variety of other features that make it a must-have tool for unity developer. For example, it offers a clean and intuitive user interface, as well as powerful search and filter options that make it easy to find the asset references you need.
+Request and Ideas section where you can provide feedback and suggestions for future update, Whether you have a feature request or an idea for improving the extension, want to hear from you! Leave a comment on this repository issues tab.
 
-So if you're looking for a way to simplify and streamline your coding workflow, be sure to check out Clover today!
+## Meta Reference
+### Activity Bar
+You can check your project information, and meta reference on clover view.
+Clover activity bar is only activate on Unity project.
 
-Request and Ideas section where you can provide feedback and suggestions for future update, Whether you have a feature request or an idea for improving the extension, we want to hear from you! Leave a comment on this repository issues tab.
+<img src="resources/activity.png" width=300>
 
-![clover-introduce](/resources/clover-introduce-preview-1.png)
+### CodeLens
+You can find meta references of the current .cs file using CodeLens.
+
+<img src="resources/codelens.png" width=700>
