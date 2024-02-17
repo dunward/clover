@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Support Extension",
-  "version": "0.0.12",
+  "version": "0.1.0",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -19,7 +19,7 @@
   "activationEvents": [
     "onStartupFinished"
   ],
-  "preview": true,
+  "preview": false,
   "main": "./out/extension.js",
   "contributes": {
     "viewsContainers": {
@@ -51,10 +51,10 @@
     },
     "commands": [
       {
-        "command": "clover.findFileReference",
+        "command": "clover.findMetaReference",
         "category": "Clover",
         "enablement": "resourceExtname == .cs || resourceExtname == .asset",
-        "title": "Find Prefab Reference"
+        "title": "Find Meta Reference"
       },
       {
         "command": "clover.refreshUnityProject",
@@ -73,7 +73,7 @@
       ],
       "clover.helper": [
         {
-          "command": "clover.findFileReference"
+          "command": "clover.findMetaReference"
         },
         {
           "command": "clover.refreshUnityProject"
