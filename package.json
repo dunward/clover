@@ -51,10 +51,10 @@
     },
     "commands": [
       {
-        "command": "clover.findFileReference",
+        "command": "clover.findMetaReference",
         "category": "Clover",
         "enablement": "resourceExtname == .cs || resourceExtname == .asset",
-        "title": "Find Prefab Reference"
+        "title": "Find Meta Reference"
       },
       {
         "command": "clover.refreshUnityProject",
@@ -73,7 +73,7 @@
       ],
       "clover.helper": [
         {
-          "command": "clover.findFileReference"
+          "command": "clover.findMetaReference"
         },
         {
           "command": "clover.refreshUnityProject"
