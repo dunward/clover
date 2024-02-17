@@ -9,7 +9,6 @@ class MetaReferenceCodeLens extends vscode.CodeLens {
 	constructor(
 		public document: vscode.Uri,
 		public file: string,
-		public line: number,
 		range: vscode.Range
 	) {
 		super(range);
@@ -39,9 +38,8 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 			const text = document.getText();
 			let matches;
 			if ((matches = regex.exec(text)) !== null) {
-				const lineNumber = document.positionAt(matches.index).line;
-				const line = document.lineAt(lineNumber);
-				this.codeLenses.push(new MetaReferenceCodeLens(document.uri, document.uri.fsPath, lineNumber, line.range));
+				const line = document.lineAt(document.positionAt(matches.index).line);
+				this.codeLenses.push(new MetaReferenceCodeLens(document.uri, document.uri.fsPath,line.range));
 			}
 			return this.codeLenses;
 	}
@@ -55,7 +53,7 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 		codeLens.command = {
 			title: this.getTitle(metaDatas),
 			command: metaDatas.length == 0 ? "clover.noReferenceMessage" : "editor.action.showReferences",
-			arguments: [codeLens.document, new vscode.Position(codeLens.line, 0), locations],
+			arguments: [codeLens.document, codeLens.range.start, locations],
 		};
 		return codeLens;
 	}
