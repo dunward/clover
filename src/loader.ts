@@ -68,14 +68,11 @@ export function findMetaReference() {
   const guid = getGuid(metaFilePath);
 
   outputLog(`${path.basename(currentFilePath)} reference list`);
-
-  files.forEach(prefab => {
-    const prefabContent = fs.readFileSync(prefab, { encoding: 'utf8' });
-    if (prefabContent.includes(guid)) {
-      const relativePath = path.relative(currentFolder, prefab);
-      metaExplorer.addItem(relativePath);
-      outputLog(relativePath);
-    }
+  const metaDatas = getMetaData(guid);
+  metaDatas.forEach((metaData) => {
+    const relativePath = path.relative(currentFolder, metaData.path);
+    metaExplorer.addItem(relativePath);
+    outputLog(metaData.path);
   });
 }
 
