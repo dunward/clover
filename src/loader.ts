@@ -43,7 +43,6 @@ export async function refreshUnityProject() {
   vscode.window.showInformationMessage('Start Refresh Unity Project');
   outputLog('Start Refresh Unity Project');
   await refresh(assetPath);
-  console.log(metaDatas);
   vscode.window.showInformationMessage('Finish Refresh Unity Project');
   outputLog('Finish Refresh Unity Project');
 }
