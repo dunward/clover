@@ -48,7 +48,7 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 		var guid = parser.getGuid(`${codeLens.document.fsPath}.meta`);
 		var metaDatas = loader.getMetaData(guid);
 
-		var locations = this.getLocations(metaDatas);
+		var locations = this.getLocations(guid, metaDatas);
 
 		codeLens.command = {
 			title: this.getTitle(metaDatas),
@@ -66,15 +66,15 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 		}
 	}
 
-	getLocations(metaDatas: MetaData[]): vscode.Location[] {
-		return metaDatas.map(CodelensProvider.metaDataToLocation);
-	}
-
-	static metaDataToLocation(metaData: MetaData): vscode.Location {
-		console.log(metaData.path);
-		const uri = vscode.Uri.parse(metaData.path);
-		console.log(uri.toString());
-		const position = new vscode.Position(0, 0); // 예시로 첫 번째 줄의 첫 번째 열을 사용
-		return new vscode.Location(uri, position);
+	getLocations(guid: string, metaDatas: MetaData[]): vscode.Location[] {
+		let locations: vscode.Location[] = [];
+		metaDatas.forEach((metaData) => {
+			const lineNUmbers = parser.getLineNumbers(guid, metaData.path);
+			const uri = vscode.Uri.parse(metaData.path);
+			lineNUmbers.forEach((lineNumber) => {
+				locations.push(new vscode.Location(uri, new vscode.Position(lineNumber, 0)));
+			});
+		});
+		return locations;
 	}
 }
