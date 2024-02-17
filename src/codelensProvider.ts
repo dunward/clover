@@ -2,6 +2,16 @@ import * as vscode from 'vscode';
 import path = require("path");
 import { outputLog } from './logger';
 
+export class AssetUsageCodeLens extends vscode.CodeLens {
+	constructor(
+		public document: vscode.Uri,
+		public file: string,
+		range: vscode.Range
+	) {
+		super(range);
+	}
+}
+
 export class CodelensProvider implements vscode.CodeLensProvider {
 
 	private codeLenses: vscode.CodeLens[] = [];
@@ -27,14 +37,14 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 				const line = document.lineAt(document.positionAt(matches.index).line);
 				this.codeLenses.push(new vscode.CodeLens(line.range));
 			}
-			return this.codeLenses;
+			return this.codeLenses.map((codeLens) => new AssetUsageCodeLens(document.uri, document.uri.fsPath, codeLens.range));
 	}
 
-	public resolveCodeLens(codeLens: vscode.CodeLens, token: vscode.CancellationToken) {
+	public resolveCodeLens(codeLens: AssetUsageCodeLens, token: vscode.CancellationToken) {
 		codeLens.command = {
 			title: "meta references",
-			command: "clover.findFileReference",
-			arguments: ["Argument 1", false]
+			command: "editor.action.showReferences",
+			arguments: [codeLens.document, new vscode.Position(0, 0), [new vscode.Location(codeLens.document, new vscode.Position(0, 0)), new vscode.Location(codeLens.document, new vscode.Position(1, 0))]]
 		};
 		return codeLens;
 	}

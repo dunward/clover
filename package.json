@@ -61,6 +61,12 @@
         "category": "Clover",
         "title": "Refresh Unity Project",
         "enablement": "clover.workspace.valid"
+      },
+      {
+        "command": "clover.test",
+        "category": "Clover",
+        "title": "test",
+        "enablement": "clover.workspace.valid"
       }
     ],
     "menus": {
