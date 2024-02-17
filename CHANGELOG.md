@@ -1,5 +1,13 @@
 ## Change Log
 
+## [0.1.0]
+### Added
+- Add meta reference count
+- Add vscode reference view
+
+### Changed
+- Improve unity refresh logic
+
 ## [0.0.12] - preview
 ### Added
 - Add clover activity bar
