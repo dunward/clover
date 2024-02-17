@@ -3,6 +3,7 @@ import path = require("path");
 import * as parser from './parser';
 import * as loader from './loader';
 import { outputLog } from './logger';
+import { MetaData } from './metaData';
 
 class MetaReferenceCodeLens extends vscode.CodeLens {
 	constructor(
@@ -45,21 +46,35 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 
 	public resolveCodeLens(codeLens: MetaReferenceCodeLens, token: vscode.CancellationToken) {
 		var guid = parser.getGuid(`${codeLens.document.fsPath}.meta`);
-		var metaData = loader.getMetaData(guid);
+		var metaDatas = loader.getMetaData(guid);
+
+		var locations = this.getLocations(metaDatas);
 
 		codeLens.command = {
-			title: this.getTitle(metaData),
-			command: metaData.length == 0 ? "clover.noReferenceMessage" : "editor.action.showReferences",
-			arguments: [codeLens.document, new vscode.Position(0, 0), [new vscode.Location(codeLens.document, new vscode.Position(0, 0)), new vscode.Location(codeLens.document, new vscode.Position(1, 0))]],
+			title: this.getTitle(metaDatas),
+			command: metaDatas.length == 0 ? "clover.noReferenceMessage" : "editor.action.showReferences",
+			arguments: [codeLens.document, new vscode.Position(0, 0), locations],
 		};
 		return codeLens;
 	}
 
-	getTitle(metaData: any[]): string {
-		if (metaData.length <= 1) {
-			return `${metaData.length} meta reference`;
+	getTitle(metaDatas: MetaData[]): string {
+		if (metaDatas.length <= 1) {
+			return `${metaDatas.length} meta reference`;
 		} else {
-			return `${metaData.length} meta references`;
+			return `${metaDatas.length} meta references`;
 		}
+	}
+
+	getLocations(metaDatas: MetaData[]): vscode.Location[] {
+		return metaDatas.map(CodelensProvider.metaDataToLocation);
+	}
+
+	static metaDataToLocation(metaData: MetaData): vscode.Location {
+		console.log(metaData.path);
+		const uri = vscode.Uri.parse(metaData.path);
+		console.log(uri.toString());
+		const position = new vscode.Position(0, 0); // 예시로 첫 번째 줄의 첫 번째 열을 사용
+		return new vscode.Location(uri, position);
 	}
 }
