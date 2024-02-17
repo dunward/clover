@@ -2,15 +2,18 @@ import * as vscode from 'vscode';
 import fs = require('fs');
 import path = require('path');
 import { outputLog } from './logger';
-import { getGuid } from './parser';
+import { getGuid, getGuids } from './parser';
 import { updateStatus } from './vscode/command';
 import { CodelensProvider } from './codelensProvider';
 import { MetaExplorer } from './metaExplorer';
 import { MainViewProvider } from './view/mainViewProvider';
+import { MetaData } from './metaData';
 
 let files: string[];
 let assetPath: string;
 let metaExplorer: MetaExplorer;
+
+var metaDatas: Map<string, MetaData[]> = new Map<string, MetaData[]>();
 
 export async function initialize(context: vscode.ExtensionContext) {
   const workspace = vscode.workspace.workspaceFolders;
@@ -40,7 +43,8 @@ export async function initialize(context: vscode.ExtensionContext) {
 export async function refreshUnityProject() {
   vscode.window.showInformationMessage('Start Refresh Unity Project');
   outputLog('Start Refresh Unity Project');
-  files = await sync(assetPath, []);
+  await sync(assetPath);
+  console.log(metaDatas);
   vscode.window.showInformationMessage('Finish Refresh Unity Project');
   outputLog('Finish Refresh Unity Project');
 }
@@ -78,7 +82,7 @@ export function findFileReference() {
   });
 }
 
-function sync(dirPath: string, arrayOfFiles: string[]): Promise<string[]> {
+function sync(dirPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     fs.readdir(dirPath, (err, files) => {
       if (err) {
@@ -88,14 +92,35 @@ function sync(dirPath: string, arrayOfFiles: string[]): Promise<string[]> {
           for (const file of files) {
             const extname = path.extname(file);
             if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
-              arrayOfFiles = await sync(path.join(dirPath, file), arrayOfFiles);
+              await sync(path.join(dirPath, file));
             } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
-              arrayOfFiles.push(path.join(dirPath, file));
+              readMeta(path.join(dirPath, file));
             }
           }
-          resolve(arrayOfFiles);
+          resolve();
         })();
       }
     });
   });
+}
+
+async function readMeta(path: string) {
+  try {
+    const data = await fs.promises.readFile(path, { encoding: 'utf8' });
+    const guids = getGuids(data);
+    for (const guid of guids) {
+      addMetaData(guid[1], path);
+    }
+  } catch (error) {
+    outputLog(`Error reading meta file at ${path}: ${error}`);
+  }
+}
+
+function addMetaData(guid: string, path: string) {
+  if (metaDatas.has(guid)) {
+    var list = metaDatas.get(guid);
+    list?.push(new MetaData(path));
+  } else {
+    metaDatas.set(guid, [new MetaData(path)]);
+  }
 }
