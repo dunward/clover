@@ -43,7 +43,7 @@ export async function initialize(context: vscode.ExtensionContext) {
 export async function refreshUnityProject() {
   vscode.window.showInformationMessage('Start Refresh Unity Project');
   outputLog('Start Refresh Unity Project');
-  await sync(assetPath);
+  await refresh(assetPath);
   console.log(metaDatas);
   vscode.window.showInformationMessage('Finish Refresh Unity Project');
   outputLog('Finish Refresh Unity Project');
@@ -82,7 +82,7 @@ export function findMetaReference() {
   });
 }
 
-function sync(dirPath: string): Promise<void> {
+function refresh(dirPath: string): Promise<void> {
   return new Promise((resolve, reject) => {
     fs.readdir(dirPath, (err, files) => {
       if (err) {
@@ -92,7 +92,7 @@ function sync(dirPath: string): Promise<void> {
           for (const file of files) {
             const extname = path.extname(file);
             if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
-              await sync(path.join(dirPath, file));
+              await refresh(path.join(dirPath, file));
             } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
               readMeta(path.join(dirPath, file));
             }
