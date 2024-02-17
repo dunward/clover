@@ -49,7 +49,7 @@ export async function refreshUnityProject() {
   outputLog('Finish Refresh Unity Project');
 }
 
-export function findFileReference() {
+export function findMetaReference() {
   const activeTextEditor = vscode.window.activeTextEditor;
   if (!activeTextEditor) {
     outputLog('Cannot find current active editor');
