@@ -49,7 +49,7 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 
 		codeLens.command = {
 			title: this.getTitle(metaData),
-			command: "editor.action.showReferences",
+			command: metaData.length == 0 ? "clover.noReferenceMessage" : "editor.action.showReferences",
 			arguments: [codeLens.document, new vscode.Position(0, 0), [new vscode.Location(codeLens.document, new vscode.Position(0, 0)), new vscode.Location(codeLens.document, new vscode.Position(1, 0))]],
 		};
 		return codeLens;

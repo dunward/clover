@@ -8,6 +8,7 @@ export function updateStatus<T>(name: string, value: T) {
 export function initialize(context: vscode.ExtensionContext) {
     registerCommand(context, 'clover.findMetaReference', () => findMetaReference());
 	registerCommand(context, 'clover.refreshUnityProject', () => refreshUnityProject());
+	registerCommand(context, 'clover.noReferenceMessage', () => vscode.window.showInformationMessage("No reference found"));
 }
 
 function registerCommand(context: vscode.ExtensionContext, command: string, callback: (...args: any[]) => any) {
