@@ -1,7 +1,9 @@
-// guid:.\w+
+import fs = require('fs');
 
-export function getGuid(data: string) {
-    let regex = /guid: (.*),/;
+export function getGuid(path: string) {
+    var data = fs.readFileSync(path, { encoding: 'utf8' });
+    console.log(data);
+    let regex = /guid: (.*)/;
     return data.match(regex)?.[1] ?? "";
 }
 

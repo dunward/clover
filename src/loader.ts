@@ -12,7 +12,6 @@ import { MetaData } from './metaData';
 let files: string[];
 let assetPath: string;
 let metaExplorer: MetaExplorer;
-
 var metaDatas: Map<string, MetaData[]> = new Map<string, MetaData[]>();
 
 export async function initialize(context: vscode.ExtensionContext) {
@@ -67,8 +66,7 @@ export function findMetaReference() {
     return;
   }
 
-  const metaFileContent = fs.readFileSync(metaFilePath, { encoding: 'utf8' });
-  const guid = getGuid(metaFileContent);
+  const guid = getGuid(metaFilePath);
 
   outputLog(`${path.basename(currentFilePath)} reference list`);
 
@@ -123,4 +121,8 @@ function addMetaData(guid: string, path: string) {
   } else {
     metaDatas.set(guid, [new MetaData(path)]);
   }
+}
+
+export function getMetaData(guid: string) {
+  return metaDatas.get(guid) ?? [];
 }
