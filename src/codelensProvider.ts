@@ -47,7 +47,6 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 	public resolveCodeLens(codeLens: MetaReferenceCodeLens, token: vscode.CancellationToken) {
 		var guid = parser.getGuid(`${codeLens.document.fsPath}.meta`);
 		var metaDatas = loader.getMetaData(guid);
-
 		var locations = this.getLocations(guid, metaDatas);
 
 		codeLens.command = {
@@ -69,8 +68,9 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 	getLocations(guid: string, metaDatas: MetaData[]): vscode.Location[] {
 		let locations: vscode.Location[] = [];
 		metaDatas.forEach((metaData) => {
-			const lineNUmbers = parser.getLineNumbers(guid, metaData.path);
-			const uri = vscode.Uri.parse(metaData.path);
+			const pathRefine = metaData.path;
+			const lineNUmbers = parser.getLineNumbers(guid, pathRefine);
+			const uri = vscode.Uri.file(pathRefine);
 			lineNUmbers.forEach((lineNumber) => {
 				locations.push(new vscode.Location(uri, new vscode.Position(lineNumber, 0)));
 			});
