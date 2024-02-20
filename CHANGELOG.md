@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.2.0]
+### Added
+- Add unity event snippets
+
 ## [0.1.2]
 ### Added
 - Add unity icon meta references codelens
