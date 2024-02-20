@@ -9,6 +9,7 @@
     "vscode": "^1.75.0"
   },
   "categories": [
+    "Snippets",
     "Programming Languages",
     "Other"
   ],
@@ -32,6 +33,12 @@
         }
       }
     },
+    "snippets": [
+      {
+        "language": "csharp",
+        "path": "./unitySnippets.json"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
