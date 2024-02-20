@@ -8,6 +8,7 @@ import { CodelensProvider } from './codelensProvider';
 import { MetaExplorer } from './metaExplorer';
 import { MainViewProvider } from './view/mainViewProvider';
 import { MetaData } from './metaData';
+import { isUnityProject } from './untiyChecker';
 
 let files: string[];
 let assetPath: string;
@@ -20,23 +21,21 @@ export async function initialize(context: vscode.ExtensionContext) {
   if (workspace !== undefined) {
     var workspacePath = workspace[0].uri.fsPath;
     assetPath = path.join(workspacePath, 'Assets');
-    updateStatus<boolean>('clover.workspace.valid', fs.existsSync(assetPath));
+    var validProject = isUnityProject(workspacePath);
+    updateStatus<boolean>('clover.workspace.valid', validProject);
+
+    if (!validProject) return;
 
     const mainViewProvider = new MainViewProvider(context.extensionUri, workspacePath);
     vscode.window.registerWebviewViewProvider('clover.mainView', mainViewProvider);
 
     await refreshUnityProject();
     updateStatus<boolean>('clover.unity.initialized', true);
+
+    const codelensProvider = new CodelensProvider();
+    vscode.languages.registerCodeLensProvider('csharp', codelensProvider);
+    metaExplorer = new MetaExplorer(context);
   }
-
-  const codelensProvider = new CodelensProvider();
-  vscode.commands.registerCommand('clover.unity.codeLensAction', (args: any) => {
-    vscode.window.showInformationMessage(`CodeLens action clicked with args=${args}`);
-  });
-
-  vscode.languages.registerCodeLensProvider('csharp', codelensProvider);
-
-  metaExplorer = new MetaExplorer(context);
 }
 
 export async function refreshUnityProject() {

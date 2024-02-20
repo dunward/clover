@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Support Extension",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -22,6 +22,15 @@
   "preview": false,
   "main": "./out/extension.js",
   "contributes": {
+    "icons": {
+      "custom-unity": {
+        "description": "unity icon",
+        "default": {
+          "fontPath": "./custom.woff",
+          "fontCharacter": "\\e900"
+        }
+      }
+    },
     "viewsContainers": {
       "activitybar": [
         {

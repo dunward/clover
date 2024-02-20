@@ -59,9 +59,9 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 
 	getTitle(metaDatas: MetaData[]): string {
 		if (metaDatas.length <= 1) {
-			return `${metaDatas.length} meta reference`;
+			return `$(custom-unity) ${metaDatas.length} meta reference`;
 		} else {
-			return `${metaDatas.length} meta references`;
+			return `$(custom-unity) ${metaDatas.length} meta references`;
 		}
 	}
 
