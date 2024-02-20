@@ -1,0 +1,12 @@
+{
+    "Start": {
+        "prefix": "Start",
+        "body": [
+            "private void Start()",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Description"
+    }
+}
