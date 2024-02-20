@@ -2,14 +2,16 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Support Extension",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publisher": "november",
   "license": "MIT",
   "engines": {
     "vscode": "^1.75.0"
   },
   "categories": [
-    "Extension Packs"
+    "Snippets",
+    "Programming Languages",
+    "Other"
   ],
   "icon": "resources/clover.png",
   "repository": {
@@ -31,6 +33,12 @@
         }
       }
     },
+    "snippets": [
+      {
+        "language": "csharp",
+        "path": "./unitySnippets.json"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {
