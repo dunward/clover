@@ -1,5 +1,12 @@
 ## Change Log
 
+## [0.1.2]
+### Added
+- Add unity icon meta references codelens
+
+### Fixed
+- Clover activated none unity project
+
 ## [0.1.1]
 ### Fixed
 - The reference provider view bug on Windows
