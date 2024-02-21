@@ -69,9 +69,9 @@ export class CodelensProvider implements vscode.CodeLensProvider {
 		let locations: vscode.Location[] = [];
 		metaDatas.forEach((metaData) => {
 			const pathRefine = metaData.path;
-			const lineNUmbers = parser.getLineNumbers(guid, pathRefine);
+			const lineNumber = parser.getLineNumbers(guid, pathRefine);
 			const uri = vscode.Uri.file(pathRefine);
-			lineNUmbers.forEach((lineNumber) => {
+			lineNumber.forEach((lineNumber) => {
 				locations.push(new vscode.Location(uri, new vscode.Position(lineNumber, 0)));
 			});
 		});
