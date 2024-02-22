@@ -3,7 +3,7 @@ import * as GuidConnector from './guidConnector';
 import * as Logger from './logger';
 
 export function getGuid(data: string) {
-    let regex = /guid: (.*)/;
+    let regex = /guid: (\w+)/;
     let match = data.match(regex);
     return match ? match[1] : '';
 }
@@ -25,7 +25,7 @@ export async function parseUnityAssets(path: string) {
         const lineData = data.split(/\r?\n/);
         for (let i = 0; i < lineData.length; i++) {
             var guid = getGuid(lineData[i]);
-            if (lineData[i].includes(guid)) {
+            if (guid != '') {
                 GuidConnector.addLocation(guid, path, i);
             }
         }

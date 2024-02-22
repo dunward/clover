@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import path = require('path');
 
 var guidByUri: Map<vscode.Uri, string> = new Map<vscode.Uri, string>();
 var locationByGuid: Map<string, vscode.Location[]> = new Map<string, vscode.Location[]>();
@@ -16,11 +17,14 @@ function mapLocation(guid: string, location: vscode.Location) {
     }
 }
 
-export function addGuid(path: string, guid: string) {
-    mapGuid(vscode.Uri.file(path), guid);
+export function addGuid(filePath: string, guid: string) {
+    var parsePath = path.parse(filePath);
+    mapGuid(vscode.Uri.file(path.join(parsePath.dir, parsePath.name)), guid);
 }
 
 export function getGuidByUri(uri: vscode.Uri) {
+    console.log(uri);
+    console.log(guidByUri);
     var guid = guidByUri.get(uri);
     return guid ?? '';
 }
@@ -31,7 +35,7 @@ export function addLocation(guid: string, path: string, lineNumber: number) {
     mapLocation(guid, location);
 }
 
-export function getLocationsByUri(guid: string) {
+export function getLocationsByGuid(guid: string) {
     console.log(locationByGuid);
     return locationByGuid.get(guid);
 }
