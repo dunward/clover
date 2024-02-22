@@ -68,12 +68,6 @@
     },
     "commands": [
       {
-        "command": "clover.findMetaReference",
-        "category": "Clover",
-        "enablement": "resourceExtname == .cs || resourceExtname == .asset",
-        "title": "Find Meta Reference"
-      },
-      {
         "command": "clover.refreshUnityProject",
         "category": "Clover",
         "title": "Refresh Unity Project",
@@ -89,9 +83,6 @@
         }
       ],
       "clover.helper": [
-        {
-          "command": "clover.findMetaReference"
-        },
         {
           "command": "clover.refreshUnityProject"
         }
@@ -128,8 +119,5 @@
     "glob": "^8.0.1",
     "mocha": "^9.2.2",
     "typescript": "^4.6.4"
-  },
-  "dependencies": {
-    "@vscode/codicons": "^0.0.35"
   }
 }
