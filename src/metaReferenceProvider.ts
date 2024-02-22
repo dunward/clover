@@ -1,9 +1,7 @@
 import * as vscode from 'vscode';
-import path = require("path");
-import * as parser from './parser';
-import * as loader from './loader';
-import { outputLog } from './logger';
-import { MetaData } from './metaData';
+import * as GuidConnector from './guidConnector';
+import * as Logger from './logger';
+import path = require('path');
 
 class MetaReferenceCodeLens extends vscode.CodeLens {
 	constructor(
@@ -16,25 +14,21 @@ class MetaReferenceCodeLens extends vscode.CodeLens {
 }
 
 export class MetaReferenceProvider implements vscode.CodeLensProvider {
-
 	private codeLenses: vscode.CodeLens[] = [];
 	private _onDidChangeCodeLenses: vscode.EventEmitter<void> = new vscode.EventEmitter<void>();
 	public readonly onDidChangeCodeLenses: vscode.Event<void> = this._onDidChangeCodeLenses.event;
 
 	constructor() {
-		let file = vscode.window.activeTextEditor?.document.uri.fsPath;
-		
 		vscode.workspace.onDidChangeConfiguration((_) => {
 			this._onDidChangeCodeLenses.fire();
 		});
 
-		outputLog("Initialize succeed CodeLens Provider");
+		Logger.outputLog("Initialize succeed CodeLens Provider");
 	}
 
 	public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] | Thenable<vscode.CodeLens[]> {
 			this.codeLenses = [];
-
-			const regex = new RegExp(`class ${path.parse(document.uri.fsPath).name}`);
+			const regex = new RegExp(`class ${path.parse(document.fileName).name}`);
 			const text = document.getText();
 			let matches;
 			if ((matches = regex.exec(text)) !== null) {
@@ -45,36 +39,22 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 	}
 
 	public resolveCodeLens(codeLens: MetaReferenceCodeLens, token: vscode.CancellationToken) {
-		var guid = parser.getGuid(`${codeLens.document.fsPath}.meta`);
-		var metaDatas = loader.getMetaData(guid);
-		var locations = this.getLocations(guid, metaDatas);
-
+		var locations = GuidConnector.getLocations(codeLens.document);
+		var length = locations?.length || 0;
+		
 		codeLens.command = {
-			title: this.getTitle(metaDatas),
-			command: metaDatas.length == 0 ? "clover.noReferenceMessage" : "editor.action.showReferences",
+			title: this.getTitle(length),
+			command: length == 0 ? "clover.noReferenceMessage" : "editor.action.showReferences",
 			arguments: [codeLens.document, codeLens.range.start, locations],
 		};
 		return codeLens;
 	}
 
-	getTitle(metaDatas: MetaData[]): string {
-		if (metaDatas.length <= 1) {
-			return `$(custom-unity) ${metaDatas.length} meta reference`;
+	getTitle(length: number): string {	
+		if (length <= 1) {
+			return `$(custom-unity) ${length} meta reference`;
 		} else {
-			return `$(custom-unity) ${metaDatas.length} meta references`;
+			return `$(custom-unity) ${length} meta references`;
 		}
-	}
-
-	getLocations(guid: string, metaDatas: MetaData[]): vscode.Location[] {
-		let locations: vscode.Location[] = [];
-		metaDatas.forEach((metaData) => {
-			const pathRefine = metaData.path;
-			const lineNumber = parser.getLineNumbers(guid, pathRefine);
-			const uri = vscode.Uri.file(pathRefine);
-			lineNumber.forEach((lineNumber) => {
-				locations.push(new vscode.Location(uri, new vscode.Position(lineNumber, 0)));
-			});
-		});
-		return locations;
 	}
 }
