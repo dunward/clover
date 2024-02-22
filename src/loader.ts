@@ -20,7 +20,7 @@ export async function initialize(context: vscode.ExtensionContext) {
   if (workspace !== undefined) {
     var workspacePath = workspace[0].uri.fsPath;
     assetPath = path.join(workspacePath, 'Assets');
-    refreshUnityProject(workspacePath);
+    await refreshUnityProject(assetPath);
     // var validProject = isUnityProject(workspacePath);
     // updateStatus<boolean>('clover.workspace.valid', validProject);
 

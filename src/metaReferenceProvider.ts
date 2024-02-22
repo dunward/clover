@@ -39,10 +39,10 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 	}
 
 	public resolveCodeLens(codeLens: MetaReferenceCodeLens, token: vscode.CancellationToken) {
-		console.log(codeLens.document);
-		const guid = GuidConnector.getGuidByUri(codeLens.document);
+		console.log(`${codeLens.file}`);
+		const guid = GuidConnector.getGuidByPath(codeLens.file);
 		console.log(guid);
-		var locations = GuidConnector.getLocationsByUri(guid);
+		var locations = GuidConnector.getLocationsByGuid(guid);
 		var length = locations?.length || 0;
 		
 		codeLens.command = {
