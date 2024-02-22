@@ -1,27 +1,37 @@
 import * as vscode from 'vscode';
 
-var pathByGuid: Map<string, string> = new Map<string, string>();
-var locationByUri: Map<vscode.Uri, vscode.Location[]> = new Map<vscode.Uri, vscode.Location[]>();
+var guidByUri: Map<vscode.Uri, string> = new Map<vscode.Uri, string>();
+var locationByGuid: Map<string, vscode.Location[]> = new Map<string, vscode.Location[]>();
 
-function mapPath(guid: string, path: string) {
-    pathByGuid.set(guid, path);
+function mapGuid(uri: vscode.Uri, guid: string) {
+    guidByUri.set(uri, guid);
 }
 
-function mapLocation(uri: vscode.Uri, location: vscode.Location) {
-    if (locationByUri.has(uri)) {
-        var list = locationByUri.get(uri);
+function mapLocation(guid: string, location: vscode.Location) {
+    if (locationByGuid.has(guid)) {
+        var list = locationByGuid.get(guid);
         list?.push(location);
     } else {
-        locationByUri.set(uri, [location]);
+        locationByGuid.set(guid, [location]);
     }
 }
 
-export function getLocations(uri: vscode.Uri) {
-    return locationByUri.get(uri);
+export function addGuid(path: string, guid: string) {
+    mapGuid(vscode.Uri.file(path), guid);
 }
 
-export function addLocation(path: string, lineNumber: number) {
+export function getGuidByUri(uri: vscode.Uri) {
+    var guid = guidByUri.get(uri);
+    return guid ?? '';
+}
+
+export function addLocation(guid: string, path: string, lineNumber: number) {
     const uri = vscode.Uri.file(path);
     const location = new vscode.Location(uri, new vscode.Position(lineNumber, 0));
-    mapLocation(uri, location);
+    mapLocation(guid, location);
+}
+
+export function getLocationsByUri(guid: string) {
+    console.log(locationByGuid);
+    return locationByGuid.get(guid);
 }

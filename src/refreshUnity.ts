@@ -15,7 +15,7 @@ export function refreshUnityProject(dirPath: string): Promise<void> {
                 if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
                     await refreshUnityProject(path.join(dirPath, file));
                 } else if (extname === '.meta' && file.includes('.cs.meta')) {
-
+                    GuidParser.parseUnityCsGuid(path.join(dirPath, file));
                 } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
                     GuidParser.parseUnityAssets(path.join(dirPath, file));
                 }
