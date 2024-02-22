@@ -68,12 +68,6 @@
     },
     "commands": [
       {
-        "command": "clover.findMetaReference",
-        "category": "Clover",
-        "enablement": "resourceExtname == .cs || resourceExtname == .asset",
-        "title": "Find Meta Reference"
-      },
-      {
         "command": "clover.refreshUnityProject",
         "category": "Clover",
         "title": "Refresh Unity Project",
@@ -89,9 +83,6 @@
         }
       ],
       "clover.helper": [
-        {
-          "command": "clover.findMetaReference"
-        },
         {
           "command": "clover.refreshUnityProject"
         }

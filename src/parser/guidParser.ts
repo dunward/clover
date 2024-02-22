@@ -1,6 +1,6 @@
 import fs = require('fs');
 import * as GuidConnector from './guidConnector';
-import * as Logger from './logger';
+import * as Logger from '../logger';
 
 export function getGuid(data: string) {
     let regex = /guid: (\w+)/;

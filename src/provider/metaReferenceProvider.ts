@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import * as GuidConnector from './guidConnector';
-import * as Logger from './logger';
+import * as GuidConnector from '../parser/guidConnector';
+import * as Logger from '../logger';
 import path = require('path');
 
 class MetaReferenceCodeLens extends vscode.CodeLens {
