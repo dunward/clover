@@ -15,7 +15,7 @@ class MetaReferenceCodeLens extends vscode.CodeLens {
 	}
 }
 
-export class CodelensProvider implements vscode.CodeLensProvider {
+export class MetaReferenceProvider implements vscode.CodeLensProvider {
 
 	private codeLenses: vscode.CodeLens[] = [];
 	private _onDidChangeCodeLenses: vscode.EventEmitter<void> = new vscode.EventEmitter<void>();

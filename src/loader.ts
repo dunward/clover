@@ -4,9 +4,9 @@ import path = require('path');
 import { outputLog } from './logger';
 import { getGuid, getGuids } from './parser';
 import { updateStatus } from './vscode/command';
-import { CodelensProvider } from './codelensProvider';
+import { MetaReferenceProvider } from './codelensProvider';
 import { MetaExplorer } from './metaExplorer';
-import { MainViewProvider } from './view/mainViewProvider';
+import { MainViewProvider } from './webView/mainViewProvider';
 import { MetaData } from './metaData';
 import { isUnityProject } from './untiyChecker';
 
@@ -32,7 +32,7 @@ export async function initialize(context: vscode.ExtensionContext) {
     await refreshUnityProject();
     updateStatus<boolean>('clover.unity.initialized', true);
 
-    const codelensProvider = new CodelensProvider();
+    const codelensProvider = new MetaReferenceProvider();
     vscode.languages.registerCodeLensProvider('csharp', codelensProvider);
     metaExplorer = new MetaExplorer(context);
   }
