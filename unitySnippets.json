@@ -1,5 +1,5 @@
 {
-    "Unity-MonoBehaviour-Awake": {
+    "UnityEngine.MonoBehaviour.Awake": {
         "prefix": "Awake",
         "body": [
             "private void Awake()",
@@ -9,7 +9,7 @@
         ],
         "description": "Awake is always called before any Start functions. This allows you to order initialization of scripts."
     },
-    "Unity-MonoBehaviour-OnEnable": {
+    "UnityEngine.MonoBehaviour.OnEnable": {
         "prefix": "OnEnable",
         "body": [
             "private void OnEnable()",
@@ -19,7 +19,7 @@
         ],
         "description": "This function is called when the object becomes enabled and active."
     },
-    "Unity-MonoBehaviour-Reset": {
+    "UnityEngine.MonoBehaviour.Reset": {
         "prefix": "Reset",
         "body": [
             "private void Reset()",
@@ -29,7 +29,7 @@
         ],
         "description": "Reset is called when the user hits the Reset button in the Inspector's context menu or when adding the component the first time. This function is only called in editor mode."
     },
-    "Unity-MonoBehaviour-Start": {
+    "UnityEngine.MonoBehaviour.Start": {
         "prefix": "Start",
         "body": [
             "private void Start()",
@@ -39,7 +39,7 @@
         ],
         "description": "Start is called on the frame when a script is enabled just before any of the Update methods are called the first time."
     },
-    "Unity-MonoBehaviour-FixedUpdate": {
+    "UnityEngine.MonoBehaviour.FixedUpdate": {
         "prefix": "FixedUpdate",
         "body": [
             "private void FixedUpdate()",
@@ -49,7 +49,7 @@
         ],
         "description": "MonoBehaviour.FixedUpdate has the frequency of the physics system; it is called every fixed frame-rate frame."
     },
-    "Unity-MonoBehaviour-OnTriggerEnter": {
+    "UnityEngine.MonoBehaviour.OnTriggerEnter": {
         "prefix": "OnTriggerEnter",
         "body": [
             "private void OnTriggerEnter(Collider collider)",
@@ -59,7 +59,7 @@
         ],
         "description": "OnTriggerEnter happens on the FixedUpdate function when two GameObjects collide."
     },
-    "Unity-MonoBehaviour-OnTriggerStay": {
+    "UnityEngine.MonoBehaviour.OnTriggerStay": {
         "prefix": "OnTriggerStay",
         "body": [
             "private void OnTriggerStay(Collider collider)",
@@ -69,7 +69,7 @@
         ],
         "description": "OnTriggerStay is called almost all the frames for every Collider other that is touching the trigger."
     },
-    "Unity-MonoBehaviour-OnTriggerExit": {
+    "UnityEngine.MonoBehaviour.OnTriggerExit": {
         "prefix": "OnTriggerExit",
         "body": [
             "private void OnTriggerExit(Collider collider)",
@@ -79,7 +79,7 @@
         ],
         "description": "OnTriggerExit is called when the Collider other has stopped touching the trigger."
     },
-    "Unity-MonoBehaviour-OnCollisionEnter": {
+    "UnityEngine.MonoBehaviour.OnCollisionEnter": {
         "prefix": "OnCollisionEnter",
         "body": [
             "private void OnCollisionEnter(Collision collision)",
@@ -89,7 +89,7 @@
         ],
         "description": "OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider."
     },
-    "Unity-MonoBehaviour-OnCollisionStay": {
+    "UnityEngine.MonoBehaviour.OnCollisionStay": {
         "prefix": "OnCollisionStay",
         "body": [
             "private void OnCollisionStay(Collision collision)",
@@ -99,7 +99,7 @@
         ],
         "description": "OnCollisionStay is called once per frame for every Collider or Rigidbody that touches another Collider or Rigidbody."
     },
-    "Unity-MonoBehaviour-OnCollisionExit": {
+    "UnityEngine.MonoBehaviour.OnCollisionExit": {
         "prefix": "OnCollisionExit",
         "body": [
             "private void OnCollisionExit(Collision collision)",
@@ -109,7 +109,7 @@
         ],
         "description": "OnCollisionExit is called when this collider/rigidbody has stopped touching another rigidbody/collider."
     },
-    "Unity-MonoBehaviour-OnMouseEnter": {
+    "UnityEngine.MonoBehaviour.OnMouseEnter": {
         "prefix": "OnMouseEnter",
         "body": [
             "private void OnMouseEnter()",
@@ -119,7 +119,7 @@
         ],
         "description": "Called when the mouse enters the Collider."
     },
-    "Unity-MonoBehaviour-OnMouseExit": {
+    "UnityEngine.MonoBehaviour.OnMouseExit": {
         "prefix": "OnMouseExit",
         "body": [
             "private void OnMouseExit()",
@@ -129,7 +129,7 @@
         ],
         "description": "Called when the mouse is not any longer over the Collider."
     },
-    "Unity-MonoBehaviour-OnMouseDown": {
+    "UnityEngine.MonoBehaviour.OnMouseDown": {
         "prefix": "OnMouseDown",
         "body": [
             "private void OnMouseDown()",
@@ -139,7 +139,7 @@
         ],
         "description": "OnMouseDown is called when the user has pressed the mouse button while over the Collider."
     },
-    "Unity-MonoBehaviour-OnMouseUp": {
+    "UnityEngine.MonoBehaviour.OnMouseUp": {
         "prefix": "OnMouseUp",
         "body": [
             "private void OnMouseUp()",
@@ -149,7 +149,7 @@
         ],
         "description": "OnMouseUp is called when the user has released the mouse button."
     },
-    "Unity-MonoBehaviour-OnMouseUpAsButton": {
+    "UnityEngine.MonoBehaviour.OnMouseUpAsButton": {
         "prefix": "OnMouseUpAsButton",
         "body": [
             "private void OnMouseUpAsButton()",
@@ -159,7 +159,7 @@
         ],
         "description": "OnMouseUpAsButton is only called when the mouse is released over the same Collider as it was pressed."
     },
-    "Unity-MonoBehaviour-OnMouseOver": {
+    "UnityEngine.MonoBehaviour.OnMouseOver": {
         "prefix": "OnMouseOver",
         "body": [
             "private void OnMouseOver()",
@@ -169,7 +169,7 @@
         ],
         "description": "Called every frame while the mouse is over the Collider."
     },
-    "Unity-MonoBehaviour-OnMouseDrag": {
+    "UnityEngine.MonoBehaviour.OnMouseDrag": {
         "prefix": "OnMouseDrag",
         "body": [
             "private void OnMouseDrag()",
@@ -179,7 +179,7 @@
         ],
         "description": "OnMouseDrag is called when the user has clicked on a Collider and is still holding down the mouse."
     },
-    "Unity-MonoBehaviour-Update": {
+    "UnityEngine.MonoBehaviour.Update": {
         "prefix": "Update",
         "body": [
             "private void Update()",
@@ -189,7 +189,7 @@
         ],
         "description": "Update is called every frame, if the MonoBehaviour is enabled."
     },
-    "Unity-MonoBehaviour-LateUpdate": {
+    "UnityEngine.MonoBehaviour.LateUpdate": {
         "prefix": "LateUpdate",
         "body": [
             "private void LateUpdate()",
@@ -199,7 +199,7 @@
         ],
         "description": "LateUpdate is called every frame, if the Behaviour is enabled."
     },
-    "Unity-MonoBehaviour-PreCull": {
+    "UnityEngine.MonoBehaviour.PreCull": {
         "prefix": "PreCull",
         "body": [
             "private void PreCull()",
@@ -209,7 +209,7 @@
         ],
         "description": "Event function that Unity calls before a Camera culls the scene."
     },
-    "Unity-MonoBehaviour-OnWillRenderObject": {
+    "UnityEngine.MonoBehaviour.OnWillRenderObject": {
         "prefix": "OnWillRenderObject",
         "body": [
             "private void OnWillRenderObject()",
@@ -219,7 +219,7 @@
         ],
         "description": "OnWillRenderObject is called for each camera if the object is visible and not a UI element."
     },
-    "Unity-MonoBehaviour-OnBecameVisible": {
+    "UnityEngine.MonoBehaviour.OnBecameVisible": {
         "prefix": "OnBecameVisible",
         "body": [
             "private void OnBecameVisible()",
@@ -229,7 +229,7 @@
         ],
         "description": "OnBecameVisible is called when the renderer became visible by any camera."
     },
-    "Unity-MonoBehaviour-OnBecameInvisible": {
+    "UnityEngine.MonoBehaviour.OnBecameInvisible": {
         "prefix": "OnBecameInvisible",
         "body": [
             "private void OnBecameInvisible()",
@@ -239,7 +239,7 @@
         ],
         "description": "OnBecameInvisible is called when the renderer is no longer visible by any camera."
     },
-    "Unity-MonoBehaviour-OnPreRender": {
+    "UnityEngine.MonoBehaviour.OnPreRender": {
         "prefix": "OnPreRender",
         "body": [
             "private void OnPreRender()",
@@ -249,7 +249,7 @@
         ],
         "description": "Event function that Unity calls before a Camera renders the scene."
     },
-    "Unity-MonoBehaviour-OnRenderObject": {
+    "UnityEngine.MonoBehaviour.OnRenderObject": {
         "prefix": "OnRenderObject",
         "body": [
             "private void OnRenderObject()",
@@ -259,7 +259,7 @@
         ],
         "description": "OnRenderObject is called after camera has rendered the scene."
     },
-    "Unity-MonoBehaviour-OnPostRender": {
+    "UnityEngine.MonoBehaviour.OnPostRender": {
         "prefix": "OnPostRender",
         "body": [
             "private void OnPostRender()",
@@ -269,7 +269,7 @@
         ],
         "description": "Event function that Unity calls after a Camera renders the scene."
     },
-    "Unity-MonoBehaviour-OnRenderImage": {
+    "UnityEngine.MonoBehaviour.OnRenderImage": {
         "prefix": "OnRenderImage",
         "body": [
             "private void OnRenderImage(RenderTexture src, RenderTexture dest)",
@@ -279,7 +279,7 @@
         ],
         "description": "Event function that Unity calls after a Camera has finished rendering, that allows you to modify the Camera's final image."
     },
-    "Unity-MonoBehaviour-OnDrawGizmos": {
+    "UnityEngine.MonoBehaviour.OnDrawGizmos": {
         "prefix": "OnDrawGizmos",
         "body": [
             "private void OnDrawGizmos()",
@@ -289,7 +289,7 @@
         ],
         "description": "OnDrawGizmos is called when the gizmos are drawn."
     },
-    "Unity-MonoBehaviour-OnGUI": {
+    "UnityEngine.MonoBehaviour.OnGUI": {
         "prefix": "OnGUI",
         "body": [
             "private void OnGUI()",
@@ -299,7 +299,7 @@
         ],
         "description": "OnGUI is called for rendering and handling GUI events."
     },
-    "Unity-MonoBehaviour-OnApplicationPause": {
+    "UnityEngine.MonoBehaviour.OnApplicationPause": {
         "prefix": "OnApplicationPause",
         "body": [
             "private void OnApplicationPause(bool pauseStatus)",
@@ -309,7 +309,7 @@
         ],
         "description": "Sent to all GameObjects when the playing application pauses or resumes on losing or regaining focus."
     },
-    "Unity-MonoBehaviour-OnApplicationQuit": {
+    "UnityEngine.MonoBehaviour.OnApplicationQuit": {
         "prefix": "OnApplicationQuit",
         "body": [
             "private void OnApplicationQuit()",
@@ -319,7 +319,7 @@
         ],
         "description": "Sent to all GameObjects before the application quits."
     },
-    "Unity-MonoBehaviour-OnDisable": {
+    "UnityEngine.MonoBehaviour.OnDisable": {
         "prefix": "OnDisable",
         "body": [
             "private void OnDisable()",
@@ -329,7 +329,7 @@
         ],
         "description": "This function is called when the behaviour becomes disabled."
     },
-    "Unity-MonoBehaviour-OnDestroy": {
+    "UnityEngine.MonoBehaviour.OnDestroy": {
         "prefix": "OnDestroy",
         "body": [
             "private void OnDestroy()",
