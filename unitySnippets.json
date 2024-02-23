@@ -59,6 +59,16 @@
         ],
         "description": "OnTriggerEnter happens on the FixedUpdate function when two GameObjects collide."
     },
+    "UnityEngine.MonoBehaviour.OnTriggerEnter2D": {
+        "prefix": "OnTriggerEnter2D",
+        "body": [
+            "private void OnTriggerEnter2D(Collider2D collider)",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Sent when another object enters a trigger collider attached to this object (2D physics only)."
+    },
     "UnityEngine.MonoBehaviour.OnTriggerStay": {
         "prefix": "OnTriggerStay",
         "body": [
@@ -68,6 +78,16 @@
             "}"
         ],
         "description": "OnTriggerStay is called almost all the frames for every Collider other that is touching the trigger."
+    },
+    "UnityEngine.MonoBehaviour.OnTriggerStay2D": {
+        "prefix": "OnTriggerStay2D",
+        "body": [
+            "private void OnTriggerStay2D(Collider2D collider)",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Sent each frame where another object is within a trigger collider attached to this object (2D physics only)."
     },
     "UnityEngine.MonoBehaviour.OnTriggerExit": {
         "prefix": "OnTriggerExit",
@@ -79,6 +99,16 @@
         ],
         "description": "OnTriggerExit is called when the Collider other has stopped touching the trigger."
     },
+    "UnityEngine.MonoBehaviour.OnTriggerExit2D": {
+        "prefix": "OnTriggerExit2D",
+        "body": [
+            "private void OnTriggerExit2D(Collider2D collider)",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Sent when another object leaves a trigger collider attached to this object (2D physics only)."
+    },
     "UnityEngine.MonoBehaviour.OnCollisionEnter": {
         "prefix": "OnCollisionEnter",
         "body": [
@@ -88,6 +118,16 @@
             "}"
         ],
         "description": "OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider."
+    },
+    "UnityEngine.MonoBehaviour.OnCollisionEnter2D": {
+        "prefix": "OnCollisionEnter2D",
+        "body": [
+            "private void OnCollisionEnter2D(Collision2D collision)",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Sent when an incoming collider makes contact with this object's collider (2D physics only)."
     },
     "UnityEngine.MonoBehaviour.OnCollisionStay": {
         "prefix": "OnCollisionStay",
@@ -99,6 +139,16 @@
         ],
         "description": "OnCollisionStay is called once per frame for every Collider or Rigidbody that touches another Collider or Rigidbody."
     },
+    "UnityEngine.MonoBehaviour.OnCollisionStay2D": {
+        "prefix": "OnCollisionStay2D",
+        "body": [
+            "private void OnCollisionStay2D(Collision2D collision)",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Sent when a collider on another object stops touching this object's collider (2D physics only)."
+    },
     "UnityEngine.MonoBehaviour.OnCollisionExit": {
         "prefix": "OnCollisionExit",
         "body": [
@@ -108,6 +158,16 @@
             "}"
         ],
         "description": "OnCollisionExit is called when this collider/rigidbody has stopped touching another rigidbody/collider."
+    },
+    "UnityEngine.MonoBehaviour.OnCollisionExit2D": {
+        "prefix": "OnCollisionExit2D",
+        "body": [
+            "private void OnCollisionExit2D(Collision2D collision)",
+            "{",
+            "\t$1",
+            "}"
+        ],
+        "description": "Sent each frame where a collider on another object is touching this object's collider (2D physics only)."
     },
     "UnityEngine.MonoBehaviour.OnMouseEnter": {
         "prefix": "OnMouseEnter",
