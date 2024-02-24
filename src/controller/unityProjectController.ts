@@ -1,7 +1,7 @@
 import fs = require('fs');
 import path = require('path');
 import * as GuidParser from '../parser/guidParser';
-import * as Logger from '../logger';
+import * as Logger from '../vscodeUtils';
 
 export async function initialize(workspacePath: string) {
     const assetPath = path.join(workspacePath, 'Assets');

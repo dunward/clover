@@ -5,3 +5,10 @@ let clover = vscode.window.createOutputChannel("Clover");
 export function outputLog(log: string) {
     clover.appendLine(`[${new Date().toLocaleTimeString()}] ${log}`);
 }
+
+export function insertText(text: string) {
+    const editor = vscode.window.activeTextEditor;
+    editor?.edit(editBuilder => {
+        editBuilder.insert(editor.selection.active, text);
+    });
+}

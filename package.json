@@ -44,7 +44,7 @@
         {
           "id": "clover-activitybar",
           "title": "Clover",
-          "icon": "resources/dark/clover.svg"
+          "icon": "$(custom-unity)"
         }
       ]
     },
@@ -71,6 +71,12 @@
         "command": "clover.refreshUnityProject",
         "category": "Clover",
         "title": "Refresh Unity Project",
+        "enablement": "clover.workspace.valid"
+      },
+      {
+        "command": "clover.showAttributeHelper",
+        "category": "Clover",
+        "title": "Show Attribute Helper",
         "enablement": "clover.workspace.valid"
       }
     ],
