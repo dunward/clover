@@ -2,6 +2,7 @@ import fs = require('fs');
 import path = require('path');
 import * as GuidParser from '../parser/guidParser';
 import * as Logger from '../vscodeUtils';
+import * as UnityAssetConnector from '../unityAssetExplorer/unityAssetConnector';
 
 export async function initialize(workspacePath: string) {
     const assetPath = path.join(workspacePath, 'Assets');
@@ -25,6 +26,7 @@ export function refreshUnityProject(dirPath: string): Promise<void> {
                         GuidParser.parseUnityCsGuid(path.join(dirPath, file));
                     } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
                         GuidParser.parseUnityAssets(path.join(dirPath, file));
+                        if (extname !== '.asset') UnityAssetConnector.addAssetPath(path.join(dirPath, file));
                     }
                 }
                 resolve();
