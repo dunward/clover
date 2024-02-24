@@ -1,5 +1,17 @@
 ## Change Log
 
+## [0.3.0]
+### Added
+- Add attribute helper
+- Add 2D collision, trigger snippets
+
+### Changed
+- Refactoring refresh project logic, code structure
+- Activity bar icon clover to unity logo
+
+### Deleted
+- Clover activity bar always focus tab when extension initailized
+
 ## [0.2.0]
 ### Added
 - Add unity event snippets

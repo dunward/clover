@@ -1,8 +1,8 @@
 {
   "name": "clover-unity",
   "displayName": "Clover",
-  "description": "Unity Support Extension",
-  "version": "0.2.0",
+  "description": "Unity Engine Extension",
+  "version": "0.3.0",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -44,7 +44,7 @@
         {
           "id": "clover-activitybar",
           "title": "Clover",
-          "icon": "resources/dark/clover.svg"
+          "icon": "$(custom-unity)"
         }
       ]
     },
@@ -68,15 +68,15 @@
     },
     "commands": [
       {
-        "command": "clover.findMetaReference",
-        "category": "Clover",
-        "enablement": "resourceExtname == .cs || resourceExtname == .asset",
-        "title": "Find Meta Reference"
-      },
-      {
         "command": "clover.refreshUnityProject",
         "category": "Clover",
         "title": "Refresh Unity Project",
+        "enablement": "clover.workspace.valid"
+      },
+      {
+        "command": "clover.showAttributeHelper",
+        "category": "Clover",
+        "title": "Show Attribute Helper",
         "enablement": "clover.workspace.valid"
       }
     ],
@@ -89,9 +89,6 @@
         }
       ],
       "clover.helper": [
-        {
-          "command": "clover.findMetaReference"
-        },
         {
           "command": "clover.refreshUnityProject"
         }
@@ -128,8 +125,5 @@
     "glob": "^8.0.1",
     "mocha": "^9.2.2",
     "typescript": "^4.6.4"
-  },
-  "dependencies": {
-    "@vscode/codicons": "^0.0.35"
   }
 }

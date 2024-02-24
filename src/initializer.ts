@@ -1,11 +1,23 @@
 import * as vscode from 'vscode';
-import { initialize as loaderInit } from './loader';
-import { initialize as commandInit } from './vscode/command';
+import * as CommandController from './controller/commandController';
+import * as ProviderController from './controller/providerController';
+import * as UnityProjectController from './controller/unityProjectController';
 
-export function initialize(context: vscode.ExtensionContext) {
-    // file loader initialize
-    loaderInit(context);
+export async function initialize(context: vscode.ExtensionContext) {
+    const workspace = vscode.workspace.workspaceFolders;
 
-    // command register initialize
-    commandInit(context);
+    if (workspace !== undefined) {
+        var workspacePath = workspace[0].uri.fsPath;
+        if (!UnityProjectController.isUnityProject(workspacePath)) return;
+
+        await UnityProjectController.initialize(workspacePath);
+        
+        ProviderController.initialize(context);
+        
+        CommandController.updateStatus<boolean>('clover.workspace.valid', true);
+        // CommandController.updateStatus<boolean>('clover.unity.initialized', true);
+
+        CommandController.initialize(context, workspacePath);
+    }
 }
+
