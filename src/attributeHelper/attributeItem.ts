@@ -1,4 +1,17 @@
 import * as vscode from 'vscode';
+import * as VSCodeUtils from '../vscodeUtils';
+
+export async function showAttributeHelper() {
+    const selected = await vscode.window.showQuickPick(items, { placeHolder: 'Select attribute' });
+
+    if (selected) {
+        VSCodeUtils.insertText(selected.attribute);
+    }
+}
+
+interface AttributeItem extends vscode.QuickPickItem {
+    attribute: string;
+}
 
 const items: AttributeItem[] = [
     // field
@@ -64,11 +77,3 @@ const items: AttributeItem[] = [
         attribute: '[ExecuteInEditMode]'
     },
 ];
-
-export function getAttributeItems(): AttributeItem[] {
-    return items;
-}
-
-interface AttributeItem extends vscode.QuickPickItem {
-    attribute: string;
-}
