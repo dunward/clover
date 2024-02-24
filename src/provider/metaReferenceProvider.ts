@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as GuidConnector from '../parser/guidConnector';
 import * as Logger from '../vscodeUtils';
 import path = require('path');
+import * as u from '../unityAssetExplorer/unityAssetConnector';
 
 class MetaReferenceCodeLens extends vscode.CodeLens {
 	constructor(

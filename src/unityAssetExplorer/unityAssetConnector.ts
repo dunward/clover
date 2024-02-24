@@ -7,3 +7,8 @@ export function addAssetPath(path: string) {
 export function getAssetPaths(): string[] {
     return assetPaths;
 }
+
+export function refresh() {
+    console.log(assetPaths);
+    assetPaths = [];
+}

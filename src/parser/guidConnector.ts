@@ -36,3 +36,8 @@ export function addLocation(guid: string, path: string, lineNumber: number) {
 export function getLocationsByGuid(guid: string) {
     return locationByGuid.get(guid);
 }
+
+export function refresh() {
+    guidByPath.clear();
+    locationByGuid.clear();
+}

@@ -2,16 +2,45 @@ import fs = require('fs');
 import path = require('path');
 import * as GuidParser from '../parser/guidParser';
 import * as Logger from '../vscodeUtils';
+
 import * as UnityAssetConnector from '../unityAssetExplorer/unityAssetConnector';
+import * as GuidConnector from '../parser/guidConnector';
+
+var assetPath = '';
+var refreshStartCallback: Function[] = [];
+var refreshEndCallback: Function[] = [];
 
 export async function initialize(workspacePath: string) {
-    const assetPath = path.join(workspacePath, 'Assets');
-    Logger.outputLog("Start initializing Unity project");
-    await refreshUnityProject(assetPath);
-    Logger.outputLog("Unity project initialized");
+    assetPath = path.join(workspacePath, 'Assets');
+    addRefreshStartCallback(() => GuidConnector.refresh());
+    addRefreshStartCallback(() => UnityAssetConnector.refresh());
+    await refresh();
 }
 
-export function refreshUnityProject(dirPath: string): Promise<void> {
+export async function refresh() {
+    Logger.outputLog("Start refreshing Unity project");
+    refreshStartCallback.forEach((callback) => callback());
+    await refreshUnityProject(assetPath);
+    refreshEndCallback.forEach((callback) => callback());
+    Logger.outputLog("Unity project refreshed");
+}
+
+export function addRefreshStartCallback(callback: Function) {
+    refreshStartCallback.push(callback);
+}
+
+export function addRefreshEndCallback(callback: Function) {
+    refreshEndCallback.push(callback);
+}
+
+export function isUnityProject(projectPath: string): boolean {
+    var assetPath = path.join(projectPath, 'Assets');
+    var projectSettingsPath = path.join(projectPath, 'ProjectSettings');
+    
+    return fs.existsSync(assetPath) && fs.existsSync(projectSettingsPath);
+}
+
+function refreshUnityProject(dirPath: string): Promise<void> {
     return new Promise((resolve, reject) => {
         fs.readdir(dirPath, (err, files) => {
             if (err) {
@@ -34,11 +63,4 @@ export function refreshUnityProject(dirPath: string): Promise<void> {
             }
         });
     });
-}
-
-export function isUnityProject(projectPath: string): boolean {
-    var assetPath = path.join(projectPath, 'Assets');
-    var projectSettingsPath = path.join(projectPath, 'ProjectSettings');
-    
-    return fs.existsSync(assetPath) && fs.existsSync(projectSettingsPath);
 }
