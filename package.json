@@ -44,7 +44,7 @@
         {
           "id": "clover-activitybar",
           "title": "Clover",
-          "icon": "resources/dark/clover.svg"
+          "icon": "$(custom-unity)"
         }
       ]
     },
