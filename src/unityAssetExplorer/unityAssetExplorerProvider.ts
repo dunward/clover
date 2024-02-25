@@ -18,14 +18,38 @@ class UnityAssetProvider implements vscode.TreeDataProvider<UnityAssetTreeItem> 
         return element;
     }
 
-    getChildren(): Thenable<UnityAssetTreeItem[]> {
-        return Promise.resolve(this.items);
+    addItem(item: string): void {
+        const parts = item.split(path.sep);
+        let currentItems = this.items;
+    
+        parts.forEach((part, index) => {
+            let item = currentItems.find(item => item.label === part && item.depth === index);
+    
+            if (!item) {
+                item = new UnityAssetTreeItem(
+                    part,
+                    index < parts.length - 1 ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
+                    index
+                );
+                currentItems.push(item);
+            }
+    
+            if (!item.children) {
+                item.children = [];
+            }
+    
+            currentItems = item.children;
+        });
+    
+        this.refresh();
     }
 
-    addItem(label: string): void {
-        const item = new UnityAssetTreeItem(label, vscode.TreeItemCollapsibleState.None);
-        this.items.push(item);
-        this.refresh();
+    getChildren(element?: UnityAssetTreeItem): Thenable<UnityAssetTreeItem[]> {
+        if (element) {
+            return Promise.resolve(element.children ?? []);
+        } else {
+            return Promise.resolve(this.items);
+        }
     }
 
     clearItems(): void {
@@ -38,19 +62,25 @@ class UnityAssetTreeItem extends vscode.TreeItem {
     constructor(
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-        public readonly command?: vscode.Command
+        public readonly depth: number,
+        public children?: UnityAssetTreeItem[],
+        public readonly command?: vscode.Command,
+        public readonly resourceUri?: vscode.Uri
     ) {
         super(label, collapsibleState);
 
-        const workspacePath = VSCodeUtils.getWorkspacePath();
-        const relativePath = path.relative(workspacePath, label);
         if (path.parse(label).ext === '.unity')
             this.iconPath = new vscode.ThemeIcon("unity-symbol");
-        else
+        else if (path.parse(label).ext === '.prefab')
             this.iconPath = new vscode.ThemeIcon("unity-prefab");
-        this.label = relativePath;
+        this.label = label;
         this.tooltip = this.label;
         this.description = '';
+        if (collapsibleState === vscode.TreeItemCollapsibleState.None) {
+            this.children = undefined;
+        } else {
+            this.children = children ? children : [];
+        }
     }
 }
   
