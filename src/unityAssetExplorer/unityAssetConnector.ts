@@ -9,6 +9,5 @@ export function getAssetPaths(): string[] {
 }
 
 export function refresh() {
-    console.log(assetPaths);
     assetPaths = [];
 }

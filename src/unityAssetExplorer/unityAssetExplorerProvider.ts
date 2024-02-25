@@ -72,6 +72,5 @@ export class UnityAssetExplorer {
         UnityAssetConnector.getAssetPaths().forEach((filePath) => {
             this.unityAssetProvider.addItem(filePath);
         });
-        console.log('UnityAssetExplorer refreshed');
     }
 }
