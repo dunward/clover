@@ -4,10 +4,6 @@ import * as unityProjectController from '../controller/unityProjectController';
 import path = require('path');
 import * as VSCodeUtils from '../vscodeUtils';
 
-interface TreeItemData {
-    filePath: string;
-}
-
 class UnityAssetProvider implements vscode.TreeDataProvider<UnityAssetTreeItem> {
     private _onDidChangeTreeData: vscode.EventEmitter<UnityAssetTreeItem | undefined> = new vscode.EventEmitter<UnityAssetTreeItem | undefined>();
     readonly onDidChangeTreeData: vscode.Event<UnityAssetTreeItem | undefined> = this._onDidChangeTreeData.event;
@@ -42,7 +38,6 @@ class UnityAssetTreeItem extends vscode.TreeItem {
     constructor(
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-        public readonly data?: TreeItemData,
         public readonly command?: vscode.Command
     ) {
         super(label, collapsibleState);
