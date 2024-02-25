@@ -74,8 +74,8 @@
         },
         {
           "type": "tree",
-          "id": "clover.metaExplorer",
-          "name": "Meta Explorer",
+          "id": "clover.unityAssetExplorer",
+          "name": "Asset Explorer",
           "when": "clover.workspace.valid"
         }
       ]
