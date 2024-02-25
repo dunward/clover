@@ -19,7 +19,8 @@ class UnityAssetProvider implements vscode.TreeDataProvider<UnityAssetTreeItem> 
     }
 
     addItem(item: string): void {
-        const parts = item.split(path.sep);
+        var replativePath = path.relative(VSCodeUtils.getWorkspacePath(), item);
+        const parts = replativePath.split(path.sep);
         let currentItems = this.items;
     
         parts.forEach((part, index) => {
@@ -63,9 +64,7 @@ class UnityAssetTreeItem extends vscode.TreeItem {
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
         public readonly depth: number,
-        public children?: UnityAssetTreeItem[],
-        public readonly command?: vscode.Command,
-        public readonly resourceUri?: vscode.Uri
+        public children?: UnityAssetTreeItem[]
     ) {
         super(label, collapsibleState);
 
@@ -90,7 +89,7 @@ export class UnityAssetExplorer {
 
 	constructor(context: vscode.ExtensionContext) {
         this.unityAssetProvider = new UnityAssetProvider();
-        this.unityAssetTreeView = vscode.window.createTreeView('clover.metaExplorer', { treeDataProvider: this.unityAssetProvider });
+        this.unityAssetTreeView = vscode.window.createTreeView('clover.unityAssetExplorer', { treeDataProvider: this.unityAssetProvider });
         this.refresh();
 		context.subscriptions.push(this.unityAssetTreeView);
         unityProjectController.addRefreshEndCallback(() => this.refresh());
