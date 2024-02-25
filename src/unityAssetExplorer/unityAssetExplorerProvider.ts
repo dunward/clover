@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import * as UnityAssetConnector from './unityAssetConnector';
 import * as unityProjectController from '../controller/unityProjectController';
+import path = require('path');
+import * as VSCodeUtils from '../vscodeUtils';
 
 interface TreeItemData {
     filePath: string;
@@ -45,10 +47,13 @@ class UnityAssetTreeItem extends vscode.TreeItem {
     ) {
         super(label, collapsibleState);
 
-        if (data) {
-            this.resourceUri = vscode.Uri.file(data.filePath);
-        }
-
+        const workspacePath = VSCodeUtils.getWorkspacePath();
+        const relativePath = path.relative(workspacePath, label);
+        if (path.parse(label).ext === '.unity')
+            this.iconPath = new vscode.ThemeIcon("unity-symbol");
+        else
+            this.iconPath = new vscode.ThemeIcon("unity-prefab");
+        this.label = relativePath;
         this.tooltip = this.label;
         this.description = '';
     }
@@ -64,7 +69,6 @@ export class UnityAssetExplorer {
         this.refresh();
 		context.subscriptions.push(this.unityAssetTreeView);
         unityProjectController.addRefreshEndCallback(() => this.refresh());
-
     }
 
     public refresh(): void {
