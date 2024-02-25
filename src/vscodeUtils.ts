@@ -12,3 +12,7 @@ export function insertText(text: string) {
         editBuilder.insert(editor.selection.active, text);
     });
 }
+
+export function getWorkspacePath(): string {
+    return vscode.workspace.workspaceFolders?.[0].uri.fsPath || "";
+}
