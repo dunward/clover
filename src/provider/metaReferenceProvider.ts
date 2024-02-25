@@ -54,9 +54,9 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 
 	getTitle(length: number): string {	
 		if (length <= 1) {
-			return `$(custom-unity) ${length} meta reference`;
+			return `$(unity-symbol) ${length} meta reference`;
 		} else {
-			return `$(custom-unity) ${length} meta references`;
+			return `$(unity-symbol) ${length} meta references`;
 		}
 	}
 }
