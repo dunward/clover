@@ -24,14 +24,10 @@ class UnityAssetViewer {
     }
 
     public static show() {
-        const column = vscode.window.activeTextEditor
-            ? vscode.window.activeTextEditor.viewColumn
-            : undefined;
-
         const panel = vscode.window.createWebviewPanel(
             this.viewType,
             'Unity Asset Viewer',
-            column || vscode.ViewColumn.Beside,
+            vscode.ViewColumn.Beside,
             {
                 enableScripts: true,
                 // localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')]
@@ -49,8 +45,7 @@ class UnityAssetViewer {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			</head>
 			<body>
-				<h1>codicons</h1>
-				<div id="icons">
+				<div>
                 
 				</div>
 			</body>
