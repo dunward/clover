@@ -92,32 +92,24 @@
         "category": "Clover",
         "title": "Show Attribute Helper",
         "enablement": "clover.workspace.valid"
+      },
+      {
+        "command": "clover.showUnityAssetViewer",
+        "category": "Clover",
+        "title": "Show Unity Asset Viewer",
+        "icon": "$(unity-symbol)"
+
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "submenu": "clover.helper",
-          "when": "clover.unity.initialized",
-          "group": "navigation@1"
-        }
-      ],
-      "clover.helper": [
-        {
-          "command": "clover.refreshUnityProject"
+          "command": "clover.showUnityAssetViewer",
+          "group": "navigation@1",
+          "when": "resourceExtname == .prefab || resourceExtname == .unity"
         }
       ]
-    },
-    "submenus": [
-      {
-        "id": "clover.helper",
-        "label": "Clover",
-        "icon": {
-          "dark": "resources/dark/clover.svg",
-          "light": "resources/light/clover.svg"
-        }
-      }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
