@@ -23,8 +23,6 @@ export function addGuid(filePath: string, guid: string) {
 }
 
 export function getGuidByPath(filePath: string) {
-    console.log(filePath);
-    console.log(guidByPath);
     var guid = guidByPath.get(filePath);
     return guid ?? '';
 }
@@ -36,6 +34,10 @@ export function addLocation(guid: string, path: string, lineNumber: number) {
 }
 
 export function getLocationsByGuid(guid: string) {
-    console.log(locationByGuid);
     return locationByGuid.get(guid);
+}
+
+export function refresh() {
+    guidByPath.clear();
+    locationByGuid.clear();
 }

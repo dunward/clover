@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as GuidConnector from '../parser/guidConnector';
 import * as Logger from '../vscodeUtils';
 import path = require('path');
+import * as u from '../unityAssetExplorer/unityAssetConnector';
 
 class MetaReferenceCodeLens extends vscode.CodeLens {
 	constructor(
@@ -39,9 +40,7 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 	}
 
 	public resolveCodeLens(codeLens: MetaReferenceCodeLens, token: vscode.CancellationToken) {
-		console.log(`${codeLens.file}`);
 		const guid = GuidConnector.getGuidByPath(codeLens.file);
-		console.log(guid);
 		var locations = GuidConnector.getLocationsByGuid(guid);
 		var length = locations?.length || 0;
 		
@@ -55,9 +54,9 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 
 	getTitle(length: number): string {	
 		if (length <= 1) {
-			return `$(custom-unity) ${length} meta reference`;
+			return `$(unity-symbol) ${length} meta reference`;
 		} else {
-			return `$(custom-unity) ${length} meta references`;
+			return `$(unity-symbol) ${length} meta references`;
 		}
 	}
 }

@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 import { MetaReferenceProvider } from '../provider/metaReferenceProvider';
-import { MetaExplorer } from '../provider/metaExplorer';
+import { UnityAssetExplorer } from '../unityAssetExplorer/unityAssetExplorerProvider';
 import { MainViewProvider } from '../provider/mainViewProvider';
 
 export function initialize(context: vscode.ExtensionContext) {
-    const metaExplorer = new MetaExplorer(context);
+    const unityAssetExplorer = new UnityAssetExplorer(context);
 
     const mainViewProvider = new MainViewProvider(context.extensionUri);
     vscode.window.registerWebviewViewProvider('clover.mainView', mainViewProvider);
