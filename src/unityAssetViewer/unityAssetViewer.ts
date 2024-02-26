@@ -43,10 +43,34 @@ class UnityAssetViewer {
 			<head>
 				<meta charset="UTF-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <style>
+                    div {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    div.left {
+                        width: 50%;
+                        float: left;
+		                overflow-y: auto;
+                    }
+
+                    div.right {
+                        width: 50%;
+                        float: right;
+                        overflow-y: auto;
+                    }
+                </style>
 			</head>
 			<body>
 				<div>
-                
+                    <div class="left">
+                        <h2>Hierachy</h1>
+                    </div>
+                    <div class="right">
+                        <h2>Inspector</h1>
+                    </div>
 				</div>
 			</body>
 			</html>`;
