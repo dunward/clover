@@ -18,8 +18,8 @@ class UnityAssetProvider implements vscode.TreeDataProvider<UnityAssetTreeItem> 
         return element;
     }
 
-    addItem(item: string): void {
-        var replativePath = path.relative(VSCodeUtils.getWorkspacePath(), item);
+    addItem(filePath: string): void {
+        var replativePath = path.relative(VSCodeUtils.getWorkspacePath(), filePath);
         const parts = replativePath.split(path.sep);
         let currentItems = this.items;
     
@@ -30,7 +30,8 @@ class UnityAssetProvider implements vscode.TreeDataProvider<UnityAssetTreeItem> 
                 item = new UnityAssetTreeItem(
                     part,
                     index < parts.length - 1 ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None,
-                    index
+                    index,
+                    index === parts.length - 1 ? vscode.Uri.file(filePath) : undefined
                 );
                 currentItems.push(item);
             }
@@ -64,6 +65,7 @@ class UnityAssetTreeItem extends vscode.TreeItem {
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
         public readonly depth: number,
+        public resourceUri?: vscode.Uri,
         public children?: UnityAssetTreeItem[]
     ) {
         super(label, collapsibleState);
@@ -73,8 +75,7 @@ class UnityAssetTreeItem extends vscode.TreeItem {
         else if (path.parse(label).ext === '.prefab')
             this.iconPath = new vscode.ThemeIcon("unity-prefab");
         this.label = label;
-        this.tooltip = this.label;
-        this.description = '';
+        this.resourceUri = resourceUri;
         if (collapsibleState === vscode.TreeItemCollapsibleState.None) {
             this.children = undefined;
         } else {
