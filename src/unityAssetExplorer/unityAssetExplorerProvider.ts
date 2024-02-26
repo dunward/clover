@@ -15,6 +15,9 @@ class UnityAssetProvider implements vscode.TreeDataProvider<UnityAssetTreeItem> 
     }
 
     getTreeItem(element: UnityAssetTreeItem): vscode.TreeItem {
+        if (element.resourceUri) {
+            element.command = { command: 'vscode.open', title: 'Open', arguments: [element.resourceUri] };
+        }
         return element;
     }
 
