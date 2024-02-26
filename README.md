@@ -17,6 +17,12 @@ You can find meta references of the current .cs file using CodeLens.
 
 <img src="resources/codelens.png" width=700>
 
+## Unity Asset Explorer
+Unity scene, prefab file explorer
+
+<img src="resources/assetexplorer.png" width=300>
+
+
 ## Snippets
 Support unity code snippets.
 
