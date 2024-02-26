@@ -1,5 +1,15 @@
 ## Change Log
 
+## [0.4.0]
+### Added
+- Add unity asset explorer
+
+### Deleted
+- Remove meta explorer
+
+### Fixed
+- Reference duplicated when unity project refresh
+
 ## [0.3.0]
 ### Added
 - Add attribute helper

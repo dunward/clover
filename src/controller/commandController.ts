@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import path = require('path');
-import { refreshUnityProject } from './unityProjectController';
+import { refresh } from './unityProjectController';
 import { showAttributeHelper } from '../attributeHelper/attributeItem';
 
 export function updateStatus<T>(name: string, value: T) {
@@ -8,8 +8,7 @@ export function updateStatus<T>(name: string, value: T) {
 }
 
 export function initialize(context: vscode.ExtensionContext, workspacePath: string) {
-    const assetPath = path.join(workspacePath, 'Assets');
-	registerCommand(context, 'clover.refreshUnityProject', () => refreshUnityProject(assetPath));
+	registerCommand(context, 'clover.refreshUnityProject', () => refresh());
 	registerCommand(context, 'clover.noReferenceMessage', () => vscode.window.showInformationMessage("No reference found"));
 	registerCommand(context, 'clover.showAttributeHelper', () => showAttributeHelper());
 }

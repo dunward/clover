@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Engine Extension",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -25,11 +25,25 @@
   "main": "./out/extension.js",
   "contributes": {
     "icons": {
-      "custom-unity": {
-        "description": "unity icon",
+      "unity-symbol": {
+        "description": "unity symbol icon",
         "default": {
-          "fontPath": "./custom.woff",
+          "fontPath": "./clover-icon.woff",
+          "fontCharacter": "\\e902"
+        }
+      },
+      "unity-prefab": {
+        "description": "unity prefab icon",
+        "default": {
+          "fontPath": "./clover-icon.woff",
           "fontCharacter": "\\e900"
+        }
+      },
+      "unity-game-object": {
+        "description": "unity game object icon",
+        "default": {
+          "fontPath": "./clover-icon.woff",
+          "fontCharacter": "\\e901"
         }
       }
     },
@@ -44,7 +58,7 @@
         {
           "id": "clover-activitybar",
           "title": "Clover",
-          "icon": "$(custom-unity)"
+          "icon": "$(unity-symbol)"
         }
       ]
     },
@@ -60,8 +74,8 @@
         },
         {
           "type": "tree",
-          "id": "clover.metaExplorer",
-          "name": "Meta Explorer",
+          "id": "clover.unityAssetExplorer",
+          "name": "Asset Explorer",
           "when": "clover.workspace.valid"
         }
       ]
