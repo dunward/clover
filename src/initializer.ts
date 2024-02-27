@@ -12,7 +12,7 @@ export async function initialize(context: vscode.ExtensionContext) {
     await UnityProjectController.initialize(workspacePath);
     
     ProviderController.initialize(context);
-    UnityAssetViewer.init();
+    UnityAssetViewer.init(context);
     
     CommandController.updateStatus<boolean>('clover.workspace.valid', true);
     // CommandController.updateStatus<boolean>('clover.unity.initialized', true);
