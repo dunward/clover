@@ -1,0 +1,12 @@
+.hierachy-object {
+    font-size: 14px;
+    width: 200px;
+    border: 1px solid black;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+}

@@ -9,7 +9,7 @@ export function init(context: vscode.ExtensionContext) {
                 if (selection === 'YES') {
                     UnityAssetViewer.show(context, fileName);
                 }
-            
+
             });
         }
     });
@@ -31,10 +31,11 @@ class UnityAssetViewer {
         );
 
         const fontUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'clover-icon.woff'))
-        panel.webview.html = this.getHtmlForWebview(path, fontUri);
+        const hierarchyCss = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'hierarchy.css'))
+        panel.webview.html = this.getHtmlForWebview(path, fontUri, hierarchyCss);
     }
 
-    private static getHtmlForWebview(path: string, fontUri: vscode.Uri) {
+    private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierachyCss: vscode.Uri) {
         var parser = new UnityYamlParser(path);
         var list = parser.getYamlDataList();
         console.log(list);
@@ -43,6 +44,9 @@ class UnityAssetViewer {
 			<head>
 				<meta charset="UTF-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <link href="${fontUri}" rel="stylesheet">
+                <link href="${hierachyCss}" rel="stylesheet">
 
                 <style>
                     @font-face {
@@ -67,18 +71,6 @@ class UnityAssetViewer {
                         overflow-y: auto;
                     }
 
-                    .hierachy-object {
-                        font-size: 14px;
-                        width: 200px;
-                        border: 1px solid black;
-                    }
-
-                    ul {
-                        list-style-type: none;
-                        margin: 0;
-                        padding: 0;
-                    }
-
                     .icon {
                         font-family: 'clover-icon';
                     }
@@ -89,8 +81,24 @@ class UnityAssetViewer {
                     <div class="left">
                         <h2>Hierachy</h1>
                         <ul id="hierachy">
-                            <li><div class="hierachy-object"><span class="icon">&#xe900;</span>asd</div></li>
-                        </ul>
+                        <li>
+                            <div class="hierachy-object"><span class="icon">&#xe900;</span>asd1</div>
+                            <ul>
+                                <li>
+                                    <div class="hierachy-object"><span class="icon">&#xe900;</span>asd1-1</div>
+                                </li>
+                                <li>
+                                    <div class="hierachy-object"><span class="icon">&#xe900;</span>asd1-2</div>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <div class="hierachy-object"><span class="icon">&#xe900;</span>asd2</div>
+                        </li>
+
+                        <li>
+                            <div class="hierachy-object"><span class="icon">&#xe900;</span>asd4</div>
+                        </li>
                     </div>
                     <div class="right">
                         <h2>Inspector</h1>
