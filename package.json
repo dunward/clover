@@ -28,21 +28,21 @@
       "unity-symbol": {
         "description": "unity symbol icon",
         "default": {
-          "fontPath": "./clover-icon.woff",
+          "fontPath": "./media/clover-icon.woff",
           "fontCharacter": "\\e902"
         }
       },
       "unity-prefab": {
         "description": "unity prefab icon",
         "default": {
-          "fontPath": "./clover-icon.woff",
+          "fontPath": "./media/clover-icon.woff",
           "fontCharacter": "\\e900"
         }
       },
       "unity-game-object": {
         "description": "unity game object icon",
         "default": {
-          "fontPath": "./clover-icon.woff",
+          "fontPath": "./media/clover-icon.woff",
           "fontCharacter": "\\e901"
         }
       }
@@ -98,7 +98,6 @@
         "category": "Clover",
         "title": "Show Unity Asset Viewer",
         "icon": "$(unity-symbol)"
-
       }
     ],
     "menus": {
@@ -131,5 +130,8 @@
     "glob": "^8.0.1",
     "mocha": "^9.2.2",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "unity-yaml-parser": "^0.1.2"
   }
 }
