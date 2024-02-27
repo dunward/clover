@@ -35,10 +35,23 @@ class UnityAssetViewer {
         panel.webview.html = this.getHtmlForWebview(path, fontUri, hierarchyCss);
     }
 
+    private static hierarchyBase(fileId: string, name: string) {
+        return `
+        <li>
+            <div class="hierachy-object"><span class="icon">&#xe900;</span>${name}</div>
+            <ul classId="${fileId}">
+            </ul>
+        </li>
+        `;
+    }
+
     private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierachyCss: vscode.Uri) {
         var parser = new UnityYamlParser(path);
         var list = parser.getYamlDataList();
-        console.log(list);
+        const gameObjects = list.filter((item) => item.classId == "1");
+        var test = gameObjects.map((item) => {
+            return this.hierarchyBase(item.fileId, item.data.GameObject.m_Name);
+        });
         return `<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -82,22 +95,7 @@ class UnityAssetViewer {
                         <h2>Hierachy</h1>
                         <ul id="hierachy">
                         <li>
-                            <div class="hierachy-object"><span class="icon">&#xe900;</span>asd1</div>
-                            <ul>
-                                <li>
-                                    <div class="hierachy-object"><span class="icon">&#xe900;</span>asd1-1</div>
-                                </li>
-                                <li>
-                                    <div class="hierachy-object"><span class="icon">&#xe900;</span>asd1-2</div>
-                            </ul>
-                        </li>
-                        
-                        <li>
-                            <div class="hierachy-object"><span class="icon">&#xe900;</span>asd2</div>
-                        </li>
-
-                        <li>
-                            <div class="hierachy-object"><span class="icon">&#xe900;</span>asd4</div>
+                            ${test.join('')}
                         </li>
                     </div>
                     <div class="right">
