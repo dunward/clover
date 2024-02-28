@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { UnityYamlParser } from 'unity-yaml-parser';
+import * as UnityYamlParser from 'unity-yaml-parser';
 
 export function init(context: vscode.ExtensionContext) {
     vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
@@ -39,19 +39,21 @@ class UnityAssetViewer {
         return `
         <li>
             <div class="hierachy-object"><span class="icon">&#xe900;</span>${name}</div>
-            <ul classId="${fileId}">
+            <ul id="${fileId}">
             </ul>
         </li>
         `;
     }
 
     private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierachyCss: vscode.Uri) {
-        var parser = new UnityYamlParser(path);
-        var list = parser.getYamlDataList();
-        const gameObjects = list.filter((item) => item.classId == "1");
+        var datas = UnityYamlParser.parse(path);
+        var gameObjects = datas.filter((item) => item.classId == "1");
+        var transforms = datas.filter((item) => item.classId == "4" || item.classId == "224");
+
         var test = gameObjects.map((item) => {
             return this.hierarchyBase(item.fileId, item.data.GameObject.m_Name);
         });
+
         return `<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -102,6 +104,52 @@ class UnityAssetViewer {
                         <h2>Inspector</h1>
                     </div>
 				</div>
+                <script>
+    // TypeScript에서 선언한 transforms를 전역 변수로 설정
+    const transforms = ${JSON.stringify(transforms)};
+    const hierarchy = document.getElementById('hierarchy');
+    
+    // updateHierarchy 함수를 정의
+    function updateHierarchy() {
+        // hierarchy를 업데이트하기 위한 코드
+        transforms.forEach(transform => {
+
+            console.log(transform);
+
+            let fatherId;
+            let gameObjectId;
+            if (transform.classId == "4")
+            {
+                const gameObjectId = transform.data.Transform.m_GameObject?.fileId ?? -1;
+                fatherId = transform.data.Transform.m_Father?.fileId ?? -1;
+            }
+            else
+            {
+                const gameObjectId = transform.data.RectTransform.m_GameObject?.fileId ?? -1;
+                fatherId = transform.data.RectTransform.m_Father?.fileId ?? -1;
+            }
+
+            if (fatherId == -1 || gameObjectId == -1) return;
+
+            // 해당 gameObjectId를 가진 요소를 찾기
+            const gameObjectElement = document.getElementById(gameObjectId);
+            
+            if (gameObjectElement) {
+                // 만약 해당 gameObjectId를 가진 요소가 존재한다면,
+                // 해당 요소를 다른 위치로 이동시킴 (부모 노드 바꾸기)
+                const fatherElement = document.getElementById(fatherId);
+                if (fatherElement) {
+                    fatherElement.appendChild(gameObjectElement);
+                } else {
+                    // 만약 fatherId에 해당하는 요소가 존재하지 않는다면, root로 이동시킴
+                    hierarchy.appendChild(gameObjectElement);
+                }
+            }
+        });
+    }
+    
+    updateHierarchy(); // updateHierarchy 함수 호출
+</script>
 			</body>
 			</html>`;
     }
