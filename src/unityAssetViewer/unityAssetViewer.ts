@@ -10,7 +10,7 @@ export function init(context: vscode.ExtensionContext) {
     vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
         const fileName = document.fileName;
         if (fileName.endsWith(".prefab") || fileName.endsWith(".unity")) {
-            vscode.window.showInformationMessage(`Open prefab, unity! Want to show this file with asset viewer?`, 'YES').then((selection) => {
+            vscode.window.showInformationMessage(`This file can be open with unity asset viewer. Do you want to open this file?`, 'YES').then((selection) => {
                 if (selection === 'YES') {
                     UnityAssetViewer.show(context, fileName);
                 }
