@@ -1,35 +1,30 @@
 function updateHierarchy(transforms) {
     const hierarchy = document.getElementById('hierarchy');
     transforms.forEach(transform => {
-        let fatherId;
-        let gameObjectId;
+        let myId;
+        let children;
         if (transform.classId == "4")
         {
-            gameObjectId = transform.fileId;
-            fatherId = transform.data.Transform.m_Father?.fileID ?? -1;
+            myId = transform.fileId;
+            children = transform.data.Transform.m_Children;
         }
         else
         {
-            console.log(transform.data.RectTransform);
-            gameObjectId = transform.fileId;
-            fatherId = transform.data.RectTransform.m_Father?.fileID ?? -1;
+            myId = transform.fileId;
+            children = transform.data.RectTransform.m_Children;
         }
 
-        console.log("I'm " + gameObjectId + "my father is " + fatherId);
-
-        if (fatherId == -1 || gameObjectId == -1) return;
-        if (fatherId == 0) return;
-
-        const gameObjectElement = document.getElementById(gameObjectId);
-        console.log(gameObjectElement);
-        
-        if (gameObjectElement) {
-            const fatherElement = document.getElementById(fatherId + "-children");
-            if (fatherElement) {
-                fatherElement.appendChild(gameObjectElement);
-            } else {
-                hierarchy.appendChild(gameObjectElement);
-            }
+        const myElement = document.getElementById(myId + "-children");
+        console.log(myElement);
+        if (children)
+        {
+            children.forEach(child => {
+                const childId = child.fileID;
+                const childElement = document.getElementById(childId);
+                if (childElement) {
+                    myElement.appendChild(childElement);
+                }
+            });
         }
     });
 }
