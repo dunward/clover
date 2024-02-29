@@ -31,8 +31,9 @@ class UnityAssetViewer {
         );
 
         const fontUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'clover-icon.woff'))
-        const hierarchyCss = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'hierarchy.css'))
-        panel.webview.html = this.getHtmlForWebview(path, fontUri, hierarchyCss);
+        const cssUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'hierarchy.css'))
+        const jsUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.js'))
+        panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri);
     }
 
     private static hierarchyBase(fileId: string, name: string) {
@@ -45,7 +46,7 @@ class UnityAssetViewer {
         `;
     }
 
-    private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri) {
+    private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
         var datas = UnityYamlParser.parse(path);
         var gameObjects = datas.filter((item) => item.classId == "1");
         var transforms = datas.filter((item) => (item.classId == "4" || item.classId == "224"));
@@ -63,6 +64,7 @@ class UnityAssetViewer {
                 }
             }
             )?.data.GameObject.m_Name ?? "Unknown";
+            if (name == "Unknown") console.log(item);
             return this.hierarchyBase(item.fileId, name);
         });
 
@@ -74,6 +76,7 @@ class UnityAssetViewer {
 
                 <link href="${fontUri}" rel="stylesheet">
                 <link href="${hierarchyCss}" rel="stylesheet">
+                <script src="${assetViewerJs}"></script>
 
                 <style>
                     @font-face {
@@ -118,45 +121,8 @@ class UnityAssetViewer {
                     </div>
 				</div>
                 <script>
-                const transforms = ${JSON.stringify(transforms)};
-                const hierarchy = document.getElementById('hierarchy');
-                
-                function updateHierarchy() {
-                    transforms.forEach(transform => {
-                        let fatherId;
-                        let gameObjectId;
-                        if (transform.classId == "4")
-                        {
-                            gameObjectId = transform.fileId;
-                            fatherId = transform.data.Transform.m_Father?.fileID ?? -1;
-                        }
-                        else
-                        {
-                            console.log(transform.data.RectTransform);
-                            gameObjectId = transform.fileId;
-                            fatherId = transform.data.RectTransform.m_Father?.fileID ?? -1;
-                        }
-
-                        console.log("I'm " + gameObjectId + "my father is " + fatherId);
-
-                        if (fatherId == -1 || gameObjectId == -1) return;
-                        if (fatherId == 0) return;
-
-                        const gameObjectElement = document.getElementById(gameObjectId);
-                        console.log(gameObjectElement);
-                        
-                        if (gameObjectElement) {
-                            const fatherElement = document.getElementById(fatherId + "-children");
-                            if (fatherElement) {
-                                fatherElement.appendChild(gameObjectElement);
-                            } else {
-                                hierarchy.appendChild(gameObjectElement);
-                            }
-                        }
-                    });
-                }
-                
-                updateHierarchy();
+                    updateHierarchy(${JSON.stringify(transforms)});
+                </script>
             </script>
 			</body>
 			</html>`;
