@@ -1,7 +1,7 @@
 import * as UnityYamlParser from 'unity-yaml-parser';
 
-var datas: Map<string, UnityYamlParser.UnityYamlData>;
-const transforms: UnityYamlParser.UnityYamlData[] = [];
+var datas: Map<string, UnityYamlParser.UnityYamlData> = new Map();
+var transforms: UnityYamlParser.UnityYamlData[] = [];
 
 export function getHierarchyHtmlTreeBase(fileId: string, name: string) {
     return `
@@ -14,6 +14,8 @@ export function getHierarchyHtmlTreeBase(fileId: string, name: string) {
 }
 
 export function initialize(path: string) {
+    datas.clear();
+    transforms = [];
     datas = UnityYamlParser.parse(path);
     datas.forEach((data) => {
         if ((data.classId == "4" || data.classId == "224") && !data.stripped) {
