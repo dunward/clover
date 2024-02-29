@@ -31,7 +31,7 @@ class UnityAssetViewer {
         );
 
         const fontUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'clover-icon.woff'))
-        const cssUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'hierarchy.css'))
+        const cssUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.css'))
         const jsUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.js'))
         panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri);
     }
@@ -77,35 +77,6 @@ class UnityAssetViewer {
                 <link href="${fontUri}" rel="stylesheet">
                 <link href="${hierarchyCss}" rel="stylesheet">
                 <script src="${assetViewerJs}"></script>
-
-                <style>
-                    @font-face {
-                        font-family: 'clover-icon';
-                        src: url('${fontUri}') format('woff');
-                    }
-
-                    div {
-                        width: 100%;
-                        height: 100%;
-                    }
-
-                    div.left {
-                        width: 50%;
-                        float: left;
-		                overflow-y: auto;
-                    }
-
-                    div.right {
-                        width: 50%;
-                        float: right;
-                        overflow-y: auto;
-                    }
-
-                    .icon {
-                        font-family: 'clover-icon';
-                        font-size: 16px;
-                    }
-                </style>
 			</head>
 			<body>
 				<div>
