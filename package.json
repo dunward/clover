@@ -105,7 +105,7 @@
         {
           "command": "clover.showUnityAssetViewer",
           "group": "navigation@1",
-          "when": "resourceExtname == .prefab || resourceExtname == .unity"
+          "when": "(resourceExtname == .prefab || resourceExtname == .unity) && clover.workspace.valid"
         }
       ]
     }

@@ -13,6 +13,6 @@ export function initialize(context: vscode.ExtensionContext, workspacePath: stri
 	registerCommand(context, 'clover.showAttributeHelper', () => showAttributeHelper());
 }
 
-function registerCommand(context: vscode.ExtensionContext, command: string, callback: (...args: any[]) => any) {
+export function registerCommand(context: vscode.ExtensionContext, command: string, callback: (...args: any[]) => any) {
     context.subscriptions.push(vscode.commands.registerCommand(command, callback));
 }

@@ -1,8 +1,12 @@
 import * as vscode from 'vscode';
 import * as Hierarchy from './hierarchy';
+import * as CommandController from '../controller/commandController';
+import * as VSCodeUtils from '../vscodeUtils';
 import path = require('path');
 
 export function init(context: vscode.ExtensionContext) {
+    CommandController.registerCommand(context, 'clover.showUnityAssetViewer', () => UnityAssetViewer.show(context, VSCodeUtils.getActiveFilePath()));
+
     vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
         const fileName = document.fileName;
         if (fileName.endsWith(".prefab") || fileName.endsWith(".unity")) {
@@ -20,13 +24,14 @@ class UnityAssetViewer {
 
     public static show(context: vscode.ExtensionContext, path: string) {
         const extensionUri = context.extensionUri;
+
         const panel = vscode.window.createWebviewPanel(
             this.viewType,
             'Unity Asset Viewer',
             vscode.ViewColumn.Beside,
             {
                 enableScripts: true,
-                localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')]
+                localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')],
             }
         );
 

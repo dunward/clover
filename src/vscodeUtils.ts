@@ -16,3 +16,7 @@ export function insertText(text: string) {
 export function getWorkspacePath(): string {
     return vscode.workspace.workspaceFolders?.[0].uri.fsPath || "";
 }
+
+export function getActiveFilePath(): string {
+    return vscode.window.activeTextEditor?.document.uri.fsPath || "";
+}
