@@ -1,5 +1,10 @@
 ## Change Log
 
+## [0.5.0]
+### Added
+- Add unity asset viewer (prefab, scene only)
+- Add unity asset viewer menu icon (prefab, unity extension only)
+
 ## [0.4.0]
 ### Added
 - Add unity asset explorer

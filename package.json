@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Engine Extension",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -28,21 +28,21 @@
       "unity-symbol": {
         "description": "unity symbol icon",
         "default": {
-          "fontPath": "./clover-icon.woff",
+          "fontPath": "./media/clover-icon.woff",
           "fontCharacter": "\\e902"
         }
       },
       "unity-prefab": {
         "description": "unity prefab icon",
         "default": {
-          "fontPath": "./clover-icon.woff",
+          "fontPath": "./media/clover-icon.woff",
           "fontCharacter": "\\e900"
         }
       },
       "unity-game-object": {
         "description": "unity game object icon",
         "default": {
-          "fontPath": "./clover-icon.woff",
+          "fontPath": "./media/clover-icon.woff",
           "fontCharacter": "\\e901"
         }
       }
@@ -92,32 +92,23 @@
         "category": "Clover",
         "title": "Show Attribute Helper",
         "enablement": "clover.workspace.valid"
+      },
+      {
+        "command": "clover.showUnityAssetViewer",
+        "category": "Clover",
+        "title": "Show Unity Asset Viewer",
+        "icon": "$(unity-symbol)"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "submenu": "clover.helper",
-          "when": "clover.unity.initialized",
-          "group": "navigation@1"
-        }
-      ],
-      "clover.helper": [
-        {
-          "command": "clover.refreshUnityProject"
+          "command": "clover.showUnityAssetViewer",
+          "group": "navigation@1",
+          "when": "(resourceExtname == .prefab || resourceExtname == .unity) && clover.workspace.valid"
         }
       ]
-    },
-    "submenus": [
-      {
-        "id": "clover.helper",
-        "label": "Clover",
-        "icon": {
-          "dark": "resources/dark/clover.svg",
-          "light": "resources/light/clover.svg"
-        }
-      }
-    ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -139,5 +130,8 @@
     "glob": "^8.0.1",
     "mocha": "^9.2.2",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "unity-yaml-parser": "^0.1.5"
   }
 }
