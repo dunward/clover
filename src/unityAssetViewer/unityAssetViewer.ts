@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as UnityYamlParser from 'unity-yaml-parser';
+import * as Hierarchy from './hierarchy';
 
 export function init(context: vscode.ExtensionContext) {
     vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
@@ -36,16 +37,6 @@ class UnityAssetViewer {
         panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri);
     }
 
-    private static hierarchyBase(fileId: string, name: string) {
-        return `
-        <li id="${fileId}">
-            <div class="hierarchy-object"><span class="icon">&#xe900;</span>${name}</div>
-            <ul id="${fileId}-children">
-            </ul>
-        </li>
-        `;
-    }
-
     private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
         var datas = UnityYamlParser.parse(path);
         var gameObjects = datas.filter((item) => item.classId == "1");
@@ -65,7 +56,7 @@ class UnityAssetViewer {
             }
             )?.data.GameObject.m_Name ?? "Unknown";
             if (name == "Unknown") console.log(item);
-            return this.hierarchyBase(item.fileId, name);
+            return Hierarchy.getHierarchyHtmlTreeBase(item.fileId, name);
         });
 
         return `<!DOCTYPE html>
