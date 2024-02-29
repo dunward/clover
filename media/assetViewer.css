@@ -23,11 +23,21 @@ div.right {
 .icon {
     font-family: 'clover-icon';
     font-size: 16px;
+    font-weight: normal;
 }
 
 .hierarchy-object {
     font-size: 16px;
     width: 200px;
+}
+
+h2 {
+    margin-bottom: 0;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 ul {

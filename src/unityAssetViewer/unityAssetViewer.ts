@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as Hierarchy from './hierarchy';
+import path = require('path');
 
 export function init(context: vscode.ExtensionContext) {
     vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
@@ -9,7 +10,6 @@ export function init(context: vscode.ExtensionContext) {
                 if (selection === 'YES') {
                     UnityAssetViewer.show(context, fileName);
                 }
-
             });
         }
     });
@@ -36,8 +36,8 @@ class UnityAssetViewer {
         panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri);
     }
 
-    private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
-        Hierarchy.initialize(path);
+    private static getHtmlForWebview(filePath: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
+        Hierarchy.initialize(filePath);
         var transforms = Hierarchy.getTransforms();
         var trees = transforms.map((transform) => {
             return Hierarchy.getHierarchyHtmlTreeBase(transform.fileId, Hierarchy.getTransformObjectName(transform) ?? "Unknown Object");
@@ -56,6 +56,7 @@ class UnityAssetViewer {
 				<div>
                     <div class="left">
                         <h2>Hierarchy</h1>
+                        <h3><span class="icon">&#xe902;</span> ${path.basename(filePath)}</h3>
                         <ul id="hierarchy">
                         <li>
                             ${trees.join('')}
