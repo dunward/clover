@@ -38,18 +38,18 @@ class UnityAssetViewer {
     private static hierarchyBase(fileId: string, name: string) {
         return `
         <li id="${fileId}">
-            <div class="hierachy-object"><span class="icon">&#xe900;</span>${name}</div>
+            <div class="hierarchy-object"><span class="icon">&#xe900;</span>${name}</div>
             <ul id="${fileId}-children">
             </ul>
         </li>
         `;
     }
 
-    private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierachyCss: vscode.Uri) {
+    private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri) {
         var datas = UnityYamlParser.parse(path);
         var gameObjects = datas.filter((item) => item.classId == "1");
-        var transforms = datas.filter((item) => item.classId == "4" || item.classId == "224");
-
+        var transforms = datas.filter((item) => (item.classId == "4" || item.classId == "224"));
+        
         var test = transforms.map((item) => {
             const name = gameObjects.find((gameObject) => 
             {
@@ -73,7 +73,7 @@ class UnityAssetViewer {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
                 <link href="${fontUri}" rel="stylesheet">
-                <link href="${hierachyCss}" rel="stylesheet">
+                <link href="${hierarchyCss}" rel="stylesheet">
 
                 <style>
                     @font-face {
@@ -100,14 +100,15 @@ class UnityAssetViewer {
 
                     .icon {
                         font-family: 'clover-icon';
+                        font-size: 16px;
                     }
                 </style>
 			</head>
 			<body>
 				<div>
                     <div class="left">
-                        <h2>Hierachy</h1>
-                        <ul id="hierachy">
+                        <h2>hierarchy</h1>
+                        <ul id="hierarchy">
                         <li>
                             ${test.join('')}
                         </li>
