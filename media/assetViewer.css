@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'clover-icon';
+    src: url('clover-icon.woff') format('woff');
+}
+
+div {
+    width: 100%;
+    height: 100%;
+}
+
+div.left {
+    width: 50%;
+    float: left;
+    overflow-y: auto;
+}
+
+div.right {
+    width: 50%;
+    float: right;
+    overflow-y: auto;
+}
+
+.icon {
+    font-family: 'clover-icon';
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.hierarchy-object {
+    font-size: 16px;
+    width: 200px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h3 {
+    margin-left: 7px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 14px;
+}
