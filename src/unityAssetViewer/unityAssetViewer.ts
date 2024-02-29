@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as UnityYamlParser from 'unity-yaml-parser';
 import * as Hierarchy from './hierarchy';
 
 export function init(context: vscode.ExtensionContext) {
@@ -38,27 +37,11 @@ class UnityAssetViewer {
     }
 
     private static getHtmlForWebview(path: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
-        var datas = UnityYamlParser.parse(path);
-        var gameObjects = datas.filter((item) => item.classId == "1");
-        var transforms = datas.filter((item) => (item.classId == "4" || item.classId == "224"));
-        
-        var test = transforms.map((item) => {
-            const name = gameObjects.find((gameObject) => 
-            {
-                if (item.classId == "4")
-                {
-                    return gameObject.fileId == item.data.Transform.m_GameObject?.fileID;
-                }
-                else
-                {
-                    return gameObject.fileId == item.data.RectTransform.m_GameObject?.fileID;
-                }
-            }
-            )?.data.GameObject.m_Name ?? "Unknown";
-            if (name == "Unknown") console.log(item);
-            return Hierarchy.getHierarchyHtmlTreeBase(item.fileId, name);
+        Hierarchy.initialize(path);
+        var transforms = Hierarchy.getTransforms();
+        var trees = transforms.map((transform) => {
+            return Hierarchy.getHierarchyHtmlTreeBase(transform.fileId, Hierarchy.getTransformObjectName(transform) ?? "Unknown Object");
         });
-
         return `<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -75,7 +58,7 @@ class UnityAssetViewer {
                         <h2>hierarchy</h1>
                         <ul id="hierarchy">
                         <li>
-                            ${test.join('')}
+                            ${trees.join('')}
                         </li>
                     </div>
                     <div class="right">
