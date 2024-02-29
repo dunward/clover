@@ -55,14 +55,14 @@ class UnityAssetViewer {
 			<body>
 				<div>
                     <div class="left">
-                        <h2>hierarchy</h1>
+                        <h2>Hierarchy</h1>
                         <ul id="hierarchy">
                         <li>
                             ${trees.join('')}
                         </li>
                     </div>
                     <div class="right">
-                        <h2>Inspector</h1>
+                    
                     </div>
 				</div>
                 <script>
