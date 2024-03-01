@@ -1,5 +1,10 @@
 ## Change Log
 
+## [0.5.1]
+### Added
+- Add unity meta reference in right click context-menu
+- Add unity meta reference in command `> Clover: Find Meta Reference`
+
 ## [0.5.0]
 ### Added
 - Add unity asset viewer (prefab, scene only)
