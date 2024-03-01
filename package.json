@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Engine Extension",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -98,6 +98,11 @@
         "category": "Clover",
         "title": "Show Unity Asset Viewer",
         "icon": "$(unity-symbol)"
+      },
+      {
+        "command": "clover.findMetaReference",
+        "category": "Clover",
+        "title": "Find Meta Reference"
       }
     ],
     "menus": {
@@ -106,6 +111,13 @@
           "command": "clover.showUnityAssetViewer",
           "group": "navigation@1",
           "when": "(resourceExtname == .prefab || resourceExtname == .unity) && clover.workspace.valid"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "clover.findMetaReference",
+          "when": "clover.workspace.valid && resourceExtname == .cs",
+          "group": "navigation"
         }
       ]
     }
