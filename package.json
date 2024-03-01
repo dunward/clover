@@ -100,9 +100,9 @@
         "icon": "$(unity-symbol)"
       },
       {
-        "command": "clover.findAssetReference",
+        "command": "clover.findMetaReference",
         "category": "Clover",
-        "title": "Find Asset Reference"
+        "title": "Find Meta Reference"
       }
     ],
     "menus": {
@@ -115,8 +115,8 @@
       ],
       "editor/context": [
         {
-          "command": "clover.findAssetReference",
-          "when": "clover.workspace.valid",
+          "command": "clover.findMetaReference",
+          "when": "clover.workspace.valid && resourceExtname == .cs",
           "group": "navigation"
         }
       ]
