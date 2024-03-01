@@ -98,6 +98,11 @@
         "category": "Clover",
         "title": "Show Unity Asset Viewer",
         "icon": "$(unity-symbol)"
+      },
+      {
+        "command": "clover.findMetaReference",
+        "category": "Clover",
+        "title": "Find Meta Reference"
       }
     ],
     "menus": {
@@ -106,6 +111,13 @@
           "command": "clover.showUnityAssetViewer",
           "group": "navigation@1",
           "when": "(resourceExtname == .prefab || resourceExtname == .unity) && clover.workspace.valid"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "clover.findMetaReference",
+          "when": "clover.workspace.valid && resourceExtname == .cs",
+          "group": "navigation"
         }
       ]
     }
