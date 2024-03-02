@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.5.2]
+### Fixed
+- Fix unity asset view when open prefab
+
 ## [0.5.1]
 ### Added
 - Add unity meta reference in right click context-menu
