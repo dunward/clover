@@ -17,6 +17,11 @@ You can find meta references of the current .cs file using CodeLens.
 
 <img src="resources/codelens.png" width=700>
 
+## Unity Asset Viewer
+You can check your prefab, scene file in VSCode.
+
+<img src="resources/hierarchy.png">
+
 ## Unity Asset Explorer
 Unity scene, prefab file explorer
 
