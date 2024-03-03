@@ -28,7 +28,7 @@ class UnityAssetViewer {
         const panel = vscode.window.createWebviewPanel(
             this.viewType,
             'Unity Asset Viewer',
-            vscode.ViewColumn.Beside,
+            vscode.ViewColumn.Active,
             {
                 enableScripts: true,
                 localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')],
