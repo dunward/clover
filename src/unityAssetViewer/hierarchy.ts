@@ -22,6 +22,8 @@ export function initialize(path: string) {
             transforms.push(data);
         }
     });
+    
+    return datas;
 }
 
 export function getTransforms() {
