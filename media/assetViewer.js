@@ -38,12 +38,11 @@ function gameObjectBaseHtml(gameObject) {
             </div>
             <div class="inspector-gameObject-base-right">
                 <div>
-                    <span class="icon">${getCheckBoxIcon(gameObject.m_IsActive)}</span>
-                    ${gameObject.m_Name}
+                    <span class="icon">${getCheckBoxIcon(gameObject.m_IsActive)}</span>${gameObject.m_Name}
                 </div>
                 <div class="flex-width">
-                    <div><span class="icon">&#xe935</span>Tag ${gameObject.m_TagString}</div>
-                    <div><span class="icon">&#xe92e</span>Layer ${gameObject.m_Layer}</div>
+                    <div><span class="icon">&#xe935</span> Tag ${gameObject.m_TagString}</div>
+                    <div><span class="icon">&#xe92e</span> Layer ${gameObject.m_Layer}</div>
                 </div>
             </div>
         </div>
