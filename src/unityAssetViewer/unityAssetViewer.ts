@@ -45,7 +45,7 @@ class UnityAssetViewer {
         Hierarchy.initialize(filePath);
         var transforms = Hierarchy.getTransforms();
         var trees = transforms.map((transform) => {
-            return Hierarchy.getHierarchyHtmlTreeBase(transform.fileId, Hierarchy.getTransformObjectName(transform) ?? "Unknown Object");
+            return Hierarchy.getHierarchyHtmlTreeBase(transform.fileId, Hierarchy.getTransformGameObject(transform)?.m_Name ?? "Unknown Object", Hierarchy.getTransform(transform)?.m_GameObject.fileID ?? "-1");
         });
         return `<!DOCTYPE html>
 			<html lang="en">
