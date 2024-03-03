@@ -52,6 +52,8 @@ function getComponentHtml(component) {
     switch (component.classId) {
         case "4":
             return getTransformHtml(component.data.Transform);
+        case "224":
+            return getRectTransformHtml(component.data.RectTransform);
         default:
             return getUnknownComponentHtml(component);
     }
@@ -61,6 +63,39 @@ function getTransformHtml(component) {
     return `
         <div class="inspector-object">
             <div><span class="icon">&#xe947</span><b>Transform</b></div>
+            <div class="property">
+                <div class="name">Position</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_LocalPosition.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_LocalPosition.y}</div>
+                    <div class="label">Z</div><div class="value">${component.m_LocalPosition.z}</div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Rotation</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_LocalRotation.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_LocalRotation.y}</div>
+                    <div class="label">Z</div><div class="value">${component.m_LocalRotation.z}</div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Scale</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_LocalScale.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_LocalScale.y}</div>
+                    <div class="label">Z</div><div class="value">${component.m_LocalScale.z}</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+function getRectTransformHtml(component) {
+    return `
+        <div class="inspector-object">
+            <div><span class="icon">&#xe947</span><b>Rect Transform</b></div>
             <div class="property">
                 <div class="name">Position</div>
                 <div class="content">
