@@ -28,7 +28,7 @@ function updateInspector(id) {
 
 function sampleHtml(componentId) {
     return `
-        <div>
+        <div class="inspector-object">
             ${componentId}
         </div>
     `;

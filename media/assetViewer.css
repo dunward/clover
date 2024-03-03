@@ -31,6 +31,17 @@ div.right {
     width: 200px;
 }
 
+.inspector-object {
+    font-size: 16px;
+    width: 90%;
+    min-height: 50px;
+    border: 2px solid var(--vscode-editorGroup-border);
+    border-radius: 3px;
+    border-style: dotted;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 h2 {
     margin-top: 0;
     margin-bottom: 0;
