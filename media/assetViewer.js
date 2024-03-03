@@ -38,13 +38,24 @@ function gameObjectBaseHtml(gameObject) {
             </div>
             <div class="inspector-gameObject-base-right">
                 <div>
-                    <input type="checkbox" disabled>
-                    hihi
+                    <span class="icon">${getCheckBoxIcon(gameObject.m_IsActive)}</span>
+                    ${gameObject.m_Name}
                 </div>
-                <div>test2</div>
+                <div class="flex-width">
+                    <div><span class="icon">&#xe935</span>Tag ${gameObject.m_TagString}</div>
+                    <div><span class="icon">&#xe92e</span>Layer ${gameObject.m_Layer}</div>
+                </div>
             </div>
         </div>
     `;
+}
+
+function getCheckBoxIcon(isActive) {
+    if (isActive == 1) {
+        return '&#xea52;';
+    } else {
+        return '&#xea53;';
+    }
 }
 
 function sampleHtml(componentId) {

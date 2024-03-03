@@ -44,6 +44,10 @@ div.right {
     padding-left: 10px;
 }
 
+.inspector .icon {
+    font-size: 12px;
+    margin-right: 3px;
+}
 
 .inspector-gameObject-base-left {
     float: left;
@@ -51,12 +55,24 @@ div.right {
 }
 
 .inspector-gameObject-base-left .icon {
-    font-size: 24px;
+    font-size: 32px;
 }
 
 .inspector-gameObject-base-right {
     float: right;
-    width: calc(100% - 32px);
+    margin-left: 3px;
+    width: calc(100% - 35px);
+}
+
+.inspector .flex-width {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inspector .flex-width div {
+    flex: 1;
+    display: flex;
+    align-items: center;
 }
 
 h2 {
