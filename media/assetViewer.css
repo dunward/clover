@@ -31,17 +31,23 @@ div.right {
     width: 90%;
 }
 
-.inspector-object {
+.inspector-object, .inspector-game-object {
     font-size: 16px;
     width: 90%;
-    min-height: 50px;
+    min-height: 30px;
+    height: auto;
     border: 2px solid var(--vscode-editorGroup-border);
-    border-radius: 3px;
+    border-radius: 10px;
     border-style: dotted;
     margin-top: 5px;
     margin-bottom: 5px;
     padding: 5px;
     padding-left: 10px;
+}
+
+.inspector-game-object {
+    display: flex;
+    align-items: center;
 }
 
 .inspector .icon {
@@ -50,7 +56,7 @@ div.right {
 }
 
 .inspector-gameObject-base-left {
-    float: left;
+    flex: 0 0 auto;
     width: 32px;
 }
 
@@ -59,9 +65,8 @@ div.right {
 }
 
 .inspector-gameObject-base-right {
-    float: right;
+    flex: 1 1 auto;
     margin-left: 3px;
-    width: calc(100% - 35px);
 }
 
 .inspector .flex-width {

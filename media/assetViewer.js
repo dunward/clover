@@ -24,15 +24,14 @@ function updateInspector(id) {
     inspector.innerHTML += gameObjectBaseHtml(gameObject);
     if (components) {
         components.forEach(component => {
-            console.log(datas.get(component.component.fileID).data);
-            inspector.innerHTML += sampleHtml(component.component.fileID);
+            inspector.innerHTML += getComponentHtml(datas.get(component.component.fileID));
         });
     }
 }
 
 function gameObjectBaseHtml(gameObject) {
     return `
-        <div class="inspector-object">
+        <div class="inspector-game-object">
             <div class="inspector-gameObject-base-left">
                 <span class="icon">&#xe901;</span>
             </div>
@@ -41,10 +40,36 @@ function gameObjectBaseHtml(gameObject) {
                     <span class="icon">${getCheckBoxIcon(gameObject.m_IsActive)}</span>${gameObject.m_Name}
                 </div>
                 <div class="flex-width">
-                    <div><span class="icon">&#xe935</span> Tag ${gameObject.m_TagString}</div>
-                    <div><span class="icon">&#xe92e</span> Layer ${gameObject.m_Layer}</div>
+                    <div><span class="icon">&#xe935</span><b>Tag:</b>${gameObject.m_TagString}</div>
+                    <div><span class="icon">&#xe92e</span><b>Layer:</b>${gameObject.m_Layer}</div>
                 </div>
             </div>
+        </div>
+    `;
+}
+
+function getComponentHtml(component) {
+    switch (component.classId) {
+        case "4":
+            return getTransformHtml(component);
+        default:
+            return getUnknownComponentHtml(component);
+    }
+}
+
+function getTransformHtml(component) {
+    return `
+        <div class="inspector-object">
+            <div><span class="icon">&#xe947</span><b>Transform</b></div>
+        </div>
+    `;
+}
+
+function getUnknownComponentHtml(component) {
+    return `
+        <div class="inspector-object">
+            <div>Unsupported component type : ${component.classId}</div>
+            <div><a href="https://github.com/novemberi/clover" target="_blank">Request to add this type</a></div>
         </div>
     `;
 }
@@ -55,14 +80,6 @@ function getCheckBoxIcon(isActive) {
     } else {
         return '&#xea53;';
     }
-}
-
-function sampleHtml(componentId) {
-    return `
-        <div class="inspector-object">
-            ${componentId}
-        </div>
-    `;
 }
 
 function updateHierarchy(transforms) {
