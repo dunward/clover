@@ -16,14 +16,35 @@ function initialize(_datas)
 }
 
 function updateInspector(id) {
-    document.getElementById('inspector').innerHTML = '';
-    var components = datas.get(id.toString()).data.GameObject.m_Component;
+    var inspector = document.getElementById('inspector');
+    var gameObject = datas.get(id.toString()).data.GameObject;
+    var components = gameObject.m_Component;
+
+    inspector.innerHTML = '';
+    inspector.innerHTML += gameObjectBaseHtml(gameObject);
     if (components) {
         components.forEach(component => {
-            const html = sampleHtml(component.component.fileID);
-            document.getElementById('inspector').innerHTML += html;
+            console.log(datas.get(component.component.fileID).data);
+            inspector.innerHTML += sampleHtml(component.component.fileID);
         });
     }
+}
+
+function gameObjectBaseHtml(gameObject) {
+    return `
+        <div class="inspector-object">
+            <div class="inspector-gameObject-base-left">
+                <span class="icon">&#xe901;</span>
+            </div>
+            <div class="inspector-gameObject-base-right">
+                <div>
+                    <input type="checkbox" disabled>
+                    hihi
+                </div>
+                <div>test2</div>
+            </div>
+        </div>
+    `;
 }
 
 function sampleHtml(componentId) {

@@ -28,7 +28,7 @@ div.right {
 
 .hierarchy-object {
     font-size: 16px;
-    width: 200px;
+    width: 90%;
 }
 
 .inspector-object {
@@ -40,6 +40,23 @@ div.right {
     border-style: dotted;
     margin-top: 5px;
     margin-bottom: 5px;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+
+.inspector-gameObject-base-left {
+    float: left;
+    width: 32px;
+}
+
+.inspector-gameObject-base-left .icon {
+    font-size: 24px;
+}
+
+.inspector-gameObject-base-right {
+    float: right;
+    width: calc(100% - 32px);
 }
 
 h2 {
