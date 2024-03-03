@@ -72,6 +72,7 @@ class UnityAssetViewer {
                     </div>
 				</div>
                 <script>
+                    initialize();
                     updateHierarchy(${JSON.stringify(transforms, (key, value) => 
                             typeof(value) === 'bigint' ? value.toString() : value
                             )});

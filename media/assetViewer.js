@@ -1,3 +1,12 @@
+function initialize()
+{
+    document.querySelectorAll('.hierarchy-object').forEach(element => {
+        element.addEventListener('click', function() {
+            console.log('Hierarchy object clicked:', this.id);
+        });
+    });
+}
+
 function updateHierarchy(transforms) {
     const hierarchy = document.getElementById('hierarchy');
     transforms.forEach(transform => {
