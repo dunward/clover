@@ -40,8 +40,8 @@ function gameObjectBaseHtml(gameObject) {
                     <span class="icon">${getCheckBoxIcon(gameObject.m_IsActive)}</span>${gameObject.m_Name}
                 </div>
                 <div class="flex-width">
-                    <div><span class="icon">&#xe935</span><b>Tag:</b>${gameObject.m_TagString}</div>
-                    <div><span class="icon">&#xe92e</span><b>Layer:</b>${gameObject.m_Layer}</div>
+                    <div><span class="icon">&#xe935</span><b>Tag&nbsp;</b>${gameObject.m_TagString}</div>
+                    <div><span class="icon">&#xe92e</span><b>Layer&nbsp;</b>${gameObject.m_Layer}</div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ function gameObjectBaseHtml(gameObject) {
 function getComponentHtml(component) {
     switch (component.classId) {
         case "4":
-            return getTransformHtml(component);
+            return getTransformHtml(component.data.Transform);
         default:
             return getUnknownComponentHtml(component);
     }
@@ -61,6 +61,30 @@ function getTransformHtml(component) {
     return `
         <div class="inspector-object">
             <div><span class="icon">&#xe947</span><b>Transform</b></div>
+            <div class="property">
+                <div class="name">Position</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_LocalPosition.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_LocalPosition.y}</div>
+                    <div class="label">Z</div><div class="value">${component.m_LocalPosition.z}</div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Rotation</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_LocalRotation.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_LocalRotation.y}</div>
+                    <div class="label">Z</div><div class="value">${component.m_LocalRotation.z}</div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Scale</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_LocalScale.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_LocalScale.y}</div>
+                    <div class="label">Z</div><div class="value">${component.m_LocalScale.z}</div>
+                </div>
+            </div>
         </div>
     `;
 }
