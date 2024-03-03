@@ -29,8 +29,10 @@ export function getTransforms() {
 }
 
 export function getTransformObjectName(transform: UnityYamlParser.UnityYamlData) {
-    if (transform.classId == "4")
-        return datas.get(transform.data.Transform.m_GameObject?.fileID.toString())?.data.GameObject.m_Name;
-    else if (transform.classId == "224")
-        return datas.get(transform.data.RectTransform.m_GameObject?.fileID.toString())?.data.GameObject.m_Name;
+    switch (transform.classId) {
+        case "4":
+            return datas.get(transform.data.Transform.m_GameObject?.fileID.toString())?.data.GameObject.m_Name;
+        case "224":
+            return datas.get(transform.data.RectTransform.m_GameObject?.fileID.toString())?.data.GameObject.m_Name;
+    }
 }
