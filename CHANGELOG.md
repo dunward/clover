@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.6.0]
+### Added
+- Add inspector view in unity assset viewer
+
 ## [0.5.2]
 ### Fixed
 - Fix unity asset view when open prefab
