@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Engine Extension",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "publisher": "november",
   "license": "MIT",
   "engines": {

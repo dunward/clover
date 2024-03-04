@@ -18,6 +18,7 @@ export class MainViewProvider implements vscode.WebviewViewProvider {
             <html>
             <body>
                 <h2>Clover for unity</h1>
+                <a href="https://github.com/novemberi/clover">Github</a>
             </body>
             </html>`;
     }

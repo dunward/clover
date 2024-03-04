@@ -24,11 +24,98 @@ div.right {
     font-family: 'clover-icon';
     font-size: 16px;
     font-weight: normal;
+    user-select: none;
 }
 
 .hierarchy-object {
     font-size: 16px;
+    width: fit-content;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    user-select: none;
+}
+
+.hierarchy-object:hover {
+    background-color: var(--vscode-sideBar-background);
+    border-radius: 5px;
+}
+
+.inspector-object, .inspector-game-object {
+    font-size: 16px;
+    width: 90%;
+    min-height: 30px;
+    height: auto;
+    border: 2px solid var(--vscode-editorGroup-border);
+    border-radius: 10px;
+    border-style: dotted;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.inspector-game-object {
+    display: flex;
+    align-items: center;
+}
+
+.inspector .icon {
+    font-size: 12px;
+    margin-right: 3px;
+    user-select: none;
+}
+
+.inspector-gameObject-base-left {
+    flex: 0 0 auto;
+    width: 32px;
+}
+
+.inspector-gameObject-base-left .icon {
+    font-size: 32px;
+    user-select: none;
+}
+
+.inspector-gameObject-base-right {
+    flex: 1 1 auto;
+    margin-left: 3px;
+}
+
+.flex-width {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-width div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.property {
+    display: flex;
+    margin-bottom: 2px;
+}
+
+.property .name {
     width: 200px;
+}
+
+.property .content {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+}
+
+.property .content .label {
+    width: fit-content;
+}
+
+.property .content .value {
+    flex: 1;
+    padding-left: 5px;
+    background-color: var(--vscode-sideBar-background);
+    border-radius: 5px;
 }
 
 h2 {

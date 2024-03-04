@@ -28,7 +28,7 @@ class UnityAssetViewer {
         const panel = vscode.window.createWebviewPanel(
             this.viewType,
             'Unity Asset Viewer',
-            vscode.ViewColumn.Beside,
+            vscode.ViewColumn.Active,
             {
                 enableScripts: true,
                 localResourceRoots: [vscode.Uri.joinPath(extensionUri, 'media')],
@@ -42,10 +42,10 @@ class UnityAssetViewer {
     }
 
     private static getHtmlForWebview(filePath: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
-        Hierarchy.initialize(filePath);
+        var datas = Hierarchy.initialize(filePath);
         var transforms = Hierarchy.getTransforms();
         var trees = transforms.map((transform) => {
-            return Hierarchy.getHierarchyHtmlTreeBase(transform.fileId, Hierarchy.getTransformObjectName(transform) ?? "Unknown Object");
+            return Hierarchy.getHierarchyHtmlTreeBase(transform.fileId, Hierarchy.getTransformGameObject(transform)?.m_Name ?? "Unknown Object", Hierarchy.getTransform(transform)?.m_GameObject.fileID ?? "-1");
         });
         return `<!DOCTYPE html>
 			<html lang="en">
@@ -60,7 +60,7 @@ class UnityAssetViewer {
 			<body>
 				<div>
                     <div class="left">
-                        <h2>Hierarchy</h1>
+                        <h2>Hierarchy</h2>
                         <h3><span class="icon">&#xe902;</span> ${path.basename(filePath)}</h3>
                         <ul id="hierarchy">
                         <li>
@@ -68,13 +68,14 @@ class UnityAssetViewer {
                         </li>
                     </div>
                     <div class="right">
-                    
+                        <h2>Inspector</h2>
+                        <div class="inspector" id="inspector">
+                        </div>
                     </div>
 				</div>
                 <script>
-                    updateHierarchy(${JSON.stringify(transforms, (key, value) => 
-                            typeof(value) === 'bigint' ? value.toString() : value
-                            )});
+                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
+                    updateHierarchy(${JSON.stringify(transforms, (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
                 </script>
             </script>
 			</body>
