@@ -28,7 +28,16 @@ div.right {
 
 .hierarchy-object {
     font-size: 16px;
-    width: 90%;
+    width: fit-content;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    user-select: none;
+}
+
+.hierarchy-object:hover {
+    background-color: var(--vscode-sideBar-background);
+    border-radius: 5px;
 }
 
 .inspector-object, .inspector-game-object {
