@@ -24,6 +24,7 @@ div.right {
     font-family: 'clover-icon';
     font-size: 16px;
     font-weight: normal;
+    user-select: none;
 }
 
 .hierarchy-object {
@@ -62,6 +63,7 @@ div.right {
 .inspector .icon {
     font-size: 12px;
     margin-right: 3px;
+    user-select: none;
 }
 
 .inspector-gameObject-base-left {
@@ -71,6 +73,7 @@ div.right {
 
 .inspector-gameObject-base-left .icon {
     font-size: 32px;
+    user-select: none;
 }
 
 .inspector-gameObject-base-right {
