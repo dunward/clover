@@ -52,6 +52,8 @@ function getComponentHtml(component) {
     switch (component.classId) {
         case "4":
             return getTransformHtml(component.data.Transform);
+        case "114":
+            return getMonoBehaviourHtml(component.data.MonoBehaviour);
         case "224":
             return getRectTransformHtml(component.data.RectTransform);
         default:
@@ -91,6 +93,13 @@ function getTransformHtml(component) {
     `;
 }
 
+function getMonoBehaviourHtml(component) {
+    return `
+        <div class="inspector-object">
+            <div><span class="icon">&#xea80</span><b>MonoBehaviour</b></div>
+        </div>
+    `;
+}
 
 function getRectTransformHtml(component) {
     return `
