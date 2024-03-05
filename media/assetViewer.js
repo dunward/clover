@@ -108,7 +108,10 @@ function getCameraHtml(component) {
             <div class="property">
                 <div class="name">Background</div>
                 <div class="content">
-                
+                    <div class="color-box" style="--r: ${component.m_BackGroundColor.r}; --g: ${component.m_BackGroundColor.g}; --b: ${component.m_BackGroundColor.b};">
+                        &nbsp;
+                        <div class="alpha-box" style="--a: ${component.m_BackGroundColor.a};"></div>
+                    </div>
                 </div>
             </div>
         </div>
