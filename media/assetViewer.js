@@ -128,6 +128,15 @@ function getCameraHtml(component) {
                     <div class="label">Far</div><div class="value">${component["far clip plane"]}</div>
                 </div>
             </div>
+            <div class="property">
+                <div class="name">Viewport Rect</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_NormalizedViewPortRect.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_NormalizedViewPortRect.y}</div>
+                    <div class="label">W</div><div class="value">${component.m_NormalizedViewPortRect.width}</div>
+                    <div class="label">H</div><div class="value">${component.m_NormalizedViewPortRect.height}</div>
+                </div>
+            </div>
         </div>
         </div>
     `;
