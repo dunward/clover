@@ -121,6 +121,13 @@ function getCameraHtml(component) {
                 </div>
             </div>
             ${getProjectionView(component.orthographic, component)}
+            <div class="property">
+                <div class="name">Clipping Planes</div>
+                <div class="content">
+                    <div class="label">Near</div><div class="value">${component["near clip plane"]}</div>
+                    <div class="label">Far</div><div class="value">${component["far clip plane"]}</div>
+                </div>
+            </div>
         </div>
         </div>
     `;
