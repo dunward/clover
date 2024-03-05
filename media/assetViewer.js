@@ -114,9 +114,44 @@ function getCameraHtml(component) {
                     </div>
                 </div>
             </div>
+            <div class="property">
+                <div class="name">Projection</div>
+                <div class="content">
+                    ${component.orthographic == 0 ? "Perspective" : "Orthographic"}
+                </div>
+            </div>
+            ${getProjectionView(component.orthographic, component)}
         </div>
         </div>
     `;
+}
+
+function getProjectionView(orthographic, component) {
+    if (orthographic == 0) {
+        return `
+        <div class="property">
+            <div class="name">FOV Axis</div>
+            <div class="content">
+                ${component.m_FOVAxisMode == 0 ? "Vertical" : "Horizontal"}
+            </div>
+        </div>
+        <div class="property">
+            <div class="name">Field of View</div>
+            <div class="content">
+                ${component["field of view"]}
+            </div>
+        </div>
+        `;
+    } else {
+        return `
+        <div class="property">
+            <div class="name">Size</div>
+            <div class="content">
+                ${component["orthographic size"]}
+            </div>
+        </div>
+        `;
+    }
 }
 
 function getMonoBehaviourHtml(component) {
