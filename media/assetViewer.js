@@ -152,7 +152,13 @@ function getCameraHtml(component) {
             <div class="property">
                 <div class="name">Occlusion Culling</div>
                 <div class="content">
-                    <input type="checkbox" ${component.m_OcclusionCulling == 1 ? "checked" : ""} disabled>
+                    <span class="icon">${getCheckBoxIcon(component.m_UseOcclusionCulling)}</span>&nbsp;
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Allow Dynamic Resolution</div>
+                <div class="content">
+                    <span class="icon">${getCheckBoxIcon(component.m_AllowDynamicResolution)}</span>&nbsp;
                 </div>
             </div>
         </div>
