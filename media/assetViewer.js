@@ -100,9 +100,16 @@ function getCameraHtml(component) {
         <div class="inspector-object">
             <div><span class="icon">&#xe914</span><b>Camera</b></div>
             <div class="property">
-            <div class="name">Clear Flags</div>
-            <div class="content">
-                ${component.m_ClearFlags}
+                <div class="name">Clear Flags</div>
+                <div class="content">
+                    ${component.m_ClearFlags}
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Background</div>
+                <div class="content">
+                
+                </div>
             </div>
         </div>
         </div>
