@@ -137,6 +137,12 @@ function getCameraHtml(component) {
                     <div class="label">H</div><div class="value">${component.m_NormalizedViewPortRect.height}</div>
                 </div>
             </div>
+            <div class="property">
+                <div class="name">Depth</div>
+                <div class="content">
+                    ${component.m_Depth}
+                </div>
+            </div>
         </div>
         </div>
     `;
