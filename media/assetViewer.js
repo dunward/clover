@@ -149,6 +149,12 @@ function getCameraHtml(component) {
                     ${getRendringPath(component)}
                 </div>
             </div>
+            <div class="property">
+                <div class="name">Occlusion Culling</div>
+                <div class="content">
+                    <input type="checkbox" ${component.m_OcclusionCulling == 1 ? "checked" : ""} disabled>
+                </div>
+            </div>
         </div>
         </div>
     `;
