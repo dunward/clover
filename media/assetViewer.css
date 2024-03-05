@@ -105,6 +105,7 @@ div.right {
     display: flex;
     flex: 1;
     gap: 4px;
+    align-items: center;
 }
 
 .property .content .label {
