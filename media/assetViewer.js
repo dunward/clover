@@ -52,6 +52,8 @@ function getComponentHtml(component) {
     switch (component.classId) {
         case "4":
             return getTransformHtml(component.data.Transform);
+        case "20":
+            return getCameraHtml(component.data.Camera);
         case "114":
             return getMonoBehaviourHtml(component.data.MonoBehaviour);
         case "224":
@@ -89,6 +91,14 @@ function getTransformHtml(component) {
                     <div class="label">Z</div><div class="value">${component.m_LocalScale.z}</div>
                 </div>
             </div>
+        </div>
+    `;
+}
+
+function getCameraHtml(component) {
+    return `
+        <div class="inspector-object">
+            <div><span class="icon">&#xe914</span><b>Camera</b></div>
         </div>
     `;
 }
