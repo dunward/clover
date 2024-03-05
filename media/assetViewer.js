@@ -98,7 +98,7 @@ function getTransformHtml(component) {
 function getCameraHtml(component) {
     return `
         <div class="inspector-object">
-            <div><span class="icon">&#xe914 ${getCheckBoxIcon(component.m_Enabled)}</span><b>Camera</b></div>
+            <div><span class="icon">&#xe914</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>Camera</b></div>
             <div class="property">
                 <div class="name">Clear Flags</div>
                 <div class="content">
@@ -211,7 +211,7 @@ function getProjectionView(orthographic, component) {
 function getMonoBehaviourHtml(component) {
     return `
         <div class="inspector-object">
-            <div><span class="icon">&#xea80 ${getCheckBoxIcon(component.m_Enabled)}</span><b>MonoBehaviour</b></div>
+            <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>MonoBehaviour</b></div>
         </div>
     `;
 }
