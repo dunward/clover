@@ -143,9 +143,29 @@ function getCameraHtml(component) {
                     ${component.m_Depth}
                 </div>
             </div>
+            <div class="property">
+                <div class="name">Rendering Path</div>
+                <div class="content">
+                    ${getRendringPath(component)}
+                </div>
+            </div>
         </div>
         </div>
     `;
+}
+
+function getRendringPath(component) {
+    if (component.m_RenderingPath == -1) {
+        return "Use Player Settings";
+    } else if (component.m_RenderingPath == 0) {
+        return "Legacy Vertex Lit";
+    } else if (component.m_RenderingPath == 1) {
+        return "Forward";
+    } else if (component.m_RenderingPath == 2) {
+        return "Legacy Deferred (light prepass)";
+    } else if (component.m_RenderingPath == 3) {
+        return "Deferred";
+    }
 }
 
 function getProjectionView(orthographic, component) {
