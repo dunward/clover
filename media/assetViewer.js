@@ -54,6 +54,8 @@ function getComponentHtml(component) {
             return getTransformHtml(component.data.Transform);
         case "20":
             return getCameraHtml(component.data.Camera);
+        case "81":
+            return getAudioListenerHtml(component.data.AudioListener);
         case "114":
             return getMonoBehaviourHtml(component.data.MonoBehaviour);
         case "224":
@@ -206,6 +208,15 @@ function getProjectionView(orthographic, component) {
         </div>
         `;
     }
+}
+
+function getAudioListenerHtml(component) {
+    return `
+        <div class="inspector-object">
+            <div><span class="icon">&#xe910</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>Audio Listener</b></div>
+        </div>
+    `;
+
 }
 
 function getMonoBehaviourHtml(component) {
