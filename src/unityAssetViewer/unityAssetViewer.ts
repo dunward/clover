@@ -68,7 +68,7 @@ class UnityAssetViewer {
                         </li>
                     </div>
                     <div class="right">
-                        <h2>Inspector</h2>
+                        <h2>Inspector (read-only)</h2>
                         <div class="inspector" id="inspector">
                         </div>
                     </div>
