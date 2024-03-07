@@ -1,8 +1,14 @@
 ## Change Log
 
+## [0.7.0]
+- Add more types on unity asset viewer
+    - Camera
+    - AudioListener
+    - MonoBehaviour (class name not support)
+
 ## [0.6.0]
 ### Added
-- Add inspector view in unity assset viewer
+- Add inspector view in unity asset viewer
 
 ## [0.5.2]
 ### Fixed
