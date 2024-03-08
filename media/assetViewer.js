@@ -240,6 +240,13 @@ function getRectTransformHtml(component) {
                 </div>
             </div>
             <div class="property">
+                <div class="name"></div>
+                <div class="content">
+                    <div class="label">W Delta</div><div class="value">${component.m_SizeDelta.x}</div>
+                    <div class="label">H Delta</div><div class="value">${component.m_SizeDelta.y}</div>
+                </div>
+            </div>
+            <div class="property">
                 <div class="name">Rotation</div>
                 <div class="content">
                     <div class="label">X</div><div class="value">${component.m_LocalRotation.x}</div>
