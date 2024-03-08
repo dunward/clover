@@ -247,6 +247,13 @@ function getRectTransformHtml(component) {
                 </div>
             </div>
             <div class="property">
+                <div class="name">Pivot</div>
+                <div class="content">
+                    <div class="label">X</div><div class="value">${component.m_Pivot.x}</div>
+                    <div class="label">Y</div><div class="value">${component.m_Pivot.y}</div>
+                </div>
+            </div>
+            <div class="property">
                 <div class="name">Rotation</div>
                 <div class="content">
                     <div class="label">X</div><div class="value">${component.m_LocalRotation.x}</div>
