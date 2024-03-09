@@ -1,6 +1,14 @@
 ## Change Log
 
+## [0.7.1]
+### Changed
+- Improve Rect Transform view
+
+### Fixed
+- Unity multi line text quote parsing issue
+
 ## [0.7.0]
+### Added
 - Add more types on unity asset viewer
     - Camera
     - AudioListener
