@@ -35,10 +35,26 @@ class UnityAssetViewer {
             }
         );
 
+        panel.webview.html = this.getLoadingHtml();
+
         const fontUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'clover-icon.woff'))
         const cssUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.css'))
         const jsUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.js'))
+        
         panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri);
+    }
+
+    private static getLoadingHtml() {
+        return `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body>
+            HI
+            </body>
+        `;
     }
 
     private static getHtmlForWebview(filePath: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
