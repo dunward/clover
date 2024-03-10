@@ -50,9 +50,41 @@ class UnityAssetViewer {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+
+                    html, body {
+                        width: 100%;
+                        height: 100%;
+                        margin: 0;
+                        padding: 0;
+                    }
+
+                    .loader-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        height: 100%;
+                    }
+    
+                    .loader {
+                        border: 16px solid var(--vscode-sideBar-background);
+                        border-top: 16px solid var(--vscode-editorGroup-border);
+                        border-radius: 50%;
+                        width: 120px;
+                        height: 120px;
+                        animation: spin 2s linear infinite;
+                    }
+                </style>
             </head>
             <body>
-            HI
+                <div class="loader-container">
+                    <div class="loader"></div>
+                </div>
             </body>
         `;
     }
