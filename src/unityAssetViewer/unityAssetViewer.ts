@@ -73,7 +73,7 @@ class UnityAssetViewer {
     
                     .loader {
                         border: 16px solid var(--vscode-sideBar-background);
-                        border-top: 16px solid var(--vscode-editorGroup-border);
+                        border-top: 16px solid var(--vscode-progressBar-background);
                         border-radius: 50%;
                         width: 120px;
                         height: 120px;
