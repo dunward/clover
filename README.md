@@ -14,15 +14,15 @@ Also Clover is support much more Unity utilities.
 
 Request and Ideas section where you can provide feedback and suggestions for future update, Whether you have a feature request or an idea for improving the extension, want to hear from you! Leave a comment on this repository issues tab.
 
-## Meta Reference CodeLens
-You can find meta references of the current .cs file using CodeLens.
-
-<img src="resources/codelens.png" width=700>
-
 ## Unity Asset Viewer
 You can check your prefab, scene file in VSCode.
 
 <img src="resources/assetViewer.gif">
+
+## Meta Reference CodeLens
+You can find meta references of the current .cs file using CodeLens.
+
+<img src="resources/codelens.gif" width=700>
 
 ## Unity Asset Explorer
 Unity scene, prefab file explorer
