@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.8.1]
+### Added
+- Add loading view on asset viewer
+
 ## [0.7.1]
 ### Changed
 - Improve Rect Transform view
