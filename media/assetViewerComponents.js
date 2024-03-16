@@ -189,9 +189,10 @@ function getAudioListenerHtml(component) {
 }
 
 function getMonoBehaviourHtml(component) {
+    var filePath = pathByGuid.get(component.m_Script.guid);
     return `
         <div class="inspector-object">
-            <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>MonoBehaviour</b></div>
+            <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>${filePath === undefined ? "Unknown Script" : filePath}</b></div>
         </div>
     `;
 }

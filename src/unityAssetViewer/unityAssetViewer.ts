@@ -125,7 +125,7 @@ class UnityAssetViewer {
                     </div>
 				</div>
                 <script>
-                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)}, ${JSON.stringify(GuidConnector.getPathByGuidMap())});
+                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)}, ${JSON.stringify(Object.fromEntries([...GuidConnector.getPathByGuidMap()]))});
                     updateHierarchy(${JSON.stringify(transforms, (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
                 </script>
             </script>
