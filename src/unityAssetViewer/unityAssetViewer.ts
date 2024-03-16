@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as Hierarchy from './hierarchy';
 import * as CommandController from '../controller/commandController';
 import * as VSCodeUtils from '../vscodeUtils';
+import * as GuidConnector from '../parser/guidConnector';
 import path = require('path');
 
 export function init(context: vscode.ExtensionContext) {
@@ -124,7 +125,7 @@ class UnityAssetViewer {
                     </div>
 				</div>
                 <script>
-                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
+                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)}, ${JSON.stringify(GuidConnector.getPathByGuidMap())});
                     updateHierarchy(${JSON.stringify(transforms, (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
                 </script>
             </script>

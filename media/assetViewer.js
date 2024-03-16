@@ -1,8 +1,10 @@
 var datas;
+var pathByGuid;
 
-function initialize(_datas)
+function initialize(_datas, _pathByGuid)
 {
     datas = new Map();
+    pathByGuid = _pathByGuid;
 
     Object.entries(_datas).forEach(([key, value]) => {
         datas.set(key, value);
