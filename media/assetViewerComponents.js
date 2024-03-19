@@ -189,7 +189,13 @@ function getAudioListenerHtml(component) {
 }
 
 function getMonoBehaviourHtml(component) {
-    var filePath = pathByGuid.get(component.m_Script.guid);
+    var filePath;
+    var guid = component.m_Script.guid;
+    if (isBuiltInMonoBehaviour(guid)) {
+        filePath = getBuiltInMonoBehaviourName(guid);
+    } else {
+        filePath = pathByGuid.get(guid);
+    }
     return `
         <div class="inspector-object">
             <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>${filePath === undefined ? "Unknown Script" : filePath.split(/[/\\]/).pop()}</b></div>
