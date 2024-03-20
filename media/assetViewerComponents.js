@@ -192,13 +192,30 @@ function getMonoBehaviourHtml(component) {
     var filePath;
     var guid = component.m_Script.guid;
     if (isBuiltInMonoBehaviour(guid)) {
-        filePath = getBuiltInMonoBehaviourName(guid);
+        return getBuiltInMonoBehaviourHtml(component);
     } else {
-        filePath = pathByGuid.get(guid);
+        return `
+            <div class="inspector-object">
+                <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>${filePath === undefined ? "Unknown Script" : filePath.split(/[/\\]/).pop()}</b></div>
+            </div>
+        `;
     }
+}
+
+function getBuiltInMonoBehaviourHtml(component) {
+    var guid = component.m_Script.guid;
+    switch (guid) {
+        case "30649d3a9faa99c48a7b1166b86bf2a0":
+            return getHorizontalLayoutGroupHtml(component);
+        default:
+            return getUnknownComponentHtml(component);
+    }
+}
+
+function getHorizontalLayoutGroupHtml(component) {
     return `
         <div class="inspector-object">
-            <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>${filePath === undefined ? "Unknown Script" : filePath.split(/[/\\]/).pop()}</b></div>
+            <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>Horizontal Layout Group</b></div>
         </div>
     `;
 }

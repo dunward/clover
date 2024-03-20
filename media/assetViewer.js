@@ -72,10 +72,3 @@ function isBuiltInMonoBehaviour(guid) {
             return false;
     }
 }
-
-function getBuiltInMonoBehaviourName(guid) {
-    switch (guid) {
-        case "30649d3a9faa99c48a7b1166b86bf2a0":
-            return "Horizontal Layout Group";
-    }
-}
