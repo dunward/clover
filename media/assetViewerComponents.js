@@ -216,6 +216,21 @@ function getHorizontalLayoutGroupHtml(component) {
     return `
         <div class="inspector-object">
             <div><span class="icon">&#xea80</span><span class="icon">${getCheckBoxIcon(component.m_Enabled)}</span><b>Horizontal Layout Group</b></div>
+            <div class="property">
+                <div class="name">Padding</div>
+                <div class="content">
+                    <div class="label">Left</div><div class="value">${component.m_Padding.m_Left}</div>
+                    <div class="label">Right</div><div class="value">${component.m_Padding.m_Right}</div>
+                    <div class="label">Top</div><div class="value">${component.m_Padding.m_Top}</div>
+                    <div class="label">Bottom</div><div class="value">${component.m_Padding.m_Bottom}</div>
+                </div>
+            </div>
+            <div class="property">
+                <div class="name">Spacing</div>
+                <div class="content">
+                    <div class="value">${component.m_Spacing}</div>
+                </div>
+            </div>
         </div>
     `;
 }
