@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Engine Extension",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "publisher": "november",
   "license": "MIT",
   "engines": {
@@ -16,7 +16,7 @@
   "icon": "resources/clover.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/novemberi/clover"
+    "url": "https://github.com/dunward/clover"
   },
   "activationEvents": [
     "onStartupFinished"

@@ -1,6 +1,10 @@
 ## Change Log
 
 ## [0.8.1]
+### Changed
+- Edit clover main webview design
+
+## [0.8.0]
 ### Added
 - Add loading view on asset viewer
 
