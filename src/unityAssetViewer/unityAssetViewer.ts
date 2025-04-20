@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as Hierarchy from './hierarchy';
 import * as CommandController from '../controller/commandController';
 import * as VSCodeUtils from '../vscodeUtils';
+import * as GuidConnector from '../parser/guidConnector';
 import path = require('path');
 
 export function init(context: vscode.ExtensionContext) {
@@ -40,8 +41,9 @@ class UnityAssetViewer {
         const fontUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'clover-icon.woff'))
         const cssUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.css'))
         const jsUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewer.js'))
+        const jsComponentsUri = panel.webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'media', 'assetViewerComponents.js'))
         
-        panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri);
+        panel.webview.html = this.getHtmlForWebview(path, fontUri, cssUri, jsUri, jsComponentsUri);
     }
 
     private static getLoadingHtml() {
@@ -89,7 +91,7 @@ class UnityAssetViewer {
         `;
     }
 
-    private static getHtmlForWebview(filePath: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri) {
+    private static getHtmlForWebview(filePath: string, fontUri: vscode.Uri, hierarchyCss: vscode.Uri, assetViewerJs: vscode.Uri, assetViewerComponentsJs: vscode.Uri) {
         var datas = Hierarchy.initialize(filePath);
         var transforms = Hierarchy.getTransforms();
         var trees = transforms.map((transform) => {
@@ -103,6 +105,7 @@ class UnityAssetViewer {
 
                 <link href="${fontUri}" rel="stylesheet">
                 <link href="${hierarchyCss}" rel="stylesheet">
+                <script src="${assetViewerComponentsJs}"></script>
                 <script src="${assetViewerJs}"></script>
 			</head>
 			<body>
@@ -122,7 +125,7 @@ class UnityAssetViewer {
                     </div>
 				</div>
                 <script>
-                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
+                    initialize(${JSON.stringify(Object.fromEntries([...datas]), (key, value) => typeof(value) === 'bigint' ? value.toString() : value)}, ${JSON.stringify(Object.fromEntries([...GuidConnector.getPathByGuidMap()]))});
                     updateHierarchy(${JSON.stringify(transforms, (key, value) => typeof(value) === 'bigint' ? value.toString() : value)});
                 </script>
             </script>
