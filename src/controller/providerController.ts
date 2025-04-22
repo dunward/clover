@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { MetaReferenceProvider } from '../metaReference/metaReferenceProvider';
+import { MetaReferenceProvider } from '../unityReference/metaReferenceProvider';
+import { UnityMessageProvider } from '../unityReference/unityMessageProvider';
 import { UnityAssetExplorer } from '../unityAssetExplorer/unityAssetExplorerProvider';
 import { MainViewProvider } from '../provider/mainViewProvider';
 
@@ -11,4 +12,7 @@ export function initialize(context: vscode.ExtensionContext) {
 
     const metaReferenceProvider = new MetaReferenceProvider(context);
     vscode.languages.registerCodeLensProvider('csharp', metaReferenceProvider);
+
+    const unityMessageProvider = new UnityMessageProvider(context);
+    vscode.languages.registerCodeLensProvider('csharp', unityMessageProvider);
 }

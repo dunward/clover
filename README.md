@@ -1,6 +1,6 @@
 [![](https://img.shields.io/visual-studio-marketplace/v/november.clover-unity)](https://marketplace.visualstudio.com/items?itemName=november.clover-unity)
 [![](https://img.shields.io/visual-studio-marketplace/d/november.clover-unity)](https://marketplace.visualstudio.com/items?itemName=november.clover-unity)
-![](https://img.shields.io/github/license/novemberi/clover)
+![](https://img.shields.io/github/license/dunward/clover)
 
 <img src="resources/clover.png" width=10% height=10%>
 
@@ -14,15 +14,20 @@ Also Clover is support much more Unity utilities.
 
 Request and Ideas section where you can provide feedback and suggestions for future update, Whether you have a feature request or an idea for improving the extension, want to hear from you! Leave a comment on this repository issues tab.
 
-## Unity Asset Viewer
-You can check your prefab, scene file in VSCode.
-
-<img src="resources/assetViewer.gif">
-
 ## Meta Reference CodeLens
 You can find meta references of the current .cs file using CodeLens.
 
 <img src="resources/codelens.gif" width=700>
+
+## Unity Event Functions Summary
+Display unity built-in event functions summary and documentation link to navigate to the Unity official documentation.
+
+<img src="resources/unity_message_docs.png">
+
+## Unity Asset Viewer (Experimental)
+You can check your prefab, scene file in VSCode.
+
+<img src="resources/assetViewer.gif">
 
 ## Unity Asset Explorer
 Unity scene, prefab file explorer
