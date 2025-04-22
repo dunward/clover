@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.9.1]
+### Fixed
+- Fix load fail unity message format json file
+
 ## [0.9.0]
 ### Added
 - Add unity message provider
