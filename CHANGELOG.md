@@ -1,5 +1,9 @@
 ## Change Log
 
+## [0.9.0]
+### Added
+- Add unity message provider
+
 ## [0.8.1]
 ### Changed
 - Edit clover main webview design
