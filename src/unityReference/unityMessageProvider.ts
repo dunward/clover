@@ -62,7 +62,7 @@ export class UnityMessageProvider implements vscode.CodeLensProvider {
     }
 
     private loadMethodPatterns(context: vscode.ExtensionContext) {
-        const configPath = path.join(context.extensionPath, 'src', 'unityReference', 'unityMessages.json');
+        const configPath = path.join(context.extensionPath, 'unityMessages.json');
         try {
             const configContent = fs.readFileSync(configPath, 'utf8');
             const config: UnityMessagesConfig = JSON.parse(configContent);
