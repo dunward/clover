@@ -2,39 +2,39 @@
     "methodPatterns": [
         {
             "pattern": "\\bvoid\\s+Awake\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nUnity calls Awake when an enabled script instance is being loaded.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Awake.html)"
+            "documentation": "## Summary\n\nUnity calls Awake when an enabled script instance is being loaded.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Awake.html)"
         },
         {
             "pattern": "\\b(?:void|IEnumerator)\\s+Start\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nStart is called on the frame when a script is enabled just before\n\nany of the Update methods are called the first time.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Start.html)"
+            "documentation": "## Summary\n\nStart is called on the frame when a script is enabled just before\n\nany of the Update methods are called the first time.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Start.html)"
         },
         {
             "pattern": "\\bvoid\\s+Update\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nUpdate is called every frame, if the MonoBehaviour is enabled.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Update.html)"
+            "documentation": "## Summary\n\nUpdate is called every frame, if the MonoBehaviour is enabled.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Update.html)"
         },
         {
             "pattern": "\\bvoid\\s+FixedUpdate\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nFrame-rate independent MonoBehaviour.FixedUpdate message for\n\nphysics calculations.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.FixedUpdate.html)"
+            "documentation": "## Summary\n\nFrame-rate independent MonoBehaviour.FixedUpdate message for\n\nphysics calculations.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.FixedUpdate.html)"
         },
         {
             "pattern": "\\bvoid\\s+LateUpdate\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nLateUpdate is called every frame, if the Behaviour is enabled.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.LateUpdate.html)"
+            "documentation": "## Summary\n\nLateUpdate is called every frame, if the Behaviour is enabled.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.LateUpdate.html)"
         },
         {
             "pattern": "\\bvoid\\s+OnGUI\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nOnGUI is called for rendering and handling GUI events.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnGUI.html)"
+            "documentation": "## Summary\n\nOnGUI is called for rendering and handling GUI events.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnGUI.html)"
         },
         {
             "pattern": "\\bvoid\\s+OnEnable\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nThis function is called when the object becomes enabled and active.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnEnable.html)"
+            "documentation": "## Summary\n\nThis function is called when the object becomes enabled and active.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnEnable.html)"
         },
         {
             "pattern": "\\bvoid\\s+OnDisable\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nThis function is called when the behaviour becomes disabled.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnDisable.html)"
+            "documentation": "## Summary\n\nThis function is called when the behaviour becomes disabled.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnDisable.html)"
         },
         {
             "pattern": "\\bvoid\\s+OnDestroy\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nDestroying the attached Behaviour will result in the game or Scene\n\nreceiving OnDestroy.\n\n[Link Document](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnEnable.html)"
+            "documentation": "## Summary\n\nDestroying the attached Behaviour will result in the game or Scene\n\nreceiving OnDestroy.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnEnable.html)"
         }
     ]
 } 
