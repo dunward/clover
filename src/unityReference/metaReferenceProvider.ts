@@ -36,7 +36,7 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 			let matches;
 			if ((matches = regex.exec(text)) !== null) {
 				const line = document.lineAt(document.positionAt(matches.index).line);
-				this.codeLenses.push(new MetaReferenceCodeLens(document.uri, document.uri.fsPath,line.range));
+				this.codeLenses.push(new MetaReferenceCodeLens(document.uri, document.uri.fsPath, line.range));
 			}
 			return this.codeLenses;
 	}
