@@ -133,7 +133,7 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
 
     public resolveCodeLens(codeLens: unityUsageProvider, token: vscode.CancellationToken) {
         codeLens.command = {
-            title: codeLens.methodName,
+            title: `$(symbol-reference) ${codeLens.methodName}`,
             command: '',
             arguments: []
         };
