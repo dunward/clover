@@ -1,5 +1,10 @@
 ## Change Log
 
+## [0.9.2]
+### Fixed
+- Edit executeDocumentSymbolProvider to regex line matching
+- Fix unity message hover provider bug
+
 ## [0.9.1]
 ### Fixed
 - Fix load fail unity message format json file

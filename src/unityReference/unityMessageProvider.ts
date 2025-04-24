@@ -52,8 +52,13 @@ export class UnityMessageProvider implements vscode.CodeLensProvider {
                     new vscode.MarkdownString(documentation)
                 ], range);
 
-                this.currentHoverProvider = vscode.languages.registerHoverProvider('*', {
-                    provideHover: () => hover
+                this.currentHoverProvider = vscode.languages.registerHoverProvider({ scheme: 'file', language: 'csharp' }, {
+                    provideHover: (document, position, token) => {
+                        if (range.contains(position)) {
+                            return hover;
+                        }
+                        return null;
+                    }
                 });
 
                 await vscode.commands.executeCommand('editor.action.showHover');
@@ -82,42 +87,30 @@ export class UnityMessageProvider implements vscode.CodeLensProvider {
     public async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.CodeLens[]> {
         this.codeLenses = [];
 
-        const symbols = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>(
-            'vscode.executeDocumentSymbolProvider',
-            document.uri
-        );
-
-        if (symbols) {
-            this.addMethodSymbols(symbols, document.uri);
+        const text = document.getText();
+        const lines = text.split('\n');
+        
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            const methodPattern = this.isUnityMethod(line);
+            
+            if (methodPattern) {
+                const indent = lines[i].match(/^\s*/)?.[0].length ?? 0;
+                const range = new vscode.Range(
+                    new vscode.Position(i, indent),
+                    new vscode.Position(i, lines[i].length)
+                );
+                
+                this.codeLenses.push(new unityMessageProvider(
+                    document.uri,
+                    lines[i].trim(),
+                    methodPattern.documentation,
+                    range
+                ));
+            }
         }
 
         return this.codeLenses;
-    }
-
-    private addMethodSymbols(symbols: vscode.DocumentSymbol[], documentUri: vscode.Uri) {
-        for (const symbol of symbols) {
-            if (symbol.kind === vscode.SymbolKind.Method) {
-                const documents = vscode.workspace.textDocuments;
-                const document = documents.find(doc => doc.uri.toString() === documentUri.toString());
-                if (!document) {
-                    return;
-                }
-                const line = document.lineAt(symbol.range.start.line).text.trim();
-                const methodPattern = this.isUnityMethod(line);
-                if (methodPattern) {
-                    this.codeLenses.push(new unityMessageProvider(
-                        documentUri,
-                        symbol.name,
-                        methodPattern.documentation,
-                        new vscode.Range(symbol.range.start, symbol.range.start)
-                    ));
-                }
-            }
-
-            if (symbol.children.length > 0) {
-                this.addMethodSymbols(symbol.children, documentUri);
-            }
-        }
     }
 
     public resolveCodeLens(codeLens: unityMessageProvider, token: vscode.CancellationToken) {
