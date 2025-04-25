@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as Logger from '../vscodeUtils';
-import { MethodLocation, isSupportedAsset, parseMetaData } from './assetParser';
+import { MethodLocation, isSupportedAsset, parseUnityAssets } from './assetParser';
 
 const methodLocationCache: Map<string, MethodLocation[]> = new Map();
 
@@ -15,7 +15,7 @@ export function registerFileOpenHandler(context: vscode.ExtensionContext) {
 
             if (shouldParse === 'Yes') {
                 Logger.outputLog('Starting metadata parsing...');
-                const parseResult = await parseMetaData(document.fileName);
+                const parseResult = await parseUnityAssets(document.fileName);
                 if (parseResult) {
                     updateMethodLocationCache(parseResult);
                 }
@@ -56,6 +56,12 @@ function logCacheContents() {
     }
 }
 
+export function addMethodLocation(fullPath: string, location: MethodLocation) {
+    const existingLocations = methodLocationCache.get(fullPath) || [];
+    methodLocationCache.set(fullPath, [...existingLocations, location]);
+    logCacheContents();
+}
+
 export function clearCache(): void {
     methodLocationCache.clear();
     Logger.outputLog('Method location cache has been cleared.');
@@ -74,9 +80,12 @@ export function validateMethod(namespaceName: string, className: string, methodN
 
     methodLocationCache.forEach((locations, fullPath) => {
         locations.forEach(loc => {
-            const [typeName, methodName] = fullPath.split('.');
+            const parts = fullPath.split('.');
+            const typeName = parts[0];
+            const methodNameFromPath = parts[parts.length - 1];
+            
             if (typeName === namespaceName && 
-                methodName === methodName) {
+                methodNameFromPath === methodName) {
                 result.isValid = true;
                 result.componentIds.push(loc.componentId);
                 result.foundIn.push(loc.filePath);

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import path = require('path');
 import * as fs from 'fs';
+import { validateMethod } from '../parser/assetConnector';
 
 interface UnityUsagePattern {
     pattern: string;
@@ -132,10 +133,21 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
     }
 
     public resolveCodeLens(codeLens: unityUsageProvider, token: vscode.CancellationToken) {
+        const [namespace, className, methodName] = codeLens.methodName.split('.');
+        const usageInfo = validateMethod(namespace, className, methodName);
+        
+        const usageCount = usageInfo.foundIn.length;
+        const usageText = usageCount > 0 ? `${usageCount} references` : 'No references';
+
         codeLens.command = {
-            title: `$(symbol-reference) ${codeLens.methodName}`,
-            command: '',
-            arguments: []
+            title: `$(symbol-reference) ${usageText}`,
+            command: 'unity.showUsage',
+            arguments: [
+                codeLens.methodName,
+                `Found in ${usageCount} locations`,
+                usageInfo.foundIn.join('\n'),
+                codeLens.range
+            ]
         };
         return codeLens;
     }

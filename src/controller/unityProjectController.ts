@@ -5,6 +5,7 @@ import * as Logger from '../vscodeUtils';
 
 import * as UnityAssetConnector from '../unityAssetExplorer/unityAssetConnector';
 import * as GuidConnector from '../parser/guidConnector';
+import * as AssetParser from '../parser/assetParser';
 
 var assetPath = '';
 var refreshStartCallback: Function[] = [];
@@ -55,7 +56,11 @@ function refreshUnityProject(dirPath: string): Promise<void> {
                         GuidParser.parseUnityCsGuid(path.join(dirPath, file));
                     } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
                         GuidParser.parseUnityAssets(path.join(dirPath, file));
-                        if (extname !== '.asset') UnityAssetConnector.addAssetPath(path.join(dirPath, file));
+                        if (extname !== '.asset')
+                        {
+                            AssetParser.parseUnityAssets(path.join(dirPath, file));
+                            UnityAssetConnector.addAssetPath(path.join(dirPath, file));
+                        }
                     }
                 }
                 resolve();

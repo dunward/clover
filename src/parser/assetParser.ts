@@ -1,5 +1,6 @@
 import fs = require('fs');
 import * as Logger from '../vscodeUtils';
+import * as AssetConnector from './assetConnector';
 
 interface MethodCall {
     targetId: string;
@@ -29,7 +30,7 @@ function getMethodFullPath(assemblyTypeName: string, methodName: string): string
     return `${typeName}.${methodName}`;
 }
 
-async function extractMetaData(fileContent: string, filePath: string): Promise<Map<string, MethodLocation[]>> {
+async function parseData(fileContent: string, filePath: string): Promise<Map<string, MethodLocation[]>> {
     const methodLocations = new Map<string, MethodLocation[]>();
     let match;
 
@@ -73,6 +74,8 @@ async function extractMetaData(fileContent: string, filePath: string): Promise<M
                     componentId: id
                 };
 
+                AssetConnector.addMethodLocation(fullPath, location);
+
                 const existingLocations = methodLocations.get(fullPath) || [];
                 methodLocations.set(fullPath, [...existingLocations, location]);
             }
@@ -82,10 +85,10 @@ async function extractMetaData(fileContent: string, filePath: string): Promise<M
     return methodLocations;
 }
 
-export async function parseMetaData(filePath: string): Promise<Map<string, MethodLocation[]> | null> {
+export async function parseUnityAssets(filePath: string): Promise<Map<string, MethodLocation[]> | null> {
     try {
         const data = await fs.promises.readFile(filePath, { encoding: 'utf8' });
-        return await extractMetaData(data, filePath);
+        return await parseData(data, filePath);
     } catch (error) {
         Logger.outputLog(`Error parsing Unity asset at ${filePath}: ${error}`);
         return null;
