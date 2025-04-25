@@ -4,34 +4,6 @@ import { MethodLocation, isSupportedAsset, parseUnityAssets } from './assetParse
 
 const methodLocationCache: Map<string, MethodLocation[]> = new Map();
 
-export function registerFileOpenHandler(context: vscode.ExtensionContext) {
-    let disposable = vscode.workspace.onDidOpenTextDocument(async (document) => {
-        if (isSupportedAsset(document.fileName)) {
-            const shouldParse = await vscode.window.showInformationMessage(
-                'Unity asset file detected. Would you like to parse the metadata?',
-                'Yes',
-                'No'
-            );
-
-            if (shouldParse === 'Yes') {
-                Logger.outputLog('Starting metadata parsing...');
-                const parseResult = await parseUnityAssets(document.fileName);
-                if (parseResult) {
-                    updateMethodLocationCache(parseResult);
-                }
-                
-                if (methodLocationCache.size > 0) {
-                    vscode.window.showInformationMessage(
-                        `Parsing complete! Found ${methodLocationCache.size} method calls.`
-                    );
-                }
-            }
-        }
-    });
-
-    context.subscriptions.push(disposable);
-}
-
 function updateMethodLocationCache(parseResults: Map<string, MethodLocation[]>) {
     parseResults.forEach((locations, fullPath) => {
         const existingLocations = methodLocationCache.get(fullPath) || [];
