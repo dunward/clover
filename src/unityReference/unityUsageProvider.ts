@@ -3,22 +3,11 @@ import path = require('path');
 import * as fs from 'fs';
 import { validateMethod } from '../parser/assetConnector';
 
-interface UnityUsagePattern {
-    pattern: string;
-    usage: string;
-    example: string;
-}
-
-interface UnityUsagesConfig {
-    usagePatterns: UnityUsagePattern[];
-}
-
 class unityUsageProvider extends vscode.CodeLens {
     constructor(
         public document: vscode.Uri,
         public methodName: string,
-        public usage: string,
-        public example: string,
+        public usageInfo: any,
         range: vscode.Range
     ) {
         super(range);
@@ -29,13 +18,9 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
     private codeLenses: vscode.CodeLens[] = [];
     private _onDidChangeCodeLenses: vscode.EventEmitter<void> = new vscode.EventEmitter<void>();
     public readonly onDidChangeCodeLenses: vscode.Event<void> = this._onDidChangeCodeLenses.event;
-    private usagePatterns: UnityUsagePattern[] = [];
 
     constructor(context: vscode.ExtensionContext) {
-        this.loadUsagePatterns(context);
-
         vscode.workspace.onDidChangeConfiguration((_) => {
-            this.loadUsagePatterns(context);
             this._onDidChangeCodeLenses.fire();
         });
 
@@ -65,24 +50,6 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
         );
     }
 
-    private loadUsagePatterns(context: vscode.ExtensionContext) {
-        const configPath = path.join(context.extensionPath, 'unityUsages.json');
-        try {
-            const configContent = fs.readFileSync(configPath, 'utf8');
-            const config: UnityUsagesConfig = JSON.parse(configContent);
-            this.usagePatterns = config.usagePatterns;
-        } catch (error) {
-            console.error('Failed to load Unity usages configuration:', error);
-            this.usagePatterns = [];
-        }
-    }
-
-    private isUnityUsage(methodName: string): UnityUsagePattern | undefined {
-        return this.usagePatterns.find(pattern => 
-            new RegExp(pattern.pattern).test(methodName)
-        );
-    }
-
     public async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.CodeLens[]> {
         this.codeLenses = [];
         const text = document.getText();
@@ -107,21 +74,23 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
             const methodMatch = line.match(/(?:public|private|protected)\s+(?:static\s+)?(?:async\s+)?[\w<>[\]]+\s+(\w+)\s*\([^)]*\)/);
             if (methodMatch && currentClass) {
                 const methodName = methodMatch[1];
-                const indent = lines[i].match(/^\s*/)?.[0].length ?? 0;
-                const range = new vscode.Range(
-                    new vscode.Position(i, indent),
-                    new vscode.Position(i, lines[i].length)
-                );
-
                 const fullName = `${namespace}.${currentClass}.${methodName}`;
                 
-                this.codeLenses.push(new unityUsageProvider(
-                    document.uri,
-                    fullName,
-                    '',
-                    '',
-                    range
-                ));
+                const usageInfo = validateMethod(namespace, currentClass, methodName);
+                if (usageInfo.foundIn.length > 0) {
+                    const indent = lines[i].match(/^\s*/)?.[0].length ?? 0;
+                    const range = new vscode.Range(
+                        new vscode.Position(i, indent),
+                        new vscode.Position(i, lines[i].length)
+                    );
+                    
+                    this.codeLenses.push(new unityUsageProvider(
+                        document.uri,
+                        fullName,
+                        usageInfo,
+                        range
+                    ));
+                }
             }
         }
 
@@ -129,21 +98,23 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
     }
 
     public resolveCodeLens(codeLens: unityUsageProvider, token: vscode.CancellationToken) {
-        const [namespace, className, methodName] = codeLens.methodName.split('.');
-        const usageInfo = validateMethod(namespace, className, methodName);
-        
-        const usageCount = usageInfo.foundIn.length;
-        const usageText = usageCount > 0 ? `${usageCount} references` : 'No references';
-
         codeLens.command = {
-            title: `$(symbol-reference) ${usageText}`,
+            title: this.getTitle(codeLens.usageInfo.foundIn.length),
             command: 'unity.showUsage',
             arguments: [
                 codeLens.methodName,
-                usageInfo,
+                codeLens.usageInfo,
                 codeLens.range
             ]
         };
         return codeLens;
     }
+
+    getTitle(length: number): string {	
+		if (length <= 1) {
+			return `${length} usage`;
+		} else {
+			return `${length} usages`;
+		}
+	}
 } 
