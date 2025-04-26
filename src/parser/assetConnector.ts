@@ -34,9 +34,8 @@ export function addMethodLocation(fullPath: string, location: MethodLocation) {
     logCacheContents();
 }
 
-export function clearCache(): void {
+export function refresh(): void {
     methodLocationCache.clear();
-    Logger.outputLog('Method location cache has been cleared.');
 }
 
 export function validateMethod(namespaceName: string, className: string, methodName: string): { 

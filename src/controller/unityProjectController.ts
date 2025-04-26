@@ -1,11 +1,13 @@
 import fs = require('fs');
 import path = require('path');
 import * as GuidParser from '../parser/guidParser';
-import * as Logger from '../vscodeUtils';
+import * as AssetParser from '../parser/assetParser';
 
 import * as UnityAssetConnector from '../unityAssetExplorer/unityAssetConnector';
 import * as GuidConnector from '../parser/guidConnector';
-import * as AssetParser from '../parser/assetParser';
+import * as AssetConnector from '../parser/assetConnector';
+
+import * as Logger from '../vscodeUtils';
 
 var assetPath = '';
 var refreshStartCallback: Function[] = [];
@@ -15,6 +17,7 @@ export async function initialize(workspacePath: string) {
     assetPath = path.join(workspacePath, 'Assets');
     addRefreshStartCallback(() => GuidConnector.refresh());
     addRefreshStartCallback(() => UnityAssetConnector.refresh());
+    addRefreshStartCallback(() => AssetConnector.refresh());
     await refresh();
 }
 
