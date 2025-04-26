@@ -33,8 +33,6 @@ export class MainViewProvider implements vscode.WebviewViewProvider {
                 <style>
                     body {
                         padding: 20px;
-                        color: var(--vscode-foreground);
-                        background-color: var(--vscode-editor-background);
                     }
                     .header {
                         display: flex;

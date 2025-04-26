@@ -1,5 +1,13 @@
 ## Change Log
 
+## [1.0.0] - Official Release! 🎉
+### Added
+- Add method usages provider
+- Add collider/collision events on Unity Messages
+
+### Fixed
+- Change main view background color
+
 ## [0.9.2]
 ### Fixed
 - Edit executeDocumentSymbolProvider to regex line matching

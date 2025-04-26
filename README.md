@@ -14,10 +14,16 @@ Also Clover is support much more Unity utilities.
 
 Request and Ideas section where you can provide feedback and suggestions for future update, Whether you have a feature request or an idea for improving the extension, want to hear from you! Leave a comment on this repository issues tab.
 
-## Meta Reference CodeLens
+## Meta Reference
 You can find meta references of the current .cs file using CodeLens.
 
 <img src="resources/codelens.gif" width=700>
+
+## Method Usage
+You can track easily where methods are used in.
+
+<img src="resources/unity_method_usage.png">
+
 
 ## Unity Event Functions Summary
 Display unity built-in event functions summary and documentation link to navigate to the Unity official documentation.
