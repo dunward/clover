@@ -29,7 +29,6 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
     private codeLenses: vscode.CodeLens[] = [];
     private _onDidChangeCodeLenses: vscode.EventEmitter<void> = new vscode.EventEmitter<void>();
     public readonly onDidChangeCodeLenses: vscode.Event<void> = this._onDidChangeCodeLenses.event;
-    private currentHoverProvider?: vscode.Disposable;
     private usagePatterns: UnityUsagePattern[] = [];
 
     constructor(context: vscode.ExtensionContext) {
@@ -41,30 +40,27 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
         });
 
         context.subscriptions.push(
-            vscode.commands.registerCommand('unity.showUsage', async (methodName: string, usage: string, example: string, range: vscode.Range) => {
+            vscode.commands.registerCommand('unity.showUsage', async (methodName: string, usageInfo: any, range: vscode.Range) => {
                 const editor = vscode.window.activeTextEditor;
                 if (!editor) return;
-                
-                if (this.currentHoverProvider) {
-                    this.currentHoverProvider.dispose();
-                }
 
-                editor.selection = new vscode.Selection(range.start, range.start);
-
-                const hover = new vscode.Hover([
-                    new vscode.MarkdownString(`### Usage\n${usage}\n\n### Example\n\`\`\`csharp\n${example}\n\`\`\``)
-                ], range);
-
-                this.currentHoverProvider = vscode.languages.registerHoverProvider({ scheme: 'file', language: 'csharp' }, {
-                    provideHover: (document, position, token) => {
-                        if (range.contains(position)) {
-                            return hover;
-                        }
-                        return null;
-                    }
+                const references: vscode.Location[] = usageInfo.locations.map((location: any) => {
+                    return new vscode.Location(
+                        vscode.Uri.file(location.filePath),
+                        new vscode.Position(location.lineNumber - 1, 0)
+                    );
                 });
 
-                await vscode.commands.executeCommand('editor.action.showHover');
+                if (references.length > 0) {
+                    await vscode.commands.executeCommand(
+                        'editor.action.showReferences',
+                        editor.document.uri,
+                        range.start,
+                        references
+                    );
+                } else {
+                    vscode.window.showInformationMessage('No references found.');
+                }
             })
         );
     }
@@ -144,8 +140,7 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
             command: 'unity.showUsage',
             arguments: [
                 codeLens.methodName,
-                `Found in ${usageCount} locations`,
-                usageInfo.foundIn.join('\n'),
+                usageInfo,
                 codeLens.range
             ]
         };

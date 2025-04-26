@@ -43,11 +43,13 @@ export function validateMethod(namespaceName: string, className: string, methodN
     isValid: boolean; 
     componentIds: string[];
     foundIn: string[];
+    locations: MethodLocation[];
 } {
     const result = {
         isValid: false,
         componentIds: [] as string[],
-        foundIn: [] as string[]
+        foundIn: [] as string[],
+        locations: [] as MethodLocation[]
     };
 
     methodLocationCache.forEach((locations, fullPath) => {
@@ -61,6 +63,7 @@ export function validateMethod(namespaceName: string, className: string, methodN
                 result.isValid = true;
                 result.componentIds.push(loc.componentId);
                 result.foundIn.push(loc.filePath);
+                result.locations.push(loc);
             }
         });
     });
