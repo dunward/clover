@@ -6,7 +6,7 @@
         },
         {
             "pattern": "\\b(?:void|IEnumerator)\\s+Start\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nStart is called on the frame when a script is enabled just before\n\nany of the Update methods are called the first time.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Start.html)"
+            "documentation": "## Summary\n\nStart is called on the frame when a script is enabled just before any of the Update methods are called the first time.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.Start.html)"
         },
         {
             "pattern": "\\bvoid\\s+Update\\s*\\(\\s*\\)\\s*$",
@@ -14,7 +14,7 @@
         },
         {
             "pattern": "\\bvoid\\s+FixedUpdate\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nFrame-rate independent MonoBehaviour.FixedUpdate message for\n\nphysics calculations.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.FixedUpdate.html)"
+            "documentation": "## Summary\n\nFrame-rate independent MonoBehaviour.FixedUpdate message for  physics calculations.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.FixedUpdate.html)"
         },
         {
             "pattern": "\\bvoid\\s+LateUpdate\\s*\\(\\s*\\)\\s*$",
@@ -34,7 +34,31 @@
         },
         {
             "pattern": "\\bvoid\\s+OnDestroy\\s*\\(\\s*\\)\\s*$",
-            "documentation": "## Summary\n\nDestroying the attached Behaviour will result in the game or Scene\n\nreceiving OnDestroy.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnEnable.html)"
+            "documentation": "## Summary\n\nDestroying the attached Behaviour will result in the game or Scene receiving OnDestroy.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnEnable.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnTriggerEnter\\s*\\(\\s*Collider\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nCalled when a Collider with the Collider.isTrigger property overlaps another Collider.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnTriggerEnter.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnTriggerExit\\s*\\(\\s*Collider\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nOnTriggerExit is called when the Collider other has stopped touching the trigger.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnTriggerExit.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnTriggerStay\\s*\\(\\s*Collider\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nOnTriggerStay is called almost all the frames for every Collider other that is touching the trigger.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnTriggerStay.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnCollisionEnter\\s*\\(\\s*Collision\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nOnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnCollisionEnter.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnCollisionExit\\s*\\(\\s*Collision\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nOnCollisionExit is called when this collider/rigidbody has stopped touching another rigidbody/collider.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnCollisionExit.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnCollisionStay\\s*\\(\\s*Collision\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nOnCollisionStay is called once per frame for every Collider or Rigidbody that touches another Collider or Rigidbody.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnCollisionStay.html)"
         }
     ]
 } 
