@@ -59,6 +59,30 @@
         {
             "pattern": "\\bvoid\\s+OnCollisionStay\\s*\\(\\s*Collision\\s+\\w+\\s*\\)\\s*$",
             "documentation": "## Summary\n\nOnCollisionStay is called once per frame for every Collider or Rigidbody that touches another Collider or Rigidbody.\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider.OnCollisionStay.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnTriggerEnter2D\\s*\\(\\s*Collider2D\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nSent when another object enters a trigger collider attached to this object (2D physics only).\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider2D.OnTriggerEnter2D.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnTriggerExit2D\\s*\\(\\s*Collider2D\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nSent when another object leaves a trigger collider attached to this object (2D physics only).\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider2D.OnTriggerExit2D.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnTriggerStay2D\\s*\\(\\s*Collider2D\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nSent each frame where another object is within a trigger collider attached to this object (2D physics only).\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider2D.OnTriggerStay2D.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnCollisionEnter2D\\s*\\(\\s*Collision2D\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nSent when an incoming collider makes contact with this object's collider (2D physics only).\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider2D.OnCollisionEnter2D.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnCollisionExit2D\\s*\\(\\s*Collision2D\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nSent when a collider on another object stops touching this object's collider (2D physics only).\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider2D.OnCollisionExit2D.html)"
+        },
+        {
+            "pattern": "\\bvoid\\s+OnCollisionStay2D\\s*\\(\\s*Collision2D\\s+\\w+\\s*\\)\\s*$",
+            "documentation": "## Summary\n\nSent each frame where a collider on another object is touching this object's collider (2D physics only).\n\n[Learn More](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Collider2D.OnCollisionStay2D.html)"
         }
     ]
 } 
