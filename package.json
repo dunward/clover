@@ -2,7 +2,7 @@
   "name": "clover-unity",
   "displayName": "Clover",
   "description": "Unity Engine Extension - Easy to find prefabs, asset references, and more.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "november",
   "license": "MIT",
   "engines": {
