@@ -1,5 +1,9 @@
 ## Change Log
 
+## [1.0.1]
+### Added
+- Add vscode publish keywords
+
 ## [1.0.0] - Official Release! 🎉
 ### Added
 - Add method usages provider
