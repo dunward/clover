@@ -13,6 +13,13 @@
     "Programming Languages",
     "Other"
   ],
+  "keywords": [
+  "unity",
+  "unity extension",
+  "unity script reference",
+  "unity asset reference",
+  "game development"
+  ],
   "icon": "resources/clover.png",
   "repository": {
     "type": "git",
