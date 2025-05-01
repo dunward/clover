@@ -4,7 +4,7 @@
 
 <img src="resources/clover.png" width=10% height=10%>
 
-# Clover
+# Clover for Unity – VSCode Extension
 
 Clover is a powerful VSCode extension for unity project. With Clover, you can quickly find and manage asset references to ensure your code is efficient and well-organized.
 
@@ -23,7 +23,6 @@ You can find meta references of the current .cs file using CodeLens.
 You can track easily where methods are used in.
 
 <img src="resources/unity_method_usage.png">
-
 
 ## Unity Event Functions Summary
 Display unity built-in event functions summary and documentation link to navigate to the Unity official documentation.
