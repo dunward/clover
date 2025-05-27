@@ -13,18 +13,11 @@ function updateMethodLocationCache(parseResults: Map<string, MethodLocation[]>) 
 }
 
 function logCacheContents() {
-    Logger.outputLog('Cached method location information:');
     if (methodLocationCache.size > 0) {
-        Logger.outputLog('----------------------------------------');
         methodLocationCache.forEach((locations, fullPath) => {
-            Logger.outputLog(`\n[Method: ${fullPath}]`);
             locations.forEach(loc => {
-                Logger.outputLog(`  File: ${loc.filePath}`);
-                Logger.outputLog(`  Line: ${loc.lineNumber}`);
-                Logger.outputLog(`  Component ID: ${loc.componentId}`);
             });
         });
-        Logger.outputLog('----------------------------------------');
     }
 }
 
