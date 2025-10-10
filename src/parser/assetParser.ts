@@ -17,7 +17,7 @@ export interface MethodLocation {
 const SUPPORTED_EXTENSIONS = ['.unity', '.prefab'];
 const COMPONENT_PATTERN = /^--- !u!\d+ &(\d+)\s*\n([^:]+):/gm;
 const METHOD_CALLS_SECTION_PATTERN = /m_PersistentCalls:\s*\n\s*m_Calls:\s*((?:\s*-[^-]*)*)/g;
-const SINGLE_METHOD_CALL_PATTERN = /- m_Target: {fileID: (\d+)}\s*\n\s*m_TargetAssemblyTypeName: ([^,\n]+)(?:,[^\n]+)?\s*\n\s*m_MethodName: ([^\n]+)/g;
+const SINGLE_METHOD_CALL_PATTERN = /^\s*-\s*m_Target:\s*\{[^}]*fileID:\s*(-?\d+)[^}]*\}\s*[\r\n]+\s*m_TargetAssemblyTypeName:\s*([^\r\n,]+)(?:,[^\r\n]+)?\s*[\r\n]+\s*m_MethodName:\s*([^\r\n]+)/gm;
 const ASSEMBLY_TYPE_LINE_PATTERN = /\s*m_TargetAssemblyTypeName:/;
 
 export function isSupportedAsset(filePath: string): boolean {
