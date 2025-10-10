@@ -1,4 +1,5 @@
 import fs = require('fs');
+import * as readline from 'readline';
 import * as GuidConnector from './guidConnector';
 import * as Logger from '../vscodeUtils';
 
@@ -19,18 +20,36 @@ export async function parseUnityCsGuid(path: string) {
 }
 
 export async function parseUnityAssets(path: string) {
+    let stream: fs.ReadStream | null = null;
+    let rl: readline.Interface | null = null;
+    
     try {
-        const data = await fs.promises.readFile(path, { encoding: 'utf8' });
+        stream = fs.createReadStream(path, { encoding: 'utf8' });
+        rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
+
         const lines: number[] = [];
-        const lineData = data.split(/\r?\n/);
-        for (let i = 0; i < lineData.length; i++) {
-            var guid = getGuid(lineData[i]);
-            if (guid != '') {
+        let i = 0;
+
+        for await (const line of rl) {
+            const guid = getGuid(line);
+            if (guid !== '') {
                 GuidConnector.addLocation(guid, path, i);
             }
+            i++;
         }
+
+        Logger.outputLog(`Parsed GUID Finished: ${path}`);
+
         return lines;
     } catch (error) {
-        Logger.outputLog(`Error reading meta file at ${path}: ${error}`);
+        Logger.outputLog(`Error parsing Unity assets at ${path}: ${error}`);
+        return [];
+    } finally {
+        if (rl) {
+            rl.close();
+        }
+        if (stream) {
+            stream.destroy();
+        }
     }
 }
