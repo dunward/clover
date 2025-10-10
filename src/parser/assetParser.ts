@@ -30,55 +30,80 @@ function getMethodFullPath(assemblyTypeName: string, methodName: string): string
     return `${typeName}.${methodName}`;
 }
 
-async function parseData(fileContent: string, filePath: string): Promise<Map<string, MethodLocation[]>> {
+function buildNewlineIndex(s: string): number[] {
+    const arr: number[] = [];
+    let i = 0;
+    while (true) {
+        const p = s.indexOf('\n', i);
+        if (p === -1) break;
+        arr.push(p);
+        i = p + 1;
+    }
+    return arr;
+}
+
+function indexToLine(nl: number[], idx: number): number {
+    let lo = 0, hi = nl.length;
+    while (lo < hi) {
+        const mid = (lo + hi) >>> 1;
+        if (nl[mid] <= idx) lo = mid + 1; else hi = mid;
+    }
+    return lo + 1;
+}
+
+export async function parseData(fileContent: string, filePath: string): Promise<Map<string, MethodLocation[]>> {
     const methodLocations = new Map<string, MethodLocation[]>();
-    let match;
+    const nl = buildNewlineIndex(fileContent);
 
-    while ((match = COMPONENT_PATTERN.exec(fileContent)) !== null) {
-        const [fullMatch, id, type] = match;
-        const componentStartLine = fileContent.substring(0, match.index).split('\n').length;
-        
-        const nextComponentStart = fileContent.indexOf('--- !u!', COMPONENT_PATTERN.lastIndex);
-        const componentContent = nextComponentStart === -1 
-            ? fileContent.slice(COMPONENT_PATTERN.lastIndex)
-            : fileContent.slice(COMPONENT_PATTERN.lastIndex, nextComponentStart);
+    for (const match of fileContent.matchAll(COMPONENT_PATTERN)) {
+        const id = match[1];
+        const componentStart = match.index! + match[0].length;
+        const componentStartLine = indexToLine(nl, match.index!);
 
-        let methodSectionMatch;
-        if ((methodSectionMatch = METHOD_CALLS_SECTION_PATTERN.exec(componentContent)) !== null) {
-            const methodsSection = methodSectionMatch[1];
-            let methodMatch;
+        const nextComponentStart = fileContent.indexOf('--- !u!', componentStart);
+        const end = nextComponentStart === -1 ? fileContent.length : nextComponentStart;
+        const componentContent = fileContent.slice(componentStart, end);
 
-            const methodSectionStartLine = componentStartLine + 
-                componentContent.substring(0, methodSectionMatch.index).split('\n').length;
+        const methodSectionMatch = METHOD_CALLS_SECTION_PATTERN.exec(componentContent);
+        if (!methodSectionMatch) continue;
 
-            while ((methodMatch = SINGLE_METHOD_CALL_PATTERN.exec(methodsSection)) !== null) {
-                const [fullMethodMatch, targetId, targetAssemblyTypeName, methodName] = methodMatch;
-                const textBeforeMatch = methodsSection.substring(0, methodMatch.index);
-                const linesBeforeMatch = textBeforeMatch.split('\n').length;
-                
-                const methodLines = fullMethodMatch.split('\n');
-                let assemblyTypeLineOffset = 0;
-                for (let i = 0; i < methodLines.length; i++) {
-                    if (ASSEMBLY_TYPE_LINE_PATTERN.test(methodLines[i])) {
-                        assemblyTypeLineOffset = i;
-                        break;
-                    }
-                }
-                
-                const exactLineNumber = methodSectionStartLine + linesBeforeMatch + assemblyTypeLineOffset;
+        const methodsSection = methodSectionMatch[1];
+        const methodSectionStartLine = indexToLine(nl, componentStart + methodSectionMatch.index);
 
-                const fullPath = getMethodFullPath(targetAssemblyTypeName.trim(), methodName.trim());
-                const location: MethodLocation = {
-                    filePath,
-                    lineNumber: exactLineNumber,
-                    componentId: id
-                };
+        for (const methodMatch of methodsSection.matchAll(SINGLE_METHOD_CALL_PATTERN)) {
+            const targetAssemblyTypeName = methodMatch[2];
+            const methodName = methodMatch[3];
 
-                AssetConnector.addMethodLocation(fullPath, location);
-
-                const existingLocations = methodLocations.get(fullPath) || [];
-                methodLocations.set(fullPath, [...existingLocations, location]);
+            const beforeLen = methodMatch.index!;
+            let linesBefore = 0;
+            for (let i = 0; i < beforeLen; ) {
+                const p = methodsSection.indexOf('\n', i);
+                if (p === -1 || p >= beforeLen) break;
+                linesBefore++;
+                i = p + 1;
             }
+
+            const fullMethodMatch = methodMatch[0];
+            const asmIdx = fullMethodMatch.search(ASSEMBLY_TYPE_LINE_PATTERN);
+            let assemblyTypeLineOffset = 0;
+            if (asmIdx >= 0) {
+                for (let i = 0; i < asmIdx; ) {
+                    const p = fullMethodMatch.indexOf('\n', i);
+                    if (p === -1 || p >= asmIdx) break;
+                    assemblyTypeLineOffset++;
+                    i = p + 1;
+                }
+            }
+
+            const exactLineNumber = methodSectionStartLine + linesBefore + assemblyTypeLineOffset;
+            const fullPath = getMethodFullPath(targetAssemblyTypeName.trim(), methodName.trim());
+            const location: MethodLocation = { filePath, lineNumber: exactLineNumber, componentId: id };
+
+            const arr = methodLocations.get(fullPath);
+            if (arr) arr.push(location);
+            else methodLocations.set(fullPath, [location]);
+
+            AssetConnector.addMethodLocation(fullPath, location);
         }
     }
 
