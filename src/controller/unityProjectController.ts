@@ -44,31 +44,51 @@ export function isUnityProject(projectPath: string): boolean {
     return fs.existsSync(assetPath) && fs.existsSync(projectSettingsPath);
 }
 
-function refreshUnityProject(dirPath: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        fs.readdir(dirPath, (err, files) => {
-            if (err) {
-                reject(err);
-            } else {
-                (async () => {
-                for (const file of files) {
-                    const extname = path.extname(file);
-                    if (fs.statSync(path.join(dirPath, file)).isDirectory()) {
-                        await refreshUnityProject(path.join(dirPath, file));
-                    } else if (extname === '.meta' && file.includes('.cs.meta')) {
-                        GuidParser.parseUnityCsGuid(path.join(dirPath, file));
-                    } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
-                        GuidParser.parseUnityAssets(path.join(dirPath, file));
-                        if (extname !== '.asset')
-                        {
-                            AssetParser.parseUnityAssets(path.join(dirPath, file));
-                            UnityAssetConnector.addAssetPath(path.join(dirPath, file));
-                        }
+async function collectAllFiles(dirPath: string): Promise<string[]> {
+    let files: string[] = [];
+    const dirents = await fs.promises.readdir(dirPath, { withFileTypes: true });
+    for (const dirent of dirents) {
+        const fullPath = path.join(dirPath, dirent.name);
+        if (dirent.isDirectory()) {
+            files = files.concat(await collectAllFiles(fullPath));
+        } else {
+            files.push(fullPath);
+        }
+    }
+    return files;
+}
+
+async function refreshUnityProject(dirPath: string): Promise<void> {
+    try {
+        const allFiles = await collectAllFiles(dirPath);
+        const total = allFiles.length;
+        let finished = 0;
+
+        Logger.outputLog(`Refreshing Unity project: ${total} files`);
+
+        const tasks = allFiles.map(async (filePath, index) => {
+            const extname = path.extname(filePath);
+            try {
+                if (extname === '.meta' && filePath.endsWith('.cs.meta')) {
+                    await GuidParser.parseUnityCsGuid(filePath);
+                } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
+                    await GuidParser.parseUnityAssets(filePath);
+                    if (extname !== '.asset') {
+                        await AssetParser.parseUnityAssets(filePath);
+                        UnityAssetConnector.addAssetPath(filePath);
                     }
                 }
-                resolve();
-                })();
+            } finally {
+                finished++;
+                Logger.outputLog(`Refreshing Unity project: ${finished}/${total} (${filePath})`);
             }
         });
-    });
+
+        await Promise.all(tasks);
+        Logger.outputLog(`Refreshing Unity project finished`);
+
+    } catch (err) {
+        Logger.outputLog(`Error while refreshing Unity project: ${err}`);
+        throw err;
+    }
 }
