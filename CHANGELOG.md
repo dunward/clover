@@ -1,5 +1,10 @@
 ## Change Log
 
+## [1.0.2]
+### Fixed
+- Fix method usage provider tracking didn't working namespace is empty
+- Fix too large file disturb C# intellisense
+
 ## [1.0.1]
 ### Added
 - Add vscode publish keywords
