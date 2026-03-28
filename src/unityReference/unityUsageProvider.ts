@@ -50,6 +50,10 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
         );
     }
 
+    public fireChange() {
+        this._onDidChangeCodeLenses.fire();
+    }
+
     public async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.CodeLens[]> {
         this.codeLenses = [];
         const text = document.getText();
