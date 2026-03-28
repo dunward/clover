@@ -1,5 +1,9 @@
 ## Change Log
 
+## [1.0.3]
+### Added
+- Add file change tracking
+
 ## [1.0.2]
 ### Fixed
 - Fix method usage provider tracking didn't working namespace is empty
