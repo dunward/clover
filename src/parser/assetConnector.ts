@@ -36,6 +36,17 @@ export function addMethodLocation(fullPath: string, location: MethodLocation) {
     logCacheContents();
 }
 
+export function removeLocationsByFile(filePath: string): void {
+    methodLocationCache.forEach((locations, key) => {
+        const filtered = locations.filter(loc => loc.filePath !== filePath);
+        if (filtered.length === 0) {
+            methodLocationCache.delete(key);
+        } else {
+            methodLocationCache.set(key, filtered);
+        }
+    });
+}
+
 export function refresh(): void {
     methodLocationCache.clear();
 }
