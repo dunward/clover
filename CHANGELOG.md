@@ -1,5 +1,9 @@
 ## Change Log
 
+## [1.0.4]
+### Fixed
+- Fix wrong usage count
+
 ## [1.0.3]
 ### Added
 - Add file change tracking
