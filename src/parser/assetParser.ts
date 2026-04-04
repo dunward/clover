@@ -16,7 +16,7 @@ export interface MethodLocation {
 
 const SUPPORTED_EXTENSIONS = ['.unity', '.prefab'];
 const COMPONENT_PATTERN = /^--- !u!\d+ &(\d+)\s*\n([^:]+):/gm;
-const METHOD_CALLS_SECTION_PATTERN = /m_PersistentCalls:\s*\n\s*m_Calls:\s*((?:\s*-[^-]*)*)/g;
+const METHOD_CALLS_SECTION_PATTERN = /m_PersistentCalls:\s*\n\s*m_Calls:\s*((?:\s*-[^-]*)*)/;
 const SINGLE_METHOD_CALL_PATTERN = /^\s*-\s*m_Target:\s*\{[^}]*fileID:\s*(-?\d+)[^}]*\}\s*[\r\n]+\s*m_TargetAssemblyTypeName:\s*([^\r\n,]+)(?:,[^\r\n]+)?\s*[\r\n]+\s*m_MethodName:\s*([^\r\n]+)/gm;
 const ASSEMBLY_TYPE_LINE_PATTERN = /\s*m_TargetAssemblyTypeName:/;
 
