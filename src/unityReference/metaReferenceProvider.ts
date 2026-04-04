@@ -29,6 +29,10 @@ export class MetaReferenceProvider implements vscode.CodeLensProvider {
 		Logger.outputLog("Initialize succeed CodeLens Provider");
 	}
 
+	public fireChange() {
+		this._onDidChangeCodeLenses.fire();
+	}
+
 	public provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.CodeLens[] | Thenable<vscode.CodeLens[]> {
 			this.codeLenses = [];
 			const regex = new RegExp(`class ${path.parse(document.fileName).name}`);

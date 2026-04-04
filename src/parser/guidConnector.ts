@@ -43,6 +43,25 @@ export function getLocationsByGuid(guid: string) {
     return locationByGuid.get(guid);
 }
 
+export function removeGuid(filePath: string) {
+    const guid = guidByPath.get(filePath);
+    if (guid !== undefined) {
+        guidByPath.delete(filePath);
+        pathByGuid.delete(guid);
+    }
+}
+
+export function removeLocationsByFile(filePath: string) {
+    locationByGuid.forEach((locations, guid) => {
+        const filtered = locations.filter(loc => loc.uri.fsPath !== filePath);
+        if (filtered.length === 0) {
+            locationByGuid.delete(guid);
+        } else {
+            locationByGuid.set(guid, filtered);
+        }
+    });
+}
+
 export function refresh() {
     guidByPath.clear();
     pathByGuid.clear();

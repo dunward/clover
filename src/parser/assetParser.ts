@@ -64,46 +64,45 @@ export async function parseData(fileContent: string, filePath: string): Promise<
         const end = nextComponentStart === -1 ? fileContent.length : nextComponentStart;
         const componentContent = fileContent.slice(componentStart, end);
 
-        const methodSectionMatch = METHOD_CALLS_SECTION_PATTERN.exec(componentContent);
-        if (!methodSectionMatch) continue;
+        for (const methodSectionMatch of componentContent.matchAll(METHOD_CALLS_SECTION_PATTERN)) {
+            const methodsSection = methodSectionMatch[1];
+            const methodSectionStartLine = indexToLine(nl, componentStart + methodSectionMatch.index!);
 
-        const methodsSection = methodSectionMatch[1];
-        const methodSectionStartLine = indexToLine(nl, componentStart + methodSectionMatch.index);
+            for (const methodMatch of methodsSection.matchAll(SINGLE_METHOD_CALL_PATTERN)) {
+                const targetAssemblyTypeName = methodMatch[2];
+                const methodName = methodMatch[3];
 
-        for (const methodMatch of methodsSection.matchAll(SINGLE_METHOD_CALL_PATTERN)) {
-            const targetAssemblyTypeName = methodMatch[2];
-            const methodName = methodMatch[3];
-
-            const beforeLen = methodMatch.index!;
-            let linesBefore = 0;
-            for (let i = 0; i < beforeLen; ) {
-                const p = methodsSection.indexOf('\n', i);
-                if (p === -1 || p >= beforeLen) break;
-                linesBefore++;
-                i = p + 1;
-            }
-
-            const fullMethodMatch = methodMatch[0];
-            const asmIdx = fullMethodMatch.search(ASSEMBLY_TYPE_LINE_PATTERN);
-            let assemblyTypeLineOffset = 0;
-            if (asmIdx >= 0) {
-                for (let i = 0; i < asmIdx; ) {
-                    const p = fullMethodMatch.indexOf('\n', i);
-                    if (p === -1 || p >= asmIdx) break;
-                    assemblyTypeLineOffset++;
+                const beforeLen = methodMatch.index!;
+                let linesBefore = 0;
+                for (let i = 0; i < beforeLen; ) {
+                    const p = methodsSection.indexOf('\n', i);
+                    if (p === -1 || p >= beforeLen) break;
+                    linesBefore++;
                     i = p + 1;
                 }
+
+                const fullMethodMatch = methodMatch[0];
+                const asmIdx = fullMethodMatch.search(ASSEMBLY_TYPE_LINE_PATTERN);
+                let assemblyTypeLineOffset = 0;
+                if (asmIdx >= 0) {
+                    for (let i = 0; i < asmIdx; ) {
+                        const p = fullMethodMatch.indexOf('\n', i);
+                        if (p === -1 || p >= asmIdx) break;
+                        assemblyTypeLineOffset++;
+                        i = p + 1;
+                    }
+                }
+
+                const exactLineNumber = methodSectionStartLine + linesBefore + assemblyTypeLineOffset;
+                const fullPath = getMethodFullPath(targetAssemblyTypeName.trim(), methodName.trim());
+                const location: MethodLocation = { filePath, lineNumber: exactLineNumber, componentId: id };
+
+                const arr = methodLocations.get(fullPath);
+                if (arr) arr.push(location);
+                else methodLocations.set(fullPath, [location]);
+
+                AssetConnector.addMethodLocation(fullPath, location);
             }
-
-            const exactLineNumber = methodSectionStartLine + linesBefore + assemblyTypeLineOffset;
-            const fullPath = getMethodFullPath(targetAssemblyTypeName.trim(), methodName.trim());
-            const location: MethodLocation = { filePath, lineNumber: exactLineNumber, componentId: id };
-
-            const arr = methodLocations.get(fullPath);
-            if (arr) arr.push(location);
-            else methodLocations.set(fullPath, [location]);
-
-            AssetConnector.addMethodLocation(fullPath, location);
         }
     }
 
