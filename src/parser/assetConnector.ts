@@ -34,7 +34,6 @@ function splitFullPath(key: string): { namespace?: string; className: string; me
 export function addMethodLocation(fullPath: string, location: MethodLocation) {
     const existingLocations = methodLocationCache.get(fullPath) || [];
     methodLocationCache.set(fullPath, [...existingLocations, location]);
-    Logger.outputLog(`[AssetConnector] addMethodLocation: ${fullPath} <- ${path.basename(location.filePath)} (total: ${existingLocations.length + 1})`);
     logCacheContents();
 }
 
@@ -71,9 +70,6 @@ export function validateMethod(namespaceName: string, className: string, methodN
             }
         }
     });
-    if (result.isValid) {
-        Logger.outputLog(`[AssetConnector] validateMethod: ${namespaceName}.${className}.${methodName} -> ${result.foundIn.length} usages in [${result.foundIn.map(f => path.basename(f)).join(', ')}]`);
-    }
     return result;
 }
 
