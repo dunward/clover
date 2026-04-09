@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import path = require('path');
 import * as fs from 'fs';
 import { validateMethod } from '../parser/assetConnector';
+import * as Logger from '../vscodeUtils';
 
 class unityUsageProvider extends vscode.CodeLens {
     constructor(
@@ -57,6 +58,7 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
     public async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.CodeLens[]> {
         this.codeLenses = [];
         const text = document.getText();
+        const fileName = path.basename(document.fileName);
 
         let namespace = '';
         const namespaceMatch = text.match(/namespace\s+([^\s{]+)/);
@@ -66,10 +68,12 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
 
         let currentClass = '';
         const lines = text.split('\n');
-        
+
+        Logger.outputLog(`[UsageProvider] provideCodeLenses: ${fileName} (namespace: ${namespace || '(none)'})`);
+
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
-            
+
             const classMatch = line.match(/class\s+(\w+)/);
             if (classMatch) {
                 currentClass = classMatch[1];
@@ -79,15 +83,16 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
             if (methodMatch && currentClass) {
                 const methodName = methodMatch[1];
                 const fullName = `${namespace}.${currentClass}.${methodName}`;
-                
+
                 const usageInfo = validateMethod(namespace, currentClass, methodName);
+                Logger.outputLog(`[UsageProvider] checking ${fullName} -> ${usageInfo.foundIn.length} usages`);
                 if (usageInfo.foundIn.length > 0) {
                     const indent = lines[i].match(/^\s*/)?.[0].length ?? 0;
                     const range = new vscode.Range(
                         new vscode.Position(i, indent),
                         new vscode.Position(i, lines[i].length)
                     );
-                    
+
                     this.codeLenses.push(new unityUsageProvider(
                         document.uri,
                         fullName,

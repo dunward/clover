@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import path = require('path');
+import * as Logger from '../vscodeUtils';
 
 var guidByPath: Map<string, string> = new Map<string, string>();
 var pathByGuid: Map<string, string> = new Map<string, string>();
@@ -26,6 +27,9 @@ export function addGuid(filePath: string, guid: string) {
 
 export function getGuidByPath(filePath: string) {
     var guid = guidByPath.get(filePath);
+    if (!guid) {
+        Logger.outputLog(`[GuidConnector] getGuidByPath: no GUID for ${path.basename(filePath)} (path: ${filePath})`);
+    }
     return guid ?? '';
 }
 
@@ -40,7 +44,9 @@ export function addLocation(guid: string, path: string, lineNumber: number) {
 }
 
 export function getLocationsByGuid(guid: string) {
-    return locationByGuid.get(guid);
+    const locations = locationByGuid.get(guid);
+    Logger.outputLog(`[GuidConnector] getLocationsByGuid: ${guid} -> ${locations?.length ?? 0} locations`);
+    return locations;
 }
 
 export function removeGuid(filePath: string) {
