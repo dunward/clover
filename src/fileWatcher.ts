@@ -37,32 +37,25 @@ function handleMetaDelete(filePath: string, onRefresh: () => void) {
 }
 
 async function handleAssetChange(filePath: string, onRefresh: () => void) {
-    const ext = path.extname(filePath);
     Logger.outputLog(`[FileWatcher] asset changed: ${filePath}`);
 
     GuidConnector.removeLocationsByFile(filePath);
     await GuidParser.parseUnityAssets(filePath);
 
-    if (ext !== '.asset') {
-        AssetConnector.removeLocationsByFile(filePath);
-        UnityAssetConnector.removeAssetPath(filePath);
-        await AssetParser.parseUnityAssets(filePath);
-        UnityAssetConnector.addAssetPath(filePath);
-    }
+    AssetConnector.removeLocationsByFile(filePath);
+    UnityAssetConnector.removeAssetPath(filePath);
+    await AssetParser.parseUnityAssets(filePath);
+    UnityAssetConnector.addAssetPath(filePath);
 
     onRefresh();
 }
 
 function handleAssetDelete(filePath: string, onRefresh: () => void) {
-    const ext = path.extname(filePath);
     Logger.outputLog(`[FileWatcher] asset deleted: ${filePath}`);
 
     GuidConnector.removeLocationsByFile(filePath);
-
-    if (ext !== '.asset') {
-        AssetConnector.removeLocationsByFile(filePath);
-        UnityAssetConnector.removeAssetPath(filePath);
-    }
+    AssetConnector.removeLocationsByFile(filePath);
+    UnityAssetConnector.removeAssetPath(filePath);
 
     onRefresh();
 }

@@ -19,30 +19,32 @@ export async function parseUnityCsGuid(path: string) {
     }
 }
 
-export async function parseUnityAssets(path: string) {
+export async function parseUnityAssets(filePath: string) {
     let stream: fs.ReadStream | null = null;
     let rl: readline.Interface | null = null;
-    
+
     try {
-        stream = fs.createReadStream(path, { encoding: 'utf8' });
+        stream = fs.createReadStream(filePath, { encoding: 'utf8' });
         rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
 
         const lines: number[] = [];
         let i = 0;
+        let guidCount = 0;
 
         for await (const line of rl) {
             const guid = getGuid(line);
             if (guid !== '') {
-                GuidConnector.addLocation(guid, path, i);
+                GuidConnector.addLocation(guid, filePath, i);
+                guidCount++;
             }
             i++;
         }
 
-        Logger.outputLog(`Parsed GUID Finished: ${path}`);
+        Logger.outputLog(`[GuidParser] ${require('path').basename(filePath)}: ${guidCount} GUID references found`);
 
         return lines;
     } catch (error) {
-        Logger.outputLog(`Error parsing Unity assets at ${path}: ${error}`);
+        Logger.outputLog(`Error parsing Unity assets at ${filePath}: ${error}`);
         return [];
     } finally {
         if (rl) {

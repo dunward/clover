@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import * as Logger from '../vscodeUtils';
 import { MethodLocation, isSupportedAsset, parseUnityAssets } from './assetParser';
 
@@ -37,14 +38,17 @@ export function addMethodLocation(fullPath: string, location: MethodLocation) {
 }
 
 export function removeLocationsByFile(filePath: string): void {
+    let removedCount = 0;
     methodLocationCache.forEach((locations, key) => {
         const filtered = locations.filter(loc => loc.filePath !== filePath);
+        removedCount += locations.length - filtered.length;
         if (filtered.length === 0) {
             methodLocationCache.delete(key);
         } else {
             methodLocationCache.set(key, filtered);
         }
     });
+    Logger.outputLog(`[AssetConnector] removeLocationsByFile: ${path.basename(filePath)} -> removed ${removedCount} entries`);
 }
 
 export function refresh(): void {

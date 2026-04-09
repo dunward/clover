@@ -1,6 +1,4 @@
 import * as vscode from 'vscode';
-import path = require('path');
-import * as fs from 'fs';
 import { validateMethod } from '../parser/assetConnector';
 
 class unityUsageProvider extends vscode.CodeLens {
@@ -66,10 +64,10 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
 
         let currentClass = '';
         const lines = text.split('\n');
-        
+
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
-            
+
             const classMatch = line.match(/class\s+(\w+)/);
             if (classMatch) {
                 currentClass = classMatch[1];
@@ -79,7 +77,7 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
             if (methodMatch && currentClass) {
                 const methodName = methodMatch[1];
                 const fullName = `${namespace}.${currentClass}.${methodName}`;
-                
+
                 const usageInfo = validateMethod(namespace, currentClass, methodName);
                 if (usageInfo.foundIn.length > 0) {
                     const indent = lines[i].match(/^\s*/)?.[0].length ?? 0;
@@ -87,7 +85,7 @@ export class UnityUsageProvider implements vscode.CodeLensProvider {
                         new vscode.Position(i, indent),
                         new vscode.Position(i, lines[i].length)
                     );
-                    
+
                     this.codeLenses.push(new unityUsageProvider(
                         document.uri,
                         fullName,

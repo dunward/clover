@@ -66,26 +66,29 @@ async function refreshUnityProject(dirPath: string): Promise<void> {
 
         Logger.outputLog(`Refreshing Unity project: ${total} files`);
 
+        let csMeta = 0, unity = 0, prefab = 0, asset = 0;
+
         const tasks = allFiles.map(async (filePath, index) => {
             const extname = path.extname(filePath);
             try {
                 if (extname === '.meta' && filePath.endsWith('.cs.meta')) {
                     await GuidParser.parseUnityCsGuid(filePath);
+                    csMeta++;
                 } else if (extname === '.prefab' || extname === '.asset' || extname === '.unity') {
                     await GuidParser.parseUnityAssets(filePath);
-                    if (extname !== '.asset') {
-                        await AssetParser.parseUnityAssets(filePath);
-                        UnityAssetConnector.addAssetPath(filePath);
-                    }
+                    await AssetParser.parseUnityAssets(filePath);
+                    UnityAssetConnector.addAssetPath(filePath);
+                    if (extname === '.unity') unity++;
+                    else if (extname === '.prefab') prefab++;
+                    else asset++;
                 }
             } finally {
                 finished++;
-                Logger.outputLog(`Refreshing Unity project: ${finished}/${total} (${filePath})`);
             }
         });
 
         await Promise.all(tasks);
-        Logger.outputLog(`Refreshing Unity project finished`);
+        Logger.outputLog(`Refreshing Unity project finished: ${csMeta} cs.meta, ${unity} unity, ${prefab} prefab, ${asset} asset`);
 
     } catch (err) {
         Logger.outputLog(`Error while refreshing Unity project: ${err}`);
