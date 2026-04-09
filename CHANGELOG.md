@@ -1,5 +1,9 @@
 ## Change Log
 
+## [1.0.5]
+### Fixed
+- Fixed usage tracking bug with prefab
+
 ## [1.0.4]
 ### Fixed
 - Fix wrong usage count
