@@ -6,9 +6,9 @@ import * as UnityAssetViewer from './unityAssetViewer/unityAssetViewer';
 import * as VSCodeUtils from './vscodeUtils';
 import { createFileWatchers } from './fileWatcher';
 
-export async function initialize(context: vscode.ExtensionContext) {
+export async function initialize(context: vscode.ExtensionContext): Promise<boolean> {
     var workspacePath = VSCodeUtils.getWorkspacePath();
-    if (!UnityProjectController.isUnityProject(workspacePath)) return;
+    if (!UnityProjectController.isUnityProject(workspacePath)) return false;
 
     await UnityProjectController.initialize(workspacePath);
 
@@ -22,5 +22,7 @@ export async function initialize(context: vscode.ExtensionContext) {
 
     const watchers = createFileWatchers(() => ProviderController.fireCodeLensRefresh());
     watchers.forEach(w => context.subscriptions.push(w));
+
+    return true;
 }
 
